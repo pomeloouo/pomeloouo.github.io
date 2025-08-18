@@ -1,53 +1,195 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lidar Project</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- Swiper.js 輪播套件 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-</head>
-<body>
-  <!-- Lidar 封面動畫 -->
-  <section class="lidar-cover">
-    <img src="lidar.png" alt="Lidar圖案" class="lidar-img">
-  </section>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LiDAR 點雲視覺化｜專案頁</title>
 
-  <!-- PPT 輪播區塊 -->
-  <section class="ppt-carousel">
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        <!-- 這裡放每一張 PPT 圖片 -->
-        <div class="swiper-slide"><img src="ppt1.png" alt="Slide 1"></div>
-        <div class="swiper-slide"><img src="ppt2.png" alt="Slide 2"></div>
-        <div class="swiper-slide"><img src="ppt3.png" alt="Slide 3"></div>
+  <!-- Swiper (PPT 輪播) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+  <style>
+    :root { --maxW: 1000px; }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Noto Sans, Arial, "微軟正黑體";
+      background: #0b0f14; color: #dfe6ee; line-height: 1.6;
+    }
+    a { color: #68b5ff; text-decoration: none; }
+
+    /* 置頂導覽 */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(6px);
+      background: rgba(11,15,20,.6);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      padding: .75rem 1rem;
+    }
+    .topbar .wrap { max-width: var(--maxW); margin: 0 auto; display: flex; gap: 1rem; align-items: center; }
+    .topbar a.btn { padding: .45rem .8rem; border: 1px solid rgba(255,255,255,.15); border-radius: 10px; }
+
+    /* Hero 區（滾動動畫） */
+    .hero {
+      position: relative; height: 140vh; display: grid; place-items: center;
+      background: radial-gradient(1000px 600px at 50% 20%, #122033 0%, #0b0f14 60%);
+      overflow: clip;
+    }
+    .hero-inner {
+      text-align: center; max-width: var(--maxW); padding: 0 1rem;
+      will-change: transform, opacity;
+    }
+    .hero h1 { margin: 0 0 .5rem; font-size: clamp(32px, 6vw, 56px); letter-spacing: .02em; }
+    .hero p  { margin: 0 auto 1rem; color: #a9b7c6; max-width: 720px; }
+    .hero .badge {
+      display: inline-block; margin-bottom: .75rem; padding: .25rem .6rem;
+      border: 1px solid rgba(255,255,255,.15); border-radius: 999px; font-size: .85rem; color:#9cc9ff;
+    }
+    .hero-graphic {
+      width: min(720px, 86vw); aspect-ratio: 16 / 9;
+      margin: 1rem auto 0; border-radius: 16px;
+      background: linear-gradient(135deg, #1a2a3d, #0f1621);
+      border: 1px solid rgba(255,255,255,.06);
+      box-shadow: 0 15px 60px rgba(0,0,0,.45), inset 0 0 80px rgba(88,157,255,.12);
+      position: relative; overflow: hidden;
+    }
+    /* 假的雷射掃描線 */
+    .scan {
+      position: absolute; left:0; right:0; top:0; height: 2px; background: #7ec1ff33;
+      animation: scan 3.5s linear infinite;
+    }
+    @keyframes scan {
+      0% { transform: translateY(0); opacity:.4;}
+      50% { opacity: 1;}
+      100% { transform: translateY(100%); opacity:.15;}
+    }
+
+    /* 內容區 */
+    .content {
+      max-width: var(--maxW); margin: 0 auto; padding: 3rem 1rem 4rem;
+    }
+    .content h2 { font-size: 1.6rem; margin: 0 0 1rem; }
+    .muted { color: #9db0c4; }
+
+    /* Swiper（PPT） */
+    .swiper {
+      width: min(100%, var(--maxW)); margin: 1rem auto 0;
+    }
+    .swiper-slide { display: grid; place-items: center; }
+    .swiper-slide img {
+      width: 100%; height: auto; display: block; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+      user-select: none; -webkit-user-drag: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <a class="btn" href="../index.html">← 回首頁</a>
+      <span class="muted">LiDAR 點雲視覺化 · 專案頁</span>
+    </div>
+  </div>
+
+  <!-- Hero：往下滾動時先放大，接著縮小並上移淡出 -->
+  <section class="hero" id="hero">
+    <div class="hero-inner" id="heroInner">
+      <span class="badge">HelixToolkit.Wpf · 即時點雲</span>
+      <h1>LiDAR 點雲視覺化工具</h1>
+      <p>將光達掃描數據即時呈現、旋轉檢視，並完成虛實空間校正與標註。</p>
+      <div class="hero-graphic">
+        <div class="scan"></div>
+        <!-- 你有圖的話可放進來：
+        <img src="./assets/lidar.png" alt="LiDAR Graphic" style="width:100%;height:100%;object-fit:cover;opacity:.9;">
+        -->
       </div>
-      <!-- 加導航按鈕 -->
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-pagination"></div>
     </div>
   </section>
 
+  <!-- 主要內容與 PPT 輪播 -->
+  <main class="content">
+    <h2>專案簡介</h2>
+    <p class="muted">
+      以 WPF + HelixToolkit 建立 3D 點雲視覺化，支援大型資料流暢瀏覽、空間校正與標記。
+    </p>
+
+    <h2 style="margin-top:2rem;">簡報（PPT）</h2>
+    <p class="muted">將 PPT 匯出為圖片後放在 <code>/project/ppt/</code>，下方自動輪播顯示。</p>
+
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <!-- 依你的實際檔名替換或多放幾張 -->
+        <div class="swiper-slide"><img src="./ppt/ppt1.png" alt="Slide 1"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt2.png" alt="Slide 2"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt3.png" alt="Slide 3"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt4.png" alt="Slide 1"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt5.png" alt="Slide 2"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt6.png" alt="Slide 3"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt7.png" alt="Slide 1"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt8.png" alt="Slide 2"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt9.png" alt="Slide 3"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt10.png" alt="Slide 1"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt11.png" alt="Slide 2"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt12.png" alt="Slide 3"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt13.png" alt="Slide 1"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt14.png" alt="Slide 2"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt15.png" alt="Slide 3"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt16.png" alt="Slide 1"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt17.png" alt="Slide 2"></div>
+        <div class="swiper-slide"><img src="./ppt/ppt18.png" alt="Slide 3"></div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </main>
+
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    // Swiper 初始化
+    // Swiper 初始化（PPT 輪播）
     const swiper = new Swiper('.swiper', {
       loop: true,
       pagination: { el: '.swiper-pagination', clickable: true },
-      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      autoplay: { delay: 3500, disableOnInteraction: false },
     });
 
-    // 滾動動畫 (Lidar圖案)
-    const lidarImg = document.querySelector('.lidar-img');
-    window.addEventListener('scroll', () => {
-      let scrollY = window.scrollY;
-      let scale = 1 + scrollY / 500; // 放大比例
-      let translateY = -scrollY / 2; // 上移
-      lidarImg.style.transform = `scale(${scale}) translateY(${translateY}px)`;
-      lidarImg.style.opacity = 1 - scrollY / 500; // 漸漸淡出
-    });
+    // Hero 滾動動畫：0→放大，之後→縮小上移並淡出
+    const hero = document.getElementById('hero');
+    const inner = document.getElementById('heroInner');
+
+    function clamp(n, min, max) { return Math.max(min, Math.min(n, max)); }
+
+    function onScroll() {
+      const vh = window.innerHeight;
+      const rect = hero.getBoundingClientRect();
+      const sc = clamp((vh - rect.top) / vh, 0, 1.4); // 進場進度（>1 代表過一個畫面）
+
+      let scale, translateY, opacity;
+
+      if (sc <= 0.5) {
+        // 前半段：1 → 1.25 放大
+        const t = sc / 0.5;
+        scale = 1 + 0.25 * t;
+        translateY = 0;
+        opacity = 1;
+      } else {
+        // 後半段：1.25 → 0.85 並向上移動、淡出
+        const t = (sc - 0.5) / 0.9; // 0..~1
+        scale = 1.25 - 0.40 * clamp(t, 0, 1);
+        translateY = -120 * clamp(t, 0, 1); // px
+        opacity = 1 - 0.85 * clamp(t, 0, 1);
+      }
+
+      inner.style.transform = `translateY(${translateY}px) scale(${scale})`;
+      inner.style.opacity = opacity;
+    }
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
   </script>
 </body>
 </html>
