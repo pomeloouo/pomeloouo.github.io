@@ -31,9 +31,15 @@
 
     /* Hero 區（滾動動畫） */
     .hero {
-      position: relative; height: 140vh; display: grid; place-items: center;
-      background: radial-gradient(1000px 600px at 50% 20%, #122033 0%, #0b0f14 60%);
-      overflow: clip;
+      position: relative; 
+  height: 100vh;        /* 播放區塊拉滿整個視窗高度 */
+  display: flex; 
+  flex-direction: column;
+  justify-content: flex-start; /* 往上對齊 */
+  align-items: center;
+  padding-top: 2rem;    /* 上方留一點空間 */
+  background: radial-gradient(1000px 600px at 50% 20%, #122033 0%, #0b0f14 60%);
+  overflow: clip;
     }
     .hero-inner {
       text-align: center; max-width: var(--maxW); padding: 0 1rem;
@@ -46,12 +52,15 @@
       border: 1px solid rgba(255,255,255,.15); border-radius: 999px; font-size: .85rem; color:#9cc9ff;
     }
     .hero-graphic {
-      width: min(720px, 86vw); aspect-ratio: 16 / 9;
-      margin: 1rem auto 0; border-radius: 16px;
-      background: linear-gradient(135deg, #1a2a3d, #0f1621);
-      border: 1px solid rgba(255,255,255,.06);
-      box-shadow: 0 15px 60px rgba(0,0,0,.45), inset 0 0 80px rgba(88,157,255,.12);
-      position: relative; overflow: hidden;
+     width: min(1000px, 95vw); /* 播放區塊更大 */
+  height: 70vh;             /* 👈 將圖高度拉大到螢幕 70% */
+  margin: 2rem auto 0; 
+  border-radius: 20px;
+  background: linear-gradient(135deg, #1a2a3d, #0f1621);
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 15px 60px rgba(0,0,0,.45), inset 0 0 80px rgba(88,157,255,.12);
+  position: relative; 
+  overflow: hidden;
     }
     /* 假的雷射掃描線 */
     .scan {
@@ -190,6 +199,7 @@
   </script>
 </body>
 </html>
+
 
 
 
