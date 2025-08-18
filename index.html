@@ -1,11 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>林泓佑的作品集</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 1.2rem;
+      color: #bbb;
+    }
+    section {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    h2 {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .project {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+      transition: transform 0.2s ease;
+    }
+    .project:hover {
+      transform: translateY(-5px);
+    }
+    .project h3 {
+      margin-top: 0;
+    }
+    .project p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #222;
+      color: #aaa;
+      margin-top: 3rem;
+    }
+    footer a {
+      color: #4da3ff;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-  <h1>嗨，我是林泓佑 👋</h1>
-  <p>這是我的作品集網站！</p>
+  <header>
+    <h1>林泓佑</h1>
+    <p>作品集 · Portfolio</p>
+  </header>
+
+  <section>
+    <h2>關於我</h2>
+    <p>
+      嗨 👋 我是林泓佑，專長於資訊工程與自動化機械手臂整合。
+      喜歡把程式、機械、AI 技術應用在實際專案，創造有效率的解決方案。
+    </p>
+  </section>
+
+  <section>
+    <h2>作品展示</h2>
+    <div class="projects">
+      <div class="project">
+        <h3>📌 LiDAR 點雲可視化</h3>
+        <p>使用 HelixToolkit.Wpf 開發的 3D 點雲視覺化工具，可以將光達掃描數據進行即時顯示與旋轉檢視。</p>
+        <a href="#">查看專案</a>
+      </div>
+      <div class="project">
+        <h3>📌 機械手臂路徑規劃</h3>
+        <p>利用 Python 與 Open3D 做點雲曲線擬合，再轉換為機械手臂路徑，自動化表面檢測。</p>
+        <a href="#">查看專案</a>
+      </div>
+      <div class="project">
+        <h3>📌 Web 自動化工具</h3>
+        <p>開發基於 Selenium 的自動化爬蟲，應用於數據蒐集與分析，提升效率 80%。</p>
+        <a href="#">查看專案</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>聯絡方式</h2>
+    <p>Email: <a href="mailto:yourmail@example.com">yourmail@example.com</a></p>
+    <p>GitHub: <a href="https://github.com/pomelouuo" target="_blank">github.com/pomelouuo</a></p>
+  </section>
+
+  <footer>
+    <p>© 2025 Lin Hong You · Hosted on GitHub Pages</p>
+  </footer>
 </body>
 </html>
