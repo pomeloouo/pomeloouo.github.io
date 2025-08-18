@@ -93,7 +93,7 @@
     </div>
   </div>
 
-  <!-- Hero：往下滾動時先放大，接著縮小並上移淡出 -->
+  <!-- Hero -->
   <section class="hero" id="hero">
     <div class="hero-inner" id="heroInner">
       <span class="badge">HelixToolkit.Wpf · 即時點雲</span>
@@ -101,9 +101,8 @@
       <p>將光達掃描數據即時呈現、旋轉檢視，並完成虛實空間校正與標註。</p>
       <div class="hero-graphic">
         <div class="scan"></div>
-       
-        <img src="./ppt/ppt11.png" alt="LiDAR Graphic" style="width:100%;height:100%;object-fit:cover;opacity:.9;">
-        
+        <!-- 封面圖 (自選) -->
+        <img src="./ppt/ppt1.png" alt="LiDAR Graphic" style="width:100%;height:100%;object-fit:cover;opacity:.9;">
       </div>
     </div>
   </section>
@@ -111,34 +110,14 @@
   <!-- 主要內容與 PPT 輪播 -->
   <main class="content">
     <h2>專案簡介</h2>
-    <p class="muted">
-      以 WPF + HelixToolkit 建立 3D 點雲視覺化，支援大型資料流暢瀏覽、空間校正與標記。
-    </p>
+    <p class="muted">以 WPF + HelixToolkit 建立 3D 點雲視覺化，支援大型資料流暢瀏覽、空間校正與標記。</p>
 
     <h2 style="margin-top:2rem;">簡報（PPT）</h2>
-    <p class="muted">PPT 匯出為圖片，下方自動輪播顯示。</p>
+    <p class="muted">會自動偵測 <code>/project/ppt/</code> 裡的 ppt1.png ~ ppt20.png，有的才會顯示。</p>
 
     <div class="swiper">
-      <div class="swiper-wrapper">
-        <!-- 依你的實際檔名替換或多放幾張 -->
-        <div class="swiper-slide"><img src="./ppt/ppt1.png" alt="Slide 1"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt2.png" alt="Slide 2"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt3.png" alt="Slide 3"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt4.png" alt="Slide 1"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt5.png" alt="Slide 2"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt6.png" alt="Slide 3"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt7.png" alt="Slide 1"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt8.png" alt="Slide 2"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt9.png" alt="Slide 3"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt10.png" alt="Slide 1"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt11.png" alt="Slide 2"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt12.png" alt="Slide 3"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt13.png" alt="Slide 1"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt14.png" alt="Slide 2"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt15.png" alt="Slide 3"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt16.png" alt="Slide 1"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt17.png" alt="Slide 2"></div>
-        <div class="swiper-slide"><img src="./ppt/ppt18.png" alt="Slide 3"></div>
+      <div class="swiper-wrapper" id="pptWrapper">
+        <!-- JS 會自動加圖片進來 -->
       </div>
       <div class="swiper-pagination"></div>
       <div class="swiper-button-prev"></div>
@@ -148,7 +127,24 @@
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    // Swiper 初始化（PPT 輪播）
+    // 自動偵測 PPT 圖片
+    const wrapper = document.getElementById('pptWrapper');
+    const maxSlides = 20; // 偵測 ppt1.png ~ ppt20.png
+
+    for (let i = 1; i <= maxSlides; i++) {
+      const img = new Image();
+      img.src = `./ppt/ppt${i}.png`;
+
+      img.onload = () => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.appendChild(img);
+        wrapper.appendChild(slide);
+        swiper.update(); // 新增圖片後更新 Swiper
+      };
+    }
+
+    // 初始化 Swiper
     const swiper = new Swiper('.swiper', {
       loop: true,
       pagination: { el: '.swiper-pagination', clickable: true },
@@ -156,43 +152,33 @@
       autoplay: { delay: 3500, disableOnInteraction: false },
     });
 
-    // Hero 滾動動畫：0→放大，之後→縮小上移並淡出
+    // Hero 滾動動畫
     const hero = document.getElementById('hero');
     const inner = document.getElementById('heroInner');
-
     function clamp(n, min, max) { return Math.max(min, Math.min(n, max)); }
-
     function onScroll() {
       const vh = window.innerHeight;
       const rect = hero.getBoundingClientRect();
-      const sc = clamp((vh - rect.top) / vh, 0, 1.4); // 進場進度（>1 代表過一個畫面）
+      const sc = clamp((vh - rect.top) / vh, 0, 1.4);
 
       let scale, translateY, opacity;
-
       if (sc <= 0.5) {
-        // 前半段：1 → 1.25 放大
         const t = sc / 0.5;
         scale = 1 + 0.25 * t;
         translateY = 0;
         opacity = 1;
       } else {
-        // 後半段：1.25 → 0.85 並向上移動、淡出
-        const t = (sc - 0.5) / 0.9; // 0..~1
+        const t = (sc - 0.5) / 0.9;
         scale = 1.25 - 0.40 * clamp(t, 0, 1);
-        translateY = -120 * clamp(t, 0, 1); // px
+        translateY = -120 * clamp(t, 0, 1);
         opacity = 1 - 0.85 * clamp(t, 0, 1);
       }
-
       inner.style.transform = `translateY(${translateY}px) scale(${scale})`;
       inner.style.opacity = opacity;
     }
-
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
   </script>
 </body>
 </html>
-
-
-
