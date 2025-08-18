@@ -179,7 +179,7 @@
       const sc = clamp((vh - rect.top) / vh, 0, 1.4);
 
       let scale, translateY, opacity;
-      if (sc <= 1) {
+      if (sc <= 0.5) {
         const t = sc / 0.5;
         scale = 1 + 0.25 * t;
         translateY = 0;
@@ -199,6 +199,7 @@
   </script>
 </body>
 </html>
+
 
 
 
