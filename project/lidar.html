@@ -1,11 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>林泓佑的作品集</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lidar Project</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Swiper.js 輪播套件 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
-  <h1>嗨，我是林泓佑 👋</h1>
-  <p>這是我的作品集網站！</p>
+  <!-- Lidar 封面動畫 -->
+  <section class="lidar-cover">
+    <img src="lidar.png" alt="Lidar圖案" class="lidar-img">
+  </section>
+
+  <!-- PPT 輪播區塊 -->
+  <section class="ppt-carousel">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <!-- 這裡放每一張 PPT 圖片 -->
+        <div class="swiper-slide"><img src="ppt1.png" alt="Slide 1"></div>
+        <div class="swiper-slide"><img src="ppt2.png" alt="Slide 2"></div>
+        <div class="swiper-slide"><img src="ppt3.png" alt="Slide 3"></div>
+      </div>
+      <!-- 加導航按鈕 -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // Swiper 初始化
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+    });
+
+    // 滾動動畫 (Lidar圖案)
+    const lidarImg = document.querySelector('.lidar-img');
+    window.addEventListener('scroll', () => {
+      let scrollY = window.scrollY;
+      let scale = 1 + scrollY / 500; // 放大比例
+      let translateY = -scrollY / 2; // 上移
+      lidarImg.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+      lidarImg.style.opacity = 1 - scrollY / 500; // 漸漸淡出
+    });
+  </script>
 </body>
 </html>
