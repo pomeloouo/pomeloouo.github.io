@@ -198,7 +198,7 @@
       loop: true, 
       pagination: { el: '.swiper-pagination', clickable: true }, 
       navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }, 
-      autoplay: { false }, 
+      autoplay: { disableOnInteraction: false },
     }); 
 
     // ====== 5) 影片行為（僅針對 <video>，Drive iframe無法直接控） ====== 
@@ -228,3 +228,4 @@
   </script> 
 </body> 
 </html>
+
