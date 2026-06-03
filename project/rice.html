@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>上誼米廠｜米廠成品包裝與堆疊自動化 | 林泓佑作品集</title>
+<style>
+:root{--p:#1e3a5f;--a:#3a6ea5;--b:#4d9de0;--w:#fff;--l:#f0f5fc;--ts:#5a6a7e;--bd:#d0dff0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:"Microsoft JhengHei","PingFang TC","Noto Sans CJK TC",sans-serif;background:#e9eef5;color:#1a2535;line-height:1.6;}
+
+/* topbar */
+.topbar{position:sticky;top:0;background:rgba(13,27,42,.96);backdrop-filter:blur(8px);padding:12px 24px;display:flex;align-items:center;gap:8px;z-index:100;font-size:13px;}
+.topbar a{color:#9ec0e7;text-decoration:none;transition:color .2s;}
+.topbar a:hover{color:#fff;}
+.topbar-sep{color:#4a6a8a;}
+.topbar-cur{color:#fff;font-weight:600;}
+
+/* hero */
+.hero{min-height:100vh;background:linear-gradient(135deg,#0a1628 0%,#1e3a5f 55%,#2d6da8 100%);display:flex;align-items:center;justify-content:center;padding:100px 24px 80px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 75% 25%,rgba(77,157,224,.2) 0%,transparent 65%);}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,#e9eef5);}
+.hero-inner{position:relative;z-index:1;max-width:820px;}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#cfe0f3;padding:6px 18px;border-radius:20px;font-size:13px;letter-spacing:2px;margin-bottom:22px;}
+.hero h1{font-size:clamp(22px,4.5vw,44px);color:#fff;font-weight:700;letter-spacing:2px;margin-bottom:10px;line-height:1.35;}
+.hero-sub{color:#9ec0e7;font-size:15px;margin-bottom:36px;}
+.metrics{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-bottom:40px;padding:24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;}
+.metric{text-align:center;}
+.metric-val{font-size:clamp(20px,3vw,32px);font-weight:700;color:#4d9de0;}
+.metric-lbl{font-size:12px;color:#9ec0e7;margin-top:4px;letter-spacing:1px;}
+.hero-cta{display:inline-block;background:#3a6ea5;color:#fff;padding:13px 32px;border-radius:30px;text-decoration:none;font-size:15px;letter-spacing:1px;transition:all .3s;border:1px solid rgba(255,255,255,.2);}
+.hero-cta:hover{background:#4d9de0;transform:translateY(-3px);box-shadow:0 8px 28px rgba(77,157,224,.45);}
+
+/* section nav */
+.sec-nav{background:#fff;border-bottom:1px solid var(--bd);position:sticky;top:48px;z-index:90;overflow-x:auto;white-space:nowrap;box-shadow:0 2px 8px rgba(30,58,95,.07);}
+.sec-nav-inner{display:flex;justify-content:center;}
+.sec-nav a{display:inline-block;padding:15px 22px;color:var(--ts);text-decoration:none;font-size:13.5px;border-bottom:3px solid transparent;transition:all .2s;}
+.sec-nav a:hover{color:var(--a);border-bottom-color:var(--a);background:#f5f9ff;}
+
+/* container */
+.container{max-width:1080px;margin:0 auto;padding:0 24px 80px;}
+
+/* sections */
+.sec{padding:56px 0;border-bottom:1px solid var(--bd);}
+.sec:last-child{border-bottom:none;}
+.sec h2{font-size:20px;color:var(--p);margin-bottom:22px;padding-left:14px;border-left:4px solid var(--a);letter-spacing:2px;}
+.sec p{color:var(--ts);font-size:15px;margin-bottom:12px;line-height:1.8;}
+.sec ul{padding-left:0;list-style:none;}
+.sec ul li{color:var(--ts);font-size:14.5px;margin:10px 0;padding-left:20px;position:relative;line-height:1.7;}
+.sec ul li::before{content:'▸';position:absolute;left:0;color:var(--b);}
+
+/* info cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:20px;}
+.card{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:18px 20px;border-top:3px solid var(--a);}
+.card-lbl{font-size:11px;color:#9ec0e7;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.card-val{font-size:15px;color:var(--p);font-weight:700;line-height:1.4;}
+.card-sub{font-size:12px;color:var(--ts);margin-top:4px;}
+
+/* highlight box */
+.highlight{background:linear-gradient(135deg,#eef5ff,#dceeff);border-left:4px solid var(--b);border-radius:0 8px 8px 0;padding:16px 20px;margin:16px 0;}
+.highlight strong{color:var(--p);}
+
+/* spec table */
+.spec-table{width:100%;border-collapse:collapse;margin-top:16px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(30,58,95,.06);}
+.spec-table th,.spec-table td{padding:13px 16px;text-align:left;border-bottom:1px solid #eef3fa;font-size:14px;}
+.spec-table th{background:#f0f5fc;color:var(--p);font-weight:600;width:38%;}
+.spec-table td{color:var(--ts);}
+.spec-table tr:last-child th,.spec-table tr:last-child td{border-bottom:none;}
+
+/* deliverables */
+.doc-list{list-style:none;padding:0;margin-top:16px;}
+.doc-list li{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px dashed var(--bd);font-size:14px;color:var(--ts);}
+.doc-list li:last-child{border-bottom:none;}
+.doc-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.doc-text strong{color:var(--p);display:block;margin-bottom:2px;}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;}
+.img-slot{background:linear-gradient(135deg,#e8f0fa,#d0e3f5);border:2px dashed var(--a);border-radius:10px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;transition:all .2s;overflow:hidden;position:relative;cursor:pointer;}
+.img-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px;}
+.img-slot:hover{border-color:var(--b);background:linear-gradient(135deg,#d5e8ff,#bcd5f5);}
+.img-slot svg{width:32px;height:32px;color:var(--a);margin-bottom:8px;}
+.img-slot .il{font-size:13px;color:var(--a);font-weight:600;}
+.img-slot .ih{font-size:11px;color:#7b9abf;margin-top:3px;}
+/* lightbox */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;padding:0;}
+.lightbox.active{display:flex;}
+.lightbox-content{position:relative;max-width:95vw;max-height:95vh;border-radius:12px;overflow:hidden;}
+.lightbox img{max-width:95vw;max-height:95vh;width:auto;height:auto;display:block;image-rendering:crisp-edges;object-fit:contain;}
+.lightbox-close{position:fixed;top:20px;right:20px;width:40px;height:40px;background:rgba(255,255,255,.2);border:none;color:#fff;font-size:28px;cursor:pointer;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:10000;}
+.lightbox-close:hover{background:rgba(255,255,255,.4);}
+
+/* FAB */
+.fab{position:fixed;bottom:28px;right:28px;width:54px;height:54px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;box-shadow:0 4px 20px rgba(30,58,95,.4);z-index:999;transition:all .3s;}
+.fab:hover{background:var(--a);transform:scale(1.1) translateY(-2px);box-shadow:0 8px 28px rgba(58,110,165,.5);}
+.fab svg{width:22px;height:22px;}
+
+/* responsive */
+@media(max-width:768px){
+  .hero{min-height:80vh;padding:80px 20px 60px;}
+  .metrics{gap:20px;padding:16px;}
+  .gallery{grid-template-columns:repeat(2,1fr);}
+  .sec-nav a{padding:12px 14px;font-size:13px;}
+  .sec{padding:40px 0;}
+  .cards{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:480px){
+  .gallery{grid-template-columns:1fr;}
+  .cards{grid-template-columns:1fr;}
+  .metrics{flex-direction:column;gap:16px;}
+  .topbar{font-size:12px;padding:10px 16px;}
+  .fab{bottom:20px;right:20px;width:48px;height:48px;}
+}
+</style>
+</head>
+<body>
+
+<!-- topbar -->
+<nav class="topbar">
+  <a href="../index.html">🏠 主頁</a>
+  <span class="topbar-sep">›</span>
+  <a href="../index.html#cases">代表案件</a>
+  <span class="topbar-sep">›</span>
+  <span class="topbar-cur">上誼興業｜米廠堆疊自動化</span>
+</nav>
+
+<!-- hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="badge">🌾 食品包裝 · 倉儲物流</div>
+    <h1>上誼興業｜米廠成品包裝<br>與堆疊自動化</h1>
+    <p class="hero-sub">青廷自動化 PD260319 ｜ 入職首案・自主陌生開發</p>
+    <div class="metrics">
+      <div class="metric"><div class="metric-val">3 規格</div><div class="metric-lbl">30kg / 3kg / 1.5kg 米袋</div></div>
+      <div class="metric"><div class="metric-val">8.3 包/分</div><div class="metric-lbl">3kg 規格 KPI</div></div>
+      <div class="metric"><div class="metric-val">4000 包</div><div class="metric-lbl">單班 8 小時目標</div></div>
+      <div class="metric"><div class="metric-val">落地式</div><div class="metric-lbl">現場勘查後修正方案</div></div>
+    </div>
+    <a href="#background" class="hero-cta">查看案件詳情 ↓</a>
+  </div>
+</section>
+
+<!-- section nav -->
+<div class="sec-nav" id="background">
+  <div class="sec-nav-inner">
+    <a href="#background">專案背景</a>
+    <a href="#solution">解決方案</a>
+    <a href="#specs">技術規格</a>
+    <a href="#deliverables">交付物</a>
+    <a href="#gallery">圖片紀錄</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 專案背景 -->
+  <section class="sec" id="background">
+    <h2>專案背景</h2>
+    <p>上誼興業為台中地區米廠，現場包裝線以人工搬運為主，面臨以下痛點：</p>
+    <ul>
+      <li>不同規格米袋（30kg / 3kg / 1.5kg）需分別人工碼垛，耗費大量人力</li>
+      <li>大包米袋（30kg）搬運造成嚴重人因工程疑慮，職業傷害風險高</li>
+      <li>碼垛高度與整齊度不穩定，影響倉儲效率與後續出貨</li>
+      <li>客戶希望以最小改動空間，導入自動化設備提升效能</li>
+    </ul>
+    <div class="highlight">
+      <strong>本案於業務工程師：</strong>這是入職青廷自動化後第一個自主陌生開發的客戶，從冷陌生電話拜訪到現場勘查，再到完成評估報告，全程獨立推進，驗證了業務工程師「開發 → 訪談 → 提案 → 報價單」的完整能力。
+    </div>
+  </section>
+
+  <!-- 解決方案 -->
+  <section class="sec" id="solution">
+    <h2>解決方案</h2>
+    <p>根據現場勘查與客戶需求，提出以下整合方案：</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-lbl">主體設備</div>
+        <div class="card-val">機械手臂自動堆棧</div>
+        <div class="card-sub">多軸手臂依指定層數自動碼垛，適應 3 種規格</div>
+      </div>
+      <div class="card">
+        <div class="card-lbl">夾具設計</div>
+        <div class="card-val">快拆夾具系統</div>
+        <div class="card-sub">夾爪＋多吸頭組合，快速切換不同米袋規格</div>
+      </div>
+      <div class="card">
+        <div class="card-lbl">輸送系統</div>
+        <div class="card-val">輸送整平機構</div>
+        <div class="card-sub">確保米袋進入手臂抓取位置前姿態一致</div>
+      </div>
+      <div class="card">
+        <div class="card-lbl">支架修正</div>
+        <div class="card-val">落地支架式（改倒吊）</div>
+        <div class="card-sub">現場勘查後評估鋼構強度，修正原始「倒吊式」方案</div>
+      </div>
+    </div>
+    <div class="highlight" style="margin-top:20px;">
+      <strong>關鍵決策：</strong>原始設計為「倒吊式」手臂安裝，節省地面空間。現場勘查後評估廠房鋼構承重能力不足，主動提出改為「落地支架式」，避免後期施工風險。
+    </div>
+  </section>
+
+  <!-- 技術規格 -->
+  <section class="sec" id="specs">
+    <h2>技術規格</h2>
+    <table class="spec-table">
+      <tr><th>目標產品</th><td>白米成品袋，三種規格：30kg、3kg、1.5kg</td></tr>
+      <tr><th>KPI（3kg 規格）</th><td>單班 8 小時產出 4,000 包，換算約 <strong>8.3 包／分鐘</strong></td></tr>
+      <tr><th>堆疊方式</th><td>機械手臂多層碼垛，依托盤規格自動計算堆疊路徑</td></tr>
+      <tr><th>夾具切換</th><td>快拆機構，夾爪＋多吸頭組合，規格切換時間最短化</td></tr>
+      <tr><th>輸送整平</th><td>輸送帶＋整平機構，確保抓取位置姿態一致</td></tr>
+      <tr><th>支架方式</th><td>落地支架式（原倒吊式，現勘後修正）</td></tr>
+      <tr><th>安全防護</th><td>安全圍欄，符合機械安全規範</td></tr>
+    </table>
+  </section>
+
+  <!-- 交付物 -->
+  <section class="sec" id="deliverables">
+    <h2>交付物</h2>
+    <ul class="doc-list">
+      <li>
+        <span class="doc-icon">📋</span>
+        <span class="doc-text"><strong>需求訪談評估報告（PD260319）</strong>含現場勘查紀錄、三種規格分析、KPI 定義與設備概念說明</span>
+      </li>
+      <li>
+        <span class="doc-icon">📐</span>
+        <span class="doc-text"><strong>設備概念提案簡報</strong>提案給客戶使用，含支架修正說明、夾具設計邏輯與初步佈置圖</span>
+      </li>
+      <li>
+        <span class="doc-icon">💰</span>
+        <span class="doc-text"><strong>初步報價</strong>依方案規格提供設備概算，作為後續採購決策參考</span>
+      </li>
+      <li>
+        <span class="doc-icon">🚗</span>
+        <span class="doc-text"><strong>現場拜訪紀錄</strong>含鋼構強度勘察紀錄、廠區空間測量與現場照片</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 圖片紀錄 -->
+  <section class="sec" id="gallery">
+    <h2>圖片紀錄</h2>
+    
+    <div class="gallery">
+      <div class="img-slot">
+        <img src="./img/shangyi/現場圖.jpg" alt="上誼米廠 現場環境照">
+        <div class="il">現場環境照</div><div class="ih">廠區空間與產線配置</div>
+      </div>
+      <div class="img-slot">
+        <img src="./img/shangyi/範例手臂.png" alt="現場勘查含尺寸標註">
+        <div class="il">米袋樣品</div><div class="ih">三種規格比較</div>
+      </div>
+      <div class="img-slot">
+        <img src="./img/shangyi/規劃圖.png" alt="設備提案概念圖（手臂配置）">
+        <div class="il">設備提案圖</div><div class="ih">手臂配置示意</div>
+      </div>
+      <div class="img-slot">
+        <img src="./img/shangyi/夾具.png" alt="投放式夾爪設計示意">
+        <div class="il">評估報告截圖</div><div class="ih">需求訪談文件</div>
+      </div>
+      <div class="img-slot">
+        <img src="./img/shangyi/模擬圖.png" alt="設備模擬圖">
+        <div class="il">設備模擬圖</div><div class="ih">3D 模擬展示</div>
+      </div>
+
+      <div class="img-slot">
+        <img src="./img/shangyi/現場尺寸.png" alt="現場尺寸">
+        <div class="il">現場尺寸</div><div class="ih">3D 模擬展示</div>
+     </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FAB 返回主頁 -->
+<a href="../index.html" class="fab" title="返回主頁">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+</a>
+
+<!-- Lightbox 圖片放大 -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-content">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+</div>
+
+<script>
+// 圖片放大功能
+function openLightbox(imgSrc) {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  lightboxImg.src = imgSrc;
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  lightbox.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+// 為所有 img-slot 添加點擊事件
+document.querySelectorAll('.img-slot').forEach(slot => {
+  slot.addEventListener('click', function() {
+    const img = this.querySelector('img');
+    if (img) {
+      openLightbox(img.src);
+    }
+  });
+});
+
+// ESC 鍵關閉
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeLightbox();
+  }
+});
+
+// 點擊背景關閉
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeLightbox();
+  }
+});
+</script>
+
+</body>
+</html>

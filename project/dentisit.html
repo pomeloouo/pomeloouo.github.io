@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>牙醫廠商｜口腔鏡貼機  | 林泓佑作品集</title>
+<style>
+:root{--p:#1e3a5f;--a:#3a6ea5;--b:#4d9de0;--ts:#5a6a7e;--bd:#d0dff0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:"Microsoft JhengHei","PingFang TC","Noto Sans CJK TC",sans-serif;background:#e9eef5;color:#1a2535;line-height:1.6;}
+.topbar{position:sticky;top:0;background:rgba(13,27,42,.96);backdrop-filter:blur(8px);padding:12px 24px;display:flex;align-items:center;gap:8px;z-index:100;font-size:13px;}
+.topbar a{color:#9ec0e7;text-decoration:none;transition:color .2s;}
+.topbar a:hover{color:#fff;}
+.topbar-sep{color:#4a6a8a;}
+.topbar-cur{color:#fff;font-weight:600;}
+.hero{min-height:100vh;background:linear-gradient(135deg,#091624 0%,#14304f 55%,#1a5278 100%);display:flex;align-items:center;justify-content:center;padding:100px 24px 80px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(77,157,224,.2) 0%,transparent 65%);}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,#e9eef5);}
+.hero-inner{position:relative;z-index:1;max-width:820px;}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#cfe0f3;padding:6px 18px;border-radius:20px;font-size:13px;letter-spacing:2px;margin-bottom:22px;}
+.hero h1{font-size:clamp(22px,4.5vw,44px);color:#fff;font-weight:700;letter-spacing:2px;margin-bottom:10px;line-height:1.35;}
+.hero-sub{color:#9ec0e7;font-size:15px;margin-bottom:36px;}
+.metrics{display:flex;justify-content:center;gap:36px;flex-wrap:wrap;margin-bottom:40px;padding:22px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;}
+.metric{text-align:center;}
+.metric-val{font-size:clamp(20px,3vw,30px);font-weight:700;color:#4d9de0;}
+.metric-lbl{font-size:12px;color:#9ec0e7;margin-top:4px;letter-spacing:1px;}
+.hero-cta{display:inline-block;background:#3a6ea5;color:#fff;padding:13px 32px;border-radius:30px;text-decoration:none;font-size:15px;letter-spacing:1px;transition:all .3s;border:1px solid rgba(255,255,255,.2);}
+.hero-cta:hover{background:#4d9de0;transform:translateY(-3px);box-shadow:0 8px 28px rgba(77,157,224,.45);}
+.sec-nav{background:#fff;border-bottom:1px solid var(--bd);position:sticky;top:48px;z-index:90;overflow-x:auto;white-space:nowrap;box-shadow:0 2px 8px rgba(30,58,95,.07);}
+.sec-nav-inner{display:flex;justify-content:center;}
+.sec-nav a{display:inline-block;padding:15px 22px;color:var(--ts);text-decoration:none;font-size:13.5px;border-bottom:3px solid transparent;transition:all .2s;}
+.sec-nav a:hover{color:var(--a);border-bottom-color:var(--a);background:#f5f9ff;}
+.container{max-width:1080px;margin:0 auto;padding:0 24px 80px;}
+.sec{padding:56px 0;border-bottom:1px solid var(--bd);}
+.sec:last-child{border-bottom:none;}
+.sec h2{font-size:20px;color:var(--p);margin-bottom:22px;padding-left:14px;border-left:4px solid var(--a);letter-spacing:2px;}
+.sec p{color:var(--ts);font-size:15px;margin-bottom:12px;line-height:1.8;}
+.sec ul{padding-left:0;list-style:none;}
+.sec ul li{color:var(--ts);font-size:14.5px;margin:10px 0;padding-left:20px;position:relative;line-height:1.7;}
+.sec ul li::before{content:'▸';position:absolute;left:0;color:var(--b);}
+.highlight{background:linear-gradient(135deg,#eef5ff,#dceeff);border-left:4px solid var(--b);border-radius:0 8px 8px 0;padding:16px 20px;margin:16px 0;}
+.highlight strong{color:var(--p);}
+/* 4模組 */
+.module-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;position:relative;}
+.module-flow::before{content:'';position:absolute;top:30px;left:15%;right:15%;height:2px;background:linear-gradient(to right,var(--a),var(--b));z-index:0;}
+.mod-card{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:18px 14px;text-align:center;position:relative;z-index:1;transition:all .2s;}
+.mod-card:hover{border-color:var(--b);box-shadow:0 4px 16px rgba(77,157,224,.15);}
+.mod-num{width:40px;height:40px;background:var(--p);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin:0 auto 10px;border:3px solid #fff;box-shadow:0 0 0 2px var(--a);}
+.mod-name{font-size:13px;color:var(--p);font-weight:700;margin-bottom:4px;}
+.mod-desc{font-size:11.5px;color:var(--ts);}
+.spec-table{width:100%;border-collapse:collapse;margin-top:16px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(30,58,95,.06);}
+.spec-table th,.spec-table td{padding:13px 16px;text-align:left;border-bottom:1px solid #eef3fa;font-size:14px;}
+.spec-table th{background:#f0f5fc;color:var(--p);font-weight:600;width:38%;}
+.spec-table td{color:var(--ts);}
+.spec-table tr:last-child th,.spec-table tr:last-child td{border-bottom:none;}
+/* issue log 樣式 */
+.issue-item{background:#fff;border:1px solid var(--bd);border-radius:8px;padding:14px 16px;margin:8px 0;display:flex;gap:14px;align-items:flex-start;}
+.issue-tag{background:var(--p);color:#fff;font-size:11px;padding:3px 8px;border-radius:6px;flex-shrink:0;margin-top:2px;}
+.issue-content{font-size:13.5px;color:var(--ts);flex:1;}
+.issue-content strong{color:var(--p);}
+.doc-list{list-style:none;padding:0;margin-top:16px;}
+.doc-list li{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px dashed var(--bd);font-size:14px;color:var(--ts);}
+.doc-list li:last-child{border-bottom:none;}
+.doc-icon{font-size:18px;flex-shrink:0;}
+.doc-text strong{color:var(--p);display:block;margin-bottom:2px;}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;}
+.img-slot{background:linear-gradient(135deg,#e8f0fa,#d0e3f5);border:2px dashed var(--a);border-radius:10px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;overflow:hidden;position:relative;transition:all .2s;}
+.img-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px;}
+.img-slot:hover{border-color:var(--b);}
+.img-slot svg{width:32px;height:32px;color:var(--a);margin-bottom:8px;}
+.img-slot .il{font-size:13px;color:var(--a);font-weight:600;}
+.img-slot .ih{font-size:11px;color:#7b9abf;margin-top:3px;}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;}
+.lightbox.active{display:flex;}
+.lightbox-content{max-width:95vw;max-height:95vh;border-radius:12px;overflow:hidden;}
+.lightbox img{max-width:95vw;max-height:95vh;width:auto;height:auto;image-rendering:crisp-edges;object-fit:contain;}
+.lightbox-close{position:fixed;top:20px;right:20px;width:40px;height:40px;background:rgba(255,255,255,.2);border:none;color:#fff;cursor:pointer;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:10000;font-size:28px;}
+.lightbox-close:hover{background:rgba(255,255,255,.4);}
+.fab{position:fixed;bottom:28px;right:28px;width:54px;height:54px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;box-shadow:0 4px 20px rgba(30,58,95,.4);z-index:999;transition:all .3s;}
+.fab:hover{background:var(--a);transform:scale(1.1) translateY(-2px);}
+.fab svg{width:22px;height:22px;}
+@media(max-width:900px){.module-flow{grid-template-columns:repeat(2,1fr);}.module-flow::before{display:none;}}
+@media(max-width:768px){.hero{min-height:80vh;}.gallery{grid-template-columns:repeat(2,1fr);}.sec-nav a{padding:12px 14px;font-size:13px;}.sec{padding:40px 0;}}
+@media(max-width:480px){.gallery{grid-template-columns:1fr;}.metrics{flex-direction:column;}.module-flow{grid-template-columns:1fr;}.topbar{font-size:12px;}}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="../index.html">🏠 主頁</a>
+  <span class="topbar-sep">›</span>
+  <a href="../index.html#cases">代表案件</a>
+  <span class="topbar-sep">›</span>
+  <span class="topbar-cur">牙醫廠商｜口腔鏡貼機</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="badge">🏥 醫療器材 · 精密組裝</div>
+    <h1>牙醫廠商｜口腔鏡貼機<br><span style="font-size:.75em;letter-spacing:1px;">PD260409</span></h1>
+    <p class="hero-sub">主導設備報價暨專案內容確認書・4 大模組・主持開案會議</p>
+    <div class="metrics">
+      <div class="metric"><div class="metric-val">2.5 秒</div><div class="metric-lbl">節拍 / 支</div></div>
+      <div class="metric"><div class="metric-val">4 小時</div><div class="metric-lbl">連續運轉驗收</div></div>
+      <div class="metric"><div class="metric-val">4 模組</div><div class="metric-lbl">設備組成</div></div>
+      <div class="metric"><div class="metric-val">Issue Log</div><div class="metric-lbl">開案會議追蹤</div></div>
+    </div>
+    <a href="#background" class="hero-cta">查看案件詳情 ↓</a>
+  </div>
+</section>
+
+<div class="sec-nav" id="background">
+  <div class="sec-nav-inner">
+    <a href="#background">專案背景</a>
+    <a href="#modules">4 大模組</a>
+    <a href="#specs">技術規格</a>
+    <a href="#meeting">開案會議</a>
+    <a href="#deliverables">交付物</a>
+    <a href="#gallery">圖片紀錄</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="sec" id="background">
+    <h2>專案背景</h2>
+    <p>醫療器材廠商，生產一次性口腔鏡。現況為人工組裝，口腔鏡本體與鏡片需人工逐一組裝並貼合，面臨以下挑戰：</p>
+    <ul>
+      <li>人工組裝節拍不穩定，品質一致性難以控制</li>
+      <li>醫療器材對組裝精度要求高，人工誤差率需降低</li>
+      <li>產能擴充需求急迫，人力難以繼續擴編</li>
+      <li>長時間重複組裝動作，人因工程疑慮</li>
+    </ul>
+    <div class="highlight">
+      <strong>本案意義：</strong>此為醫療器材類自動化案件，我主導從規格確認到文件撰寫，並親自主持開案會議，建立客戶對青廷自動化的信任，業務工程師從「提案」到「開案執行」。
+    </div>
+  </section>
+
+  <section class="sec" id="modules">
+    <h2>4 大模組設計</h2>
+    <p>完整設備由 4 個功能模組串聯，形成全自動組裝產線：</p>
+    <div class="module-flow">
+      <div class="mod-card">
+        <div class="mod-num">1</div>
+        <div class="mod-name">本體倉儲模組</div>
+        <div class="mod-desc">口腔鏡本體自動排列、儲存與送料</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-num">2</div>
+        <div class="mod-name">輸送排列模組</div>
+        <div class="mod-desc">本體定向輸送，確保組裝姿態一致</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-num">3</div>
+        <div class="mod-name">鏡片倉儲模組</div>
+        <div class="mod-desc">鏡片自動取料，確保取片精度</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-num">4</div>
+        <div class="mod-name">組裝模組</div>
+        <div class="mod-desc">鏡片與本體精準組裝貼合</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="specs">
+    <h2>技術規格</h2>
+    <table class="spec-table">
+      <tr><th>產品</th><td>一次性口腔鏡（本體 + 鏡片）</td></tr>
+      <tr><th>設備節拍</th><td><strong>2.5 秒 / 支</strong>（目標值）</td></tr>
+      <tr><th>驗收標準</th><td>連續運轉 4 小時無故障為驗收通過條件</td></tr>
+      <tr><th>模組數量</th><td>4 大模組：本體倉儲、輸送排列、鏡片倉儲、組裝</td></tr>
+      <tr><th>精度要求</th><td>符合醫療器材組裝精度要求（具體數值依設計確認）</td></tr>
+      <tr><th>安全規範</th><td>全罩式安全防護</td></tr>
+    </table>
+  </section>
+
+  <section class="sec" id="meeting">
+    <h2>開案會議與 Issue Log</h2>
+    <p>完成確認書簽署後，主持開案會議，與客戶、機構工程師、電控工程師三方同步確認，並建立問題追蹤紀錄（Issue Log）：</p>
+    <div class="issue-item">
+      <span class="issue-tag">討論</span>
+      <div class="issue-content"><strong>鏡片取料方式確認</strong>鏡片尺寸與吸附方式需與客戶確認，決定採真空吸附或夾持</div>
+    </div>
+    <div class="issue-item">
+      <span class="issue-tag">確認</span>
+      <div class="issue-content"><strong>本體送料方向</strong>口腔鏡本體形狀不對稱，送料方向需定義清楚，避免反向組裝</div>
+    </div>
+    <div class="issue-item">
+      <span class="issue-tag">追蹤</span>
+      <div class="issue-content"><strong>組裝貼合力道</strong>鏡片貼合需要的壓入力道，需客戶提供規格或由試驗確認</div>
+    </div>
+    <div class="issue-item">
+      <span class="issue-tag">確認</span>
+      <div class="issue-content"><strong>驗收基準樣品</strong>連續運轉 4 小時驗收，需事先確認良品與 NG 品判定標準</div>
+    </div>
+    <div class="highlight" style="margin-top:16px;">
+      <strong>Issue Log 的意義：</strong>開案會議不只是「通知啟動」，而是透過結構化的問題清單，讓客戶與工程師雙方在第一時間釐清所有模糊地帶，避免設計中途返工，這是我作為業務工程師主導會議的核心價值。
+    </div>
+  </section>
+
+  <section class="sec" id="deliverables">
+    <h2>交付物</h2>
+    <ul class="doc-list">
+      <li>
+        <span class="doc-icon">📄</span>
+        <span class="doc-text"><strong>設備報價暨專案內容確認書</strong>含 4 大模組規格、節拍、驗收標準、報價明細</span>
+      </li>
+      <li>
+        <span class="doc-icon">📝</span>
+        <span class="doc-text"><strong>開案會議紀錄</strong>三方（客戶、機構、電控）同步確認之議題紀錄</span>
+      </li>
+      <li>
+        <span class="doc-icon">🔍</span>
+        <span class="doc-text"><strong>問題追蹤紀錄（Issue Log）</strong>開案會議後持續追蹤之待確認事項清單</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="sec" id="gallery">
+    <h2>圖片紀錄</h2>
+    <div class="gallery">
+      <div class="img-slot">
+     <img src="./img/sld/示意圖.png" alt="現場尺寸">
+        <div class="il">口腔鏡樣品</div><div class="ih">本體與鏡片</div>
+      </div>
+      <div class="img-slot">
+         <img src="./img/sld/product.jpg" alt="現場尺寸">
+        <div class="il">設備概念圖</div><div class="ih">4 大模組配置</div>
+      </div>
+      <div class="img-slot">
+         <img src="./img/sld/word.png" alt="現場尺寸">
+        <div class="il">確認書文件</div><div class="ih">PD260409</div>
+      </div>
+      <div class="img-slot">
+         <img src="./img/shangyi/現場尺寸.png" alt="現場尺寸">
+        <div class="il">開案會議</div><div class="ih">三方會議紀錄</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<a href="../index.html" class="fab" title="返回主頁">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+</a>
+
+<div class="lightbox" id="lightbox"><div class="lightbox-content"><img id="lightbox-img" src=""></div><button class="lightbox-close" onclick="closeLightbox()">✕</button></div>
+<script>
+function openLightbox(i){document.getElementById('lightbox-img').src=i;document.getElementById('lightbox').classList.add('active');document.body.style.overflow='hidden';}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow='auto';}
+document.querySelectorAll('.img-slot').forEach(s=>{s.addEventListener('click',function(){const img=this.querySelector('img');if(img)openLightbox(img.src);});});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLightbox();});
+</script>
+
+</body>
+</html>
