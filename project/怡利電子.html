@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>怡利電子｜埋入射出機機械手臂上下料 | 林泓佑作品集</title>
+<style>
+:root{--p:#1e3a5f;--a:#3a6ea5;--b:#4d9de0;--ts:#5a6a7e;--bd:#d0dff0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:"Microsoft JhengHei","PingFang TC","Noto Sans CJK TC",sans-serif;background:#e9eef5;color:#1a2535;line-height:1.6;}
+.topbar{position:sticky;top:0;background:rgba(13,27,42,.96);backdrop-filter:blur(8px);padding:12px 24px;display:flex;align-items:center;gap:8px;z-index:100;font-size:13px;}
+.topbar a{color:#9ec0e7;text-decoration:none;transition:color .2s;}
+.topbar a:hover{color:#fff;}
+.topbar-sep{color:#4a6a8a;}
+.topbar-cur{color:#fff;font-weight:600;}
+.hero{min-height:100vh;background:linear-gradient(135deg,#081420 0%,#1a3050 55%,#1e4e70 100%);display:flex;align-items:center;justify-content:center;padding:100px 24px 80px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 65% 35%,rgba(77,157,224,.22) 0%,transparent 65%);}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,#e9eef5);}
+.hero-inner{position:relative;z-index:1;max-width:820px;}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#cfe0f3;padding:6px 18px;border-radius:20px;font-size:13px;letter-spacing:2px;margin-bottom:22px;}
+.hero h1{font-size:clamp(22px,4.5vw,44px);color:#fff;font-weight:700;letter-spacing:2px;margin-bottom:10px;line-height:1.35;}
+.hero-sub{color:#9ec0e7;font-size:15px;margin-bottom:36px;}
+.metrics{display:flex;justify-content:center;gap:36px;flex-wrap:wrap;margin-bottom:40px;padding:22px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;}
+.metric{text-align:center;}
+.metric-val{font-size:clamp(20px,3vw,30px);font-weight:700;color:#4d9de0;}
+.metric-lbl{font-size:12px;color:#9ec0e7;margin-top:4px;letter-spacing:1px;}
+.hero-cta{display:inline-block;background:#3a6ea5;color:#fff;padding:13px 32px;border-radius:30px;text-decoration:none;font-size:15px;letter-spacing:1px;transition:all .3s;border:1px solid rgba(255,255,255,.2);}
+.hero-cta:hover{background:#4d9de0;transform:translateY(-3px);box-shadow:0 8px 28px rgba(77,157,224,.45);}
+.sec-nav{background:#fff;border-bottom:1px solid var(--bd);position:sticky;top:48px;z-index:90;overflow-x:auto;white-space:nowrap;box-shadow:0 2px 8px rgba(30,58,95,.07);}
+.sec-nav-inner{display:flex;justify-content:center;}
+.sec-nav a{display:inline-block;padding:15px 22px;color:var(--ts);text-decoration:none;font-size:13.5px;border-bottom:3px solid transparent;transition:all .2s;}
+.sec-nav a:hover{color:var(--a);border-bottom-color:var(--a);background:#f5f9ff;}
+.container{max-width:1080px;margin:0 auto;padding:0 24px 80px;}
+.sec{padding:56px 0;border-bottom:1px solid var(--bd);}
+.sec:last-child{border-bottom:none;}
+.sec h2{font-size:20px;color:var(--p);margin-bottom:22px;padding-left:14px;border-left:4px solid var(--a);letter-spacing:2px;}
+.sec p{color:var(--ts);font-size:15px;margin-bottom:12px;line-height:1.8;}
+.sec ul{padding-left:0;list-style:none;}
+.sec ul li{color:var(--ts);font-size:14.5px;margin:10px 0;padding-left:20px;position:relative;line-height:1.7;}
+.sec ul li::before{content:'▸';position:absolute;left:0;color:var(--b);}
+.highlight{background:linear-gradient(135deg,#eef5ff,#dceeff);border-left:4px solid var(--b);border-radius:0 8px 8px 0;padding:16px 20px;margin:16px 0;}
+.highlight strong{color:var(--p);}
+/* ROI 視覺化 */
+.roi-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;}
+.roi-card{background:#fff;border:2px solid var(--bd);border-radius:12px;padding:24px;text-align:center;transition:all .3s;}
+.roi-card:hover{border-color:var(--b);box-shadow:0 6px 20px rgba(77,157,224,.18);}
+.roi-scenario{font-size:12px;color:#9ec0e7;letter-spacing:2px;margin-bottom:8px;}
+.roi-change{font-size:32px;font-weight:700;color:var(--p);margin-bottom:4px;}
+.roi-change span{font-size:16px;color:var(--b);}
+.roi-months{font-size:22px;font-weight:700;color:var(--b);margin-bottom:4px;}
+.roi-sub{font-size:13px;color:var(--ts);}
+/* 成本明細 */
+.cost-breakdown{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:20px;margin-top:16px;}
+.cost-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed var(--bd);font-size:14px;}
+.cost-item:last-child{border-bottom:none;padding-bottom:0;}
+.cost-item.total{font-weight:700;color:var(--p);font-size:15px;padding-top:12px;}
+.cost-label{color:var(--ts);}
+.cost-val{color:var(--p);font-weight:600;}
+/* 質化效益 */
+.benefit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px;}
+.benefit-card{background:#fff;border:1px solid var(--bd);border-radius:8px;padding:14px;display:flex;align-items:flex-start;gap:10px;}
+.benefit-icon{font-size:20px;flex-shrink:0;}
+.benefit-text{font-size:13.5px;color:var(--ts);}
+.benefit-text strong{color:var(--p);display:block;margin-bottom:2px;}
+.spec-table{width:100%;border-collapse:collapse;margin-top:16px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(30,58,95,.06);}
+.spec-table th,.spec-table td{padding:13px 16px;text-align:left;border-bottom:1px solid #eef3fa;font-size:14px;}
+.spec-table th{background:#f0f5fc;color:var(--p);font-weight:600;width:38%;}
+.spec-table td{color:var(--ts);}
+.spec-table tr:last-child th,.spec-table tr:last-child td{border-bottom:none;}
+.doc-list{list-style:none;padding:0;margin-top:16px;}
+.doc-list li{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px dashed var(--bd);font-size:14px;color:var(--ts);}
+.doc-list li:last-child{border-bottom:none;}
+.doc-icon{font-size:18px;flex-shrink:0;}
+.doc-text strong{color:var(--p);display:block;margin-bottom:2px;}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;}
+.img-slot{background:linear-gradient(135deg,#e8f0fa,#d0e3f5);border:2px dashed var(--a);border-radius:10px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;overflow:hidden;position:relative;transition:all .2s;}
+.img-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px;}
+.img-slot:hover{border-color:var(--b);}
+.img-slot svg{width:32px;height:32px;color:var(--a);margin-bottom:8px;}
+.img-slot .il{font-size:13px;color:var(--a);font-weight:600;}
+.img-slot .ih{font-size:11px;color:#7b9abf;margin-top:3px;}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;}
+.lightbox.active{display:flex;}
+.lightbox-content{max-width:95vw;max-height:95vh;border-radius:12px;overflow:hidden;}
+.lightbox img{max-width:95vw;max-height:95vh;width:auto;height:auto;image-rendering:crisp-edges;object-fit:contain;}
+.lightbox-close{position:fixed;top:20px;right:20px;width:40px;height:40px;background:rgba(255,255,255,.2);border:none;color:#fff;cursor:pointer;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:10000;font-size:28px;}
+.lightbox-close:hover{background:rgba(255,255,255,.4);}
+.fab{position:fixed;bottom:28px;right:28px;width:54px;height:54px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;box-shadow:0 4px 20px rgba(30,58,95,.4);z-index:999;transition:all .3s;}
+.fab:hover{background:var(--a);transform:scale(1.1) translateY(-2px);}
+.fab svg{width:22px;height:22px;}
+@media(max-width:768px){.hero{min-height:80vh;}.gallery{grid-template-columns:repeat(2,1fr);}.roi-cards{grid-template-columns:1fr;}.sec-nav a{padding:12px 14px;font-size:13px;}.sec{padding:40px 0;}}
+@media(max-width:480px){.gallery{grid-template-columns:1fr;}.metrics{flex-direction:column;}.topbar{font-size:12px;}}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="../index.html">🏠 主頁</a>
+  <span class="topbar-sep">›</span>
+  <a href="../index.html#cases">代表案件</a>
+  <span class="topbar-sep">›</span>
+  <span class="topbar-cur">怡利電子｜ROI 效益評估</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="badge">🏭 塑膠射出 · 機械手臂</div>
+    <h1>怡利電子｜埋入射出機<br>機械手臂上下料 ROI 評估</h1>
+    <p class="hero-sub">完整效益評估表・雇主實際成本計算・量化回收期</p>
+    <div class="metrics">
+      <div class="metric"><div class="metric-val">NT$ 315 萬</div><div class="metric-lbl">設備總價</div></div>
+      <div class="metric"><div class="metric-val">21.9 月</div><div class="metric-lbl">4→1 人回收期</div></div>
+      <div class="metric"><div class="metric-val">13.1 月</div><div class="metric-lbl">6→1 人回收期</div></div>
+      <div class="metric"><div class="metric-val">7 項</div><div class="metric-lbl">質化效益</div></div>
+    </div>
+    <a href="#background" class="hero-cta">查看案件詳情 ↓</a>
+  </div>
+</section>
+
+<div class="sec-nav" id="background">
+  <div class="sec-nav-inner">
+    <a href="#background">專案背景</a>
+    <a href="#roi">ROI 試算</a>
+    <a href="#qualitative">質化效益</a>
+    <a href="#specs">設備規格</a>
+    <a href="#deliverables">交付物</a>
+    <a href="#gallery">圖片紀錄</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="sec" id="background">
+    <h2>專案背景</h2>
+    <p>怡利電子為電子廠商，埋入射出製程需在射出機旁人工上下料——將金屬插針放入模具（上料），待射出完成後取出成品（下料）。此製程特性如下：</p>
+    <ul>
+      <li>射出機 24 小時連續運轉，上下料作業節拍快，人員容易疲勞</li>
+      <li>現場高溫、高壓環境，人員在機台旁作業存在安全風險</li>
+      <li>人力需求多，目前需 4～6 人輪班執行此工序</li>
+      <li>人工放置精度受疲勞影響，偶有放位錯誤導致廢料</li>
+    </ul>
+    <div class="highlight">
+      <strong>本案貢獻：</strong>「雇主視角」計算的效益評估表，用雇主真實負擔的成本（含勞健保、勞退、職災保險）計算月人力成本，而非僅以薪資計算，讓 ROI 數字更具說服力與可信度。
+    </div>
+  </section>
+
+  <section class="sec" id="roi">
+    <h2>ROI 回收期試算</h2>
+    <p>設備總價 <strong>NT$ 315 萬</strong>，採 5 年直線攤提（每年攤提 63 萬）。以雇主實際成本（含薪資、勞保、健保、勞退 6%、職災保險）計算月人力成本：</p>
+    <div class="roi-cards">
+      <div class="roi-card">
+        <div class="roi-scenario">保守</div>
+        <div class="roi-change">4 人 <span>→ 1 人</span></div>
+        <div class="roi-months">21.9 個月</div>
+        <div class="roi-sub">節省 3 名人力，月省約 14.4 萬元（含完整雇主成本）</div>
+      </div>
+      <div class="roi-card">
+        <div class="roi-scenario">積極</div>
+        <div class="roi-change">6 人 <span>→ 1 人</span></div>
+        <div class="roi-months">13.1 個月</div>
+        <div class="roi-sub">節省 5 名人力，月省約 24 萬元，回收期不到 14 個月</div>
+      </div>
+    </div>
+    <div class="highlight" style="margin-top:20px;">
+      <strong>計算邏輯說明：</strong>雇主實際月成本 ＝ 薪資 ＋ 勞保（雇主負擔約 70%）＋ 健保（雇主負擔約 60%）＋ 勞退 6% ＋ 職災保險費，實際雇主每月負擔約為薪資的 1.2～1.25 倍。
+    </div>
+  </section>
+
+  <section class="sec" id="qualitative">
+    <h2>7 項質化效益</h2>
+    <p>除了量化的 ROI 回收期，效益評估表同步列出 7 項質化效益，強化決策論據：</p>
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <span class="benefit-icon">🛡️</span>
+        <div class="benefit-text"><strong>人員安全提升</strong>機台旁高溫高壓風險排除，職災風險歸零</div>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">📈</span>
+        <div class="benefit-text"><strong>品質穩定性提升</strong>放位精度一致，廢料率降低</div>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">🌙</span>
+        <div class="benefit-text"><strong>24 小時無人生產</strong>夜班免人力，產能提升不受班次限制</div>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">🔄</span>
+        <div class="benefit-text"><strong>人員轉型</strong>解放的人力可重新分配至其他高附加價值工序</div>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">📋</span>
+        <div class="benefit-text"><strong>管理成本降低</strong>人員管理複雜度下降，出缺勤問題消除</div>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">⚡</span>
+        <div class="benefit-text"><strong>節拍穩定</strong>機器節拍固定，產能預測精準，計劃性更高</div>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">📊</span>
+        <div class="benefit-text"><strong>數據追溯能力</strong>自動化設備可記錄每次上下料時間與狀態</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="specs">
+    <h2>設備規格</h2>
+    <table class="spec-table">
+      <tr><th>應用製程</th><td>埋入射出機上下料（金屬插針放入模具，成品取出）</td></tr>
+      <tr><th>設備總價</th><td>NT$ 3,150,000（含機械手臂、夾具、周邊機構、電控）</td></tr>
+      <tr><th>攤提方式</th><td>5 年直線攤提，每年 NT$ 630,000</td></tr>
+      <tr><th>人力替代（A）</th><td>4 人 → 1 人，回收期 21.9 個月</td></tr>
+      <tr><th>人力替代（B）</th><td>6 人 → 1 人，回收期 13.1 個月</td></tr>
+      <tr><th>質化效益</th><td>安全、品質、夜班產能、人員轉型等 7 項</td></tr>
+    </table>
+  </section>
+
+  <section class="sec" id="deliverables">
+    <h2>交付物</h2>
+    <ul class="doc-list">
+      <li>
+        <span class="doc-icon">📊</span>
+        <span class="doc-text"><strong>效益評估表（含 ROI 試算）</strong>以雇主實際成本計算，A/B 兩情境比較，含回收期試算公式</span>
+      </li>
+      <li>
+        <span class="doc-icon">🎯</span>
+        <span class="doc-text"><strong>7 項質化效益清單</strong>安全、品質、產能、管理等面向的非量化效益說明</span>
+      </li>
+      <li>
+        <span class="doc-icon">💰</span>
+        <span class="doc-text"><strong>設備報價暨概念說明</strong>NT$ 315 萬報價明細與手臂上下料概念方案</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="sec" id="gallery">
+    <h2>圖片紀錄</h2>
+    <div class="gallery">
+      <div class="img-slot">
+        <<img src="./img/yili/現場規劃.png" alt="現場規劃">
+        <div class="il">射出機現場</div><div class="ih">埋入射出製程現況</div>
+      </div>
+      <div class="img-slot">
+        <img src="./img/yili/示意.png" alt="組裝照">
+        <div class="il">效益評估表</div><div class="ih">ROI 試算文件</div>
+      </div>
+      <div class="img-slot">
+        <img src="./img/yili/操作圖.png" alt="組裝照">
+        <div class="il">手臂概念圖</div><div class="ih">上下料動作示意</div>
+      </div>
+      <div class="img-slot">
+        <img src="" alt="組裝照">
+        <div class="il"></div><div class="ih"></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<a href="../index.html" class="fab" title="返回主頁">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+</a>
+
+<div class="lightbox" id="lightbox"><div class="lightbox-content"><img id="lightbox-img" src=""></div><button class="lightbox-close" onclick="closeLightbox()">✕</button></div>
+<script>
+function openLightbox(i){document.getElementById('lightbox-img').src=i;document.getElementById('lightbox').classList.add('active');document.body.style.overflow='hidden';}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow='auto';}
+document.querySelectorAll('.img-slot').forEach(s=>{s.addEventListener('click',function(){const img=this.querySelector('img');if(img)openLightbox(img.src);});});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLightbox();});
+</script>
+
+</body>
+</html>

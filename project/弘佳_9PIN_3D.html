@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>9PIN 半自動端子插入機 3D v4</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0f172a;font-family:sans-serif;overflow:hidden;}
+canvas{display:block;}
+#tb{position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,.88);border:1px solid rgba(56,189,248,.35);color:#38bdf8;font-size:13px;font-weight:700;padding:5px 20px;border-radius:7px;pointer-events:none;white-space:nowrap;}
+#hint{position:absolute;top:10px;left:10px;background:rgba(15,23,42,.82);border:1px solid rgba(148,163,184,.25);color:#cbd5e1;font-size:10px;padding:4px 10px;border-radius:5px;pointer-events:none;}
+#hint span{color:#38bdf8;font-weight:700;}
+#legend{position:absolute;top:10px;right:10px;background:rgba(15,23,42,.88);border:1px solid rgba(148,163,184,.2);border-radius:8px;padding:9px 13px;color:#e2e8f0;font-size:10px;min-width:165px;}
+#legend h3{font-size:11px;color:#38bdf8;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid rgba(56,189,248,.2);}
+.lr{display:flex;align-items:center;gap:6px;margin:3px 0;}
+.dot{width:11px;height:11px;border-radius:2px;flex-shrink:0;}
+#ctrl{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:7px;}
+button{background:rgba(30,41,59,.92);border:1px solid rgba(148,163,184,.3);color:#e2e8f0;font-size:10px;padding:5px 13px;border-radius:5px;cursor:pointer;}
+button:hover{background:rgba(56,189,248,.18);border-color:#38bdf8;color:#38bdf8;}
+#st{position:absolute;bottom:46px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,.84);border:1px solid rgba(56,189,248,.4);color:#38bdf8;font-size:11px;padding:4px 16px;border-radius:5px;pointer-events:none;white-space:nowrap;}
+</style>
+</head>
+<body>
+<div id="tb">9PIN 半自動端子插入機　3D v4</div>
+<div id="hint"><span>拖曳</span> 旋轉 ｜ <span>滾輪</span> 縮放 ｜ <span>右鍵</span> 平移</div>
+<div id="legend">
+  <h3>機構圖例</h3>
+  <div class="lr"><div class="dot" style="background:#334155"></div>機台底座</div>
+  <div class="lr"><div class="dot" style="background:#2563eb"></div>X 軸滑軌</div>
+  <div class="lr"><div class="dot" style="background:#06b6d4"></div>Y 軸移動板</div>
+  <div class="lr"><div class="dot" style="background:#b45309"></div>承載治具（無側擋）</div>
+  <div class="lr"><div class="dot" style="background:#7c3aed"></div>9PIN 母座（立式）</div>
+  <div class="lr"><div class="dot" style="background:#166534"></div>端子模具（開口，固定）</div>
+  <div class="lr"><div class="dot" style="background:#991b1b"></div>壓入機構（左側）</div>
+  <div class="lr"><div class="dot" style="background:#ef4444"></div>→ 壓入方向</div>
+</div>
+<div id="st">▶ 按「執行動作」觀看插入流程</div>
+<div id="ctrl">
+  <button onclick="resetView()">重置視角</button>
+  <button onclick="runAnim()">▶ 執行動作</button>
+  <button onclick="toggleEx()">拆解視圖</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const W=window.innerWidth,H=window.innerHeight;
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x0f172a);
+scene.fog=new THREE.FogExp2(0x0f172a,0.007); // lighter fog
+
+const camera=new THREE.PerspectiveCamera(44,W/H,0.1,300);
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(W,H);renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
+
+scene.add(new THREE.AmbientLight(0xffffff,0.52));
+const sun=new THREE.DirectionalLight(0xffffff,0.95);
+sun.position.set(8,20,12);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);scene.add(sun);
+const fl=new THREE.DirectionalLight(0x38bdf8,0.3);fl.position.set(-10,6,-6);scene.add(fl);
+const rim=new THREE.PointLight(0xf59e0b,0.4,40);rim.position.set(0,10,-5);scene.add(rim);
+const grid=new THREE.GridHelper(40,40,0x1e293b,0x1e293b);grid.position.y=-0.14;scene.add(grid);
+
+// ── helpers ──────────────────────────────────────────────
+function bx(w,h,d,c,r=0.55,m=0.25){
+  const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),
+    new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:m}));
+  o.castShadow=true;o.receiveShadow=true;return o;
+}
+function cy(rt,rb,h,c,s=16){
+  const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,s),
+    new THREE.MeshStandardMaterial({color:c,roughness:0.4,metalness:0.5}));
+  o.castShadow=true;return o;
+}
+function add(p,o,x,y,z){o.position.set(x,y,z);(p&&p.add)?p.add(o):scene.add(o);return o;}
+
+// ── 1. BASE ───────────────────────────────────────────────
+add(scene,bx(17,0.55,12,0x1e293b),0,0.28,0);
+add(scene,bx(16.5,0.14,11.5,0x334155),0,0.65,0);
+[[-7,-4.5],[-7,4.5],[7,-4.5],[7,4.5]].forEach(([x,z])=>{
+  add(scene,cy(0.32,0.38,0.55,0x0f172a),x,-0.08,z);
+});
+
+// ── 2. X RAILS ────────────────────────────────────────────
+add(scene,bx(11,0.28,0.38,0x2563eb,0.4,0.6),-0.5,0.88,-2.6);
+add(scene,bx(11,0.28,0.38,0x2563eb,0.4,0.6),-0.5,0.88, 2.6);
+const xsc=cy(0.09,0.09,11,0x94a3b8,8);xsc.rotation.z=Math.PI/2;add(scene,xsc,-0.5,0.88,0);
+add(scene,bx(0.9,0.9,0.9,0x0f172a),4.8,0.93,0);
+
+// ── 3. XY TABLE ───────────────────────────────────────────
+const xG=new THREE.Group();xG.position.set(-0.5,0,0);scene.add(xG);
+add(xG,bx(1.3,0.42,0.68,0x1d4ed8,0.45,0.7),0,0.88,-2.6);
+add(xG,bx(1.3,0.42,0.68,0x1d4ed8,0.45,0.7),0,0.88, 2.6);
+add(xG,bx(3.0,0.28,5.5,0x0891b2),0,1.12,0);
+add(xG,bx(0.18,0.26,5.0,0x06b6d4,0.4,0.6),-0.95,1.3,0);
+add(xG,bx(0.18,0.26,5.0,0x06b6d4,0.4,0.6), 0.95,1.3,0);
+add(xG,bx(0.85,0.85,0.85,0x0f172a),0,1.05,-3.3);
+const yG=new THREE.Group();yG.position.set(0,0,0);xG.add(yG);
+add(yG,bx(2.5,0.36,0.75,0x0e7490),0,1.42,0);
+
+// ── 4. FIXTURE  (open ±X — no side walls) ─────────────────
+const fixBase=add(yG,bx(1.9,0.45,2.0,0xb45309),0,1.7,0);
+const suppF=add(yG,bx(1.85,1.5,0.28,0x78350f),0,2.45,-0.97);
+const suppB=add(yG,bx(1.85,1.5,0.28,0x78350f),0,2.45, 0.97);
+add(yG,bx(0.2,0.35,1.85,0x92400e),-0.88,1.98,0);
+add(yG,bx(0.2,0.35,1.85,0x92400e), 0.88,1.98,0);
+
+// ── 5. 9PIN HOUSING  (upright, holes face +X) ─────────────
+const hG=new THREE.Group();hG.position.set(0,2.8,0);yG.add(hG);
+hG.add(bx(0.55,1.78,1.78,0x5b21b6));
+const hFl=bx(0.12,1.9,1.9,0x3b0764);hFl.position.set(-0.32,0,0);hG.add(hFl);
+for(let r=0;r<3;r++)for(let c=0;c<3;c++){
+  const py=(r-1)*0.52,pz=(c-1)*0.52;
+  const rim=bx(0.1,0.42,0.42,0xa78bfa);rim.position.set(0.30,py,pz);hG.add(rim);
+  const cav=bx(0.55,0.32,0.32,0x4c1d95);cav.position.set(0,py,pz);hG.add(cav);
+  const op=new THREE.Mesh(new THREE.BoxGeometry(0.15,0.24,0.24),
+    new THREE.MeshStandardMaterial({color:0x06020f}));
+  op.position.set(0.32,py,pz);hG.add(op);
+}
+
+// ── 6. WIRE MOLD  (open-top tray, FIXED) ──────────────────
+// Tray: bottom plate + two side rails — NO top cover
+// Wires sit inside: 3×3 grid matching connector hole Y/Z positions
+//   Row Y: 2.28, 2.80, 3.32  |  Col Z: -0.52, 0, +0.52
+
+// Bottom plate of tray
+add(scene,bx(4.8,0.12,1.5,0x166534),3.2,2.12,0);
+// Front / back side rails (Z direction)
+add(scene,bx(4.8,1.32,0.12,0x166534),3.2,2.79,-0.75);
+add(scene,bx(4.8,1.32,0.12,0x166534),3.2,2.79, 0.75);
+// Exit end cap (right side)
+add(scene,bx(0.18,1.32,1.55,0x15803d),5.64,2.79,0);
+
+// Cable jacket (wires bundled, exits right side)
+const jkt=cy(0.42,0.42,3.0,0x1e293b,8);jkt.rotation.z=Math.PI/2;
+add(scene,jkt,7.15,2.8,0);
+// Jacket strain relief bump
+const sr=cy(0.52,0.52,0.28,0x0f172a,10);sr.rotation.z=Math.PI/2;
+add(scene,sr,5.8,2.8,0);
+
+// ── Wire fan-out function ──
+function wireTube(x1,y1,z1,x2,y2,z2,color){
+  const p1=new THREE.Vector3(x1,y1,z1);
+  const p2=new THREE.Vector3(x2,y2,z2);
+  const dir=new THREE.Vector3().subVectors(p2,p1);
+  const len=dir.length();
+  if(len<0.001)return;
+  const mid=new THREE.Vector3().lerpVectors(p1,p2,0.5);
+  const tube=cy(0.065,0.065,len,color,7);
+  tube.position.copy(mid);
+  tube.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.normalize());
+  scene.add(tube);
+}
+
+// 9 wire colors: row0=bottom(Y=2.28), row1=mid(Y=2.80), row2=top(Y=3.32)
+const WC=[
+  0x7c3f1e,0xd1d5db,0xdc2626,  // row0: brown, white, red
+  0x2563eb,0xca8a04,0x16a34a,  // row1: blue, yellow, green
+  0x111827,0xea580c,0x84cc16   // row2: black, orange, lime
+];
+const BX=5.45,BY=2.8,BZ=0; // bundle convergence point inside mold
+
+for(let r=0;r<3;r++){
+  for(let c=0;c<3;c++){
+    const tY=2.8+(r-1)*0.52;   // matches connector hole row Y
+    const tZ=(c-1)*0.52;        // matches connector hole col Z
+    const clr=WC[r*3+c];
+
+    // Fan-out wire (bundle → terminal)
+    wireTube(BX,BY,BZ, 0.82,tY,tZ, clr);
+
+    // Metal terminal tip (at connector side)
+    const t=cy(0.07,0.07,0.4,0x9ca3af,8);t.rotation.z=Math.PI/2;
+    add(scene,t,0.82,tY,tZ);
+    // Crimp band
+    const b=cy(0.093,0.093,0.1,0x6b7280,8);b.rotation.z=Math.PI/2;
+    add(scene,b,1.04,tY,tZ);
+    // Colored wire insulation stub visible near terminal
+    const ins=bx(0.5,0.11,0.11,clr);
+    add(scene,ins,1.3,tY,tZ);
+  }
+}
+
+// ── 7. HORIZONTAL ACTUATOR  (LEFT, pushes +X) ─────────────
+add(scene,bx(0.7,7.2,0.7,0x1e293b),-7.5,3.95,0);
+add(scene,bx(1.0,0.35,1.0,0x0f172a),-7.5,7.65,0);
+add(scene,bx(1.0,1.0,1.0,0x0c1222),-7.5,7.25,0);
+const actB=cy(0.45,0.45,3.5,0x7f1d1d,14);actB.rotation.z=Math.PI/2;
+add(scene,actB,-5.75,2.65,0);
+const cL=cy(0.48,0.48,0.15,0x450a0a,14);cL.rotation.z=Math.PI/2;add(scene,cL,-7.5,2.65,0);
+const cR=cy(0.48,0.48,0.15,0x450a0a,14);cR.rotation.z=Math.PI/2;add(scene,cR,-4.0,2.65,0);
+add(scene,bx(0.5,1.5,1.2,0x7f1d1d),-7.3,2.65,0);
+add(scene,bx(8.5,0.17,0.17,0x4b5563),-2.75,1.88,-0.65);
+add(scene,bx(8.5,0.17,0.17,0x4b5563),-2.75,1.88, 0.65);
+const actC=add(scene,bx(0.58,1.45,1.4,0xbe123c),-4.0,2.65,0);
+const actR=cy(0.135,0.135,2.5,0x9ca3af,8);actR.rotation.z=Math.PI/2;
+add(scene,actR,-2.8,2.65,0);
+const actH=add(scene,bx(0.3,1.95,2.1,0xf43f5e),-1.55,2.65,0);
+
+// ── 8. ARROWS ─────────────────────────────────────────────
+function ar(d,o,c,l){
+  return new THREE.ArrowHelper(
+    new THREE.Vector3(...d).normalize(),new THREE.Vector3(...o),l,c,l*0.14,l*0.08);
+}
+scene.add(ar([1,0,0], [-8,0.9, 4.8],0x3b82f6,2.4));
+scene.add(ar([0,0,-1],[-8,0.9, 4.8],0x22c55e,2.4));
+scene.add(ar([0,1,0], [-8,0.9, 4.8],0xef4444,2.4));
+scene.add(ar([1,0,0],[-8.5,4.5,0],0xef4444,8.5)); // big insertion arrow →
+
+// ── ORBIT CONTROLS ────────────────────────────────────────
+// phi ≈ 1.05 gives ~30° elevation (side-oblique view, not top-down)
+let isDr=false,isRt=false,mpx=0,mpy=0;
+let th=0.85, ph=1.05, rad=26, pnX=0, pnY=0;
+const la=new THREE.Vector3(-0.5,2.8,0); // lookAt center of machine action area
+
+function uc(){
+  camera.position.set(
+    la.x+pnX + rad*Math.sin(ph)*Math.sin(th),
+    la.y+pnY + rad*Math.cos(ph),
+    la.z      + rad*Math.sin(ph)*Math.cos(th)
+  );
+  camera.lookAt(la.x+pnX, la.y+pnY, la.z);
+}
+uc();
+
+const cv=renderer.domElement;
+cv.addEventListener('mousedown',e=>{isDr=true;isRt=e.button===2;mpx=e.clientX;mpy=e.clientY;});
+cv.addEventListener('contextmenu',e=>e.preventDefault());
+window.addEventListener('mouseup',()=>isDr=false);
+window.addEventListener('mousemove',e=>{
+  if(!isDr)return;
+  const dx=e.clientX-mpx,dy=e.clientY-mpy;
+  if(isRt){pnX-=dx*0.022;pnY+=dy*0.022;}
+  else{th-=dx*0.008;ph=Math.max(0.08,Math.min(Math.PI-0.08,ph-dy*0.008));}
+  mpx=e.clientX;mpy=e.clientY;uc();
+});
+cv.addEventListener('wheel',e=>{e.preventDefault();rad=Math.max(5,Math.min(65,rad+e.deltaY*0.022));uc();},{passive:false});
+let ltd=0;
+cv.addEventListener('touchstart',e=>{
+  if(e.touches.length===1){isDr=true;isRt=false;mpx=e.touches[0].clientX;mpy=e.touches[0].clientY;}
+  if(e.touches.length===2)ltd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+});
+cv.addEventListener('touchend',()=>isDr=false);
+cv.addEventListener('touchmove',e=>{
+  e.preventDefault();
+  if(e.touches.length===1&&isDr){
+    const dx=e.touches[0].clientX-mpx,dy=e.touches[0].clientY-mpy;
+    th-=dx*0.01;ph=Math.max(0.08,Math.min(Math.PI-0.08,ph-dy*0.01));
+    mpx=e.touches[0].clientX;mpy=e.touches[0].clientY;uc();
+  }
+  if(e.touches.length===2){
+    const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+    rad=Math.max(5,Math.min(65,rad-(d-ltd)*0.05));ltd=d;uc();
+  }
+},{passive:false});
+
+// ── ANIMATION ─────────────────────────────────────────────
+// Push head right edge: -1.55+0.15=-1.40
+// Connector left face after X align(+0.2): xG(-0.5+0.2)+hG(0)+left(-0.28) = -0.58
+// GAP = -0.58 - (-1.40) = 0.82
+// Terminal tips at X=0.82, connector right face at -0.5+0.2+0.28=-0.02 → gap to terminal = 0.84
+// Insert stroke 2.2: connector moves max(0, 2.2-0.82) = 1.38
+// Final housing right face: -0.5+0.2+1.38+0.28 = 1.36 > 0.82 ✓ terminals inserted
+
+const OX={c:actC.position.x,r:actR.position.x,h:actH.position.x,xg:xG.position.x,ygz:yG.position.z};
+const GAP=0.82, STR=2.2;
+
+const STEPS=[
+  {l:'步驟1：放置 9PIN 母座（手動）',d:60},
+  {l:'步驟2：X 軸對位中...',d:80},
+  {l:'步驟3：→ 水平壓入端子！（左側機構）',d:110},
+  {l:'步驟4：退回復位，取出成品',d:95},
+];
+let on=false,si=0,st=0;
+const sel=document.getElementById('st');
+function eio(t){return t<0.5?2*t*t:-1+(4-2*t)*t;}
+
+function runAnim(){
+  if(on)return;on=true;si=0;st=0;
+  actC.position.x=OX.c;actR.position.x=OX.r;actH.position.x=OX.h;
+  xG.position.x=OX.xg;yG.position.z=OX.ygz;
+}
+function resetView(){th=0.85;ph=1.05;rad=26;pnX=0;pnY=0;uc();}
+
+let expl=false;
+function toggleEx(){
+  expl=!expl;const o=expl?1.8:0;
+  fixBase.position.y=1.7+0;
+  suppF.position.y=2.45+o;suppB.position.y=2.45+o;
+  hG.position.y=2.8+o*2;
+}
+
+function loop(){
+  requestAnimationFrame(loop);
+  if(on){
+    const s=STEPS[si],p=eio(Math.min(st/s.d,1));sel.textContent=s.l;
+    if(si===1){
+      // X-only alignment (no Z move — keeps terminal Z aligned with housing holes)
+      xG.position.x=OX.xg+p*0.2;
+    }
+    if(si===2){
+      // Horizontal insertion: actuator pushes +X
+      const sk=p*STR;
+      actC.position.x=OX.c+sk;
+      actR.position.x=OX.r+sk;
+      actH.position.x=OX.h+sk;
+      // Connector slides right after gap closes
+      xG.position.x=(OX.xg+0.2)+Math.max(0,sk-GAP);
+    }
+    if(si===3){
+      // Retract: all actuator parts return to start
+      const sk=(1-p)*STR;
+      actC.position.x=OX.c+sk;
+      actR.position.x=OX.r+sk;
+      actH.position.x=OX.h+sk;
+      xG.position.x=(OX.xg+0.2*(1-p))+Math.max(0,sk-GAP+(GAP*p));
+    }
+    st++;
+    if(st>s.d){
+      si++;st=0;
+      if(si>=STEPS.length){on=false;sel.textContent='✅ 插入完成！按「執行動作」再次播放';}
+    }
+  }
+  renderer.render(scene,camera);
+}
+loop();
+
+window.addEventListener('resize',()=>{
+  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight);
+});
+</script>
+</body>
+</html>
