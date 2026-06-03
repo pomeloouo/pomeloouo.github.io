@@ -1,136 +1,603 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  <title>林泓佑的作品集</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      color: #333;
-    }
-    header {
-      background: #222;
-      color: #fff;
-      text-align: center;
-      padding: 3rem 1rem;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-    header p {
-      margin: 0.5rem 0 0;
-      font-size: 1.2rem;
-      color: #bbb;
-    }
-    section {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    h2 {
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .project {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 1rem;
-      transition: transform 0.2s ease;
-    }
-    .project:hover {
-      transform: translateY(-5px);
-    }
-    .project h3 {
-      margin-top: 0;
-    }
-    .project p {
-      font-size: 0.9rem;
-      color: #666;
-    }
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      background: #222;
-      color: #aaa;
-      margin-top: 3rem;
-    }
-    footer a {
-      color: #4da3ff;
-      text-decoration: none;
-    }
-  </style>
+<meta charset="UTF-8" />
+<title>林泓佑 | 業務工程師作品集</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+/* ── 全域 ── */
+:root{
+  --primary:#1e3a5f;
+  --accent:#3a6ea5;
+  --bright:#4d9de0;
+  --soft:#6b8aaf;
+  --bg:#ffffff;
+  --bg-soft:#f5f7fb;
+  --text:#222;
+  --text-soft:#555;
+  --line:#e0e6ed;
+  --tag-bg:#eef3f9;
+  --tag-text:#1e3a5f;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:"Microsoft JhengHei","PingFang TC","Noto Sans CJK TC","Segoe UI",sans-serif;
+  color:var(--text);
+  background:#e9eef5;
+  line-height:1.55;
+  font-size:14px;
+}
+
+/* ── Hero ── */
+.hero{
+  min-height:100vh;
+  background:linear-gradient(135deg,#0d1b2a 0%,#1e3a5f 55%,#2d6da8 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:60px 24px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at 70% 30%,rgba(77,157,224,.18) 0%,transparent 65%);
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  bottom:-2px;left:0;right:0;
+  height:60px;
+  background:linear-gradient(to bottom,transparent,#e9eef5);
+}
+.hero-inner{
+  position:relative;
+  z-index:1;
+  max-width:760px;
+}
+.hero-badge{
+  display:inline-block;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.22);
+  color:#cfe0f3;
+  padding:6px 20px;
+  border-radius:20px;
+  font-size:13px;
+  letter-spacing:2px;
+  margin-bottom:24px;
+}
+.hero h1{
+  font-size:clamp(32px,6vw,62px);
+  color:#fff;
+  font-weight:700;
+  letter-spacing:4px;
+  margin-bottom:14px;
+}
+.hero-tagline{
+  color:#9ec0e7;
+  font-size:clamp(14px,2.5vw,18px);
+  margin-bottom:44px;
+  line-height:1.7;
+}
+.hero-tagline em{
+  color:#4d9de0;
+  font-style:normal;
+  font-weight:600;
+}
+.hero-pills{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+}
+.hero-pills a{
+  display:inline-block;
+  padding:13px 30px;
+  border-radius:30px;
+  text-decoration:none;
+  font-size:15px;
+  letter-spacing:1px;
+  transition:all .3s;
+}
+.hero-pills a.primary{
+  background:#3a6ea5;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.2);
+}
+.hero-pills a.primary:hover{background:#4d9de0;transform:translateY(-2px);box-shadow:0 8px 24px rgba(77,157,224,.45);}
+.hero-pills a.ghost{
+  background:rgba(255,255,255,.08);
+  color:#cfe0f3;
+  border:1px solid rgba(255,255,255,.2);
+}
+.hero-pills a.ghost:hover{background:rgba(255,255,255,.16);color:#fff;transform:translateY(-2px);}
+
+/* ── 統計列 ── */
+.stats-bar{
+  background:#1e3a5f;
+  padding:24px 40px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:40px;
+}
+.stat{text-align:center;}
+.stat-val{font-size:28px;font-weight:700;color:#4d9de0;}
+.stat-lbl{font-size:12px;color:#9ec0e7;margin-top:4px;letter-spacing:1px;}
+
+/* ── 履歷容器 ── */
+.resume-wrap{
+  padding:32px 16px 16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* ── A4 頁面 ── */
+.page{
+  width:210mm;
+  min-height:297mm;
+  margin:0 auto 28px;
+  background:var(--bg);
+  box-shadow:0 6px 24px rgba(30,58,95,.12);
+  display:grid;
+  grid-template-columns:35% 65%;
+}
+
+/* ── 左欄 ── */
+aside{
+  background:var(--primary);
+  color:#fff;
+  padding:36px 28px;
+}
+aside .name-block{
+  border-bottom:1px solid rgba(255,255,255,.25);
+  padding-bottom:18px;
+  margin-bottom:22px;
+}
+aside .name{font-size:30px;font-weight:700;letter-spacing:2px;}
+aside .role{font-size:14px;color:#cfe0f3;margin-top:6px;letter-spacing:1px;}
+aside h3{
+  font-size:13px;color:#cfe0f3;letter-spacing:3px;
+  margin:22px 0 10px;
+  border-bottom:1px solid rgba(255,255,255,.2);
+  padding-bottom:6px;font-weight:600;
+}
+aside .info-row{
+  display:flex;gap:10px;font-size:12.5px;
+  margin:6px 0;color:#e8effa;word-break:break-all;
+}
+aside .info-row .label{min-width:54px;color:#9ec0e7;}
+aside ul{list-style:none;padding:0;}
+aside ul li{
+  font-size:12.5px;padding:5px 0;color:#e8effa;
+  border-bottom:1px dashed rgba(255,255,255,.12);
+}
+aside ul li:last-child{border-bottom:none;}
+aside .tag{
+  display:inline-block;
+  background:rgba(255,255,255,.12);
+  color:#fff;border:1px solid rgba(255,255,255,.2);
+  border-radius:10px;padding:3px 9px;
+  font-size:11.5px;margin:3px 4px 3px 0;
+}
+
+/* ── 右欄 ── */
+main{padding:38px 36px;}
+main .title-row{
+  border-bottom:2px solid var(--primary);
+  padding-bottom:10px;margin-bottom:14px;
+}
+main .title-row h1{font-size:22px;color:var(--primary);letter-spacing:2px;font-weight:700;}
+main .title-row p{color:var(--text-soft);font-size:13px;margin-top:4px;}
+main section{margin-bottom:22px;}
+main h2{
+  font-size:15px;color:var(--primary);margin-bottom:10px;
+  padding-left:10px;border-left:4px solid var(--accent);letter-spacing:2px;
+}
+main p{color:var(--text-soft);font-size:13.5px;margin-bottom:8px;text-align:justify;}
+main ul{padding-left:18px;}
+main ul li{font-size:13.5px;color:var(--text);margin:4px 0;line-height:1.6;}
+main .job{margin-bottom:14px;padding-bottom:10px;border-bottom:1px dashed var(--line);}
+main .job:last-child{border-bottom:none;}
+main .job-head{
+  display:flex;justify-content:space-between;
+  align-items:baseline;flex-wrap:wrap;margin-bottom:4px;
+}
+main .job-title{font-size:14.5px;font-weight:700;color:var(--primary);}
+main .job-meta{font-size:12.5px;color:var(--text-soft);}
+main .job-company{font-size:13px;color:var(--accent);margin-bottom:6px;}
+main .highlight-num{color:var(--accent);font-weight:700;}
+main .auto-bio p{text-indent:2em;margin-bottom:10px;}
+
+/* ── 可點擊的案件卡 ── */
+a.case-link{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+  border-radius:0 6px 6px 0;
+  transition:transform .2s,box-shadow .2s;
+}
+a.case-link:hover{transform:translateX(4px);}
+a.case-link:hover .case-card{
+  border-left-color:#4d9de0;
+  box-shadow:0 4px 16px rgba(58,110,165,.18);
+}
+a.case-link:hover .case-card .case-title{color:#2d6da8;}
+
+.case-card{
+  background:var(--bg-soft);
+  border-left:3px solid var(--accent);
+  padding:10px 14px;
+  margin:8px 0;
+  border-radius:0 4px 4px 0;
+  position:relative;
+  transition:border-left-color .2s,box-shadow .2s;
+}
+.case-card .case-go{
+  position:absolute;
+  right:12px;top:50%;transform:translateY(-50%);
+  color:#9ec0e7;font-size:18px;opacity:0;
+  transition:opacity .2s,right .2s;
+}
+a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
+.case-card .case-title{
+  font-weight:700;color:var(--primary);
+  font-size:13.5px;margin-bottom:3px;
+  transition:color .2s;
+  padding-right:28px;
+}
+.case-card .case-detail{
+  color:var(--text-soft);font-size:12.5px;line-height:1.55;
+}
+.case-card .case-detail strong{color:var(--accent);}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+
+/* ── 第二頁 ── */
+.page-2{page-break-before:always;}
+
+/* ── 列印 ── */
+@media print{
+  .hero,.stats-bar{display:none;}
+  body{background:#fff;}
+  .page{box-shadow:none;margin:0;width:100%;min-height:auto;}
+  aside{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+@page{size:A4;margin:0;}
+
+/* ── RWD ── */
+@media(max-width:900px){
+  .page{width:100%;grid-template-columns:1fr;}
+  aside{padding:28px 20px;}
+  main{padding:28px 20px;}
+  .hero h1{letter-spacing:2px;}
+  .stats-bar{gap:24px;padding:20px 24px;}
+}
+@media(max-width:480px){
+  .hero-pills a{padding:11px 22px;font-size:14px;}
+  .stat-val{font-size:22px;}
+  .grid-2{grid-template-columns:1fr;}
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>林泓佑</h1>
-    <p>作品集 · Portfolio</p>
-  </header>
 
-  <section>
-    <h2>關於我</h2>
-    <p>
-      嗨 👋 我是泓佑，專長於資訊工程與自動化機械手臂整合。 
-      喜歡把程式、機械應用在實際專案，創造有效率的解決方案。 
+<!-- ══════════════════ HERO ══════════════════ -->
+<section id="hero" class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">PORTFOLIO · 作品集</div>
+    <h1>林 泓 佑</h1>
+    <p class="hero-tagline">
+      Sales Engineer ｜ 業務工程師<br>
+      <em>把客戶語言翻譯成技術規格，再把技術方案翻譯回客戶聽得懂的價值</em>
     </p>
-    <p>
-      具備 C/C#/C++、Visual Basic 等程式語言基礎，還擁有丙級軟體應用與硬體裝修技術士證照，在職安部分還有小綠卡，我對新知識和創新思維總是充滿興趣，並喜歡挑戰現狀、探索新領域。
-    </p>
-    </p>
-    在過去的工作經歷中，我積累了許多跨領域的經驗，包括不動產業務、電信業銷售與餐飲服務等。這些經歷不僅讓我學會了如何與不同客戶對接，也幫助我培養了良好的溝通與談判技巧。
-    特別是在不動產與電信業的工作中，我學會了如何快速識別並滿足客戶需求，並且能夠提出創新的解決方案。這些經歷讓我在業務中屢屢成功締結關係，並達成預期目標。
-    此外，我也善於觀察細節，能夠提早預見客戶可能的需求，並事先做好準備，這使我在面對挑戰時能更加游刃有餘。
-    </p>
-  </section>
-
-  <section>
-    <h2>作品展示</h2>
-    <div class="projects">
-      <div class="project">
-        <h3>software📌 LiDAR 逆向工程點雲圖資訊</h3>
-        <p>使用 HelixToolkit.Wpf 開發的 3D 點雲視覺化工具，可以將光達掃描數據進行即時顯示與旋轉檢視，並且把3D虛擬空間資訊與現實空間做校正。</p> 
-        <a href="project/lidar.html">查看專案</a>
-      </div>
-      <div class="project">
-        <h3>hardware📌 機械手臂</h3> 
-        <p>機械手臂專案分享。</p> 
-        <a href="project/robotic.html">查看專案</a>
-      </div>
+    <div class="hero-pills">
+      <a href="#resume" class="primary">↓ 查看履歷</a>
+      <a href="#experience" class="ghost">工作經歷</a>
+      <a href="#cases" class="ghost">代表案件</a>
+      <a href="#autobiography" class="ghost">自傳</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <h2>聯絡方式</h2>
-    <p>Email: <a href="mailto:qqwwa28855388@gmail.com">qqwwa28855388@gmail.com</a></p> 
-    <p>GitHub: <a href="https://github.com/pomeloouo" target="_blank">pomeloouo.github.io</a></p> 
-  </section>
+<!-- 統計列 -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-val">3+</div><div class="stat-lbl">年跨業經驗</div></div>
+  <div class="stat"><div class="stat-val">10+</div><div class="stat-lbl">自動化提案案件</div></div>
+  <div class="stat"><div class="stat-val">4 個月</div><div class="stat-lbl">業務工程師任期</div></div>
+  <div class="stat"><div class="stat-val">8+</div><div class="stat-lbl">產業橫跨</div></div>
+</div>
 
-  <footer>
-    <p>© 2025 Lin Hong Yu · Hosted on GitHub Pages</p> 
-  </footer>
+<!-- ══════════════════ 履歷第一頁 ══════════════════ -->
+<div class="resume-wrap">
+<div id="resume" class="page">
+
+  <!-- 左欄 -->
+  <aside>
+    <div class="name-block">
+      <div class="name">林泓佑</div>
+      <div class="role">Sales Engineer ｜ 業務工程師</div>
+    </div>
+
+    <h3>個人資料</h3>
+    <div class="info-row"><span class="label">出生</span><span>2000/08/11｜25 歲｜男</span></div>
+    <div class="info-row"><span class="label">居住</span><span>台中市 太平區</span></div>
+    <div class="info-row"><span class="label">電話</span><span>0966-837-850</span></div>
+    <div class="info-row"><span class="label">Email</span><span>qqwwa28855388@gmail.com</span></div>
+    <div class="info-row"><span class="label">兵役</span><span>役畢（2019/7）</span></div>
+    <div class="info-row"><span class="label">駕照</span><span>普通重型機車、手排小型車</span></div>
+
+    <h3>核心職能</h3>
+    <ul>
+      <li>客戶現場需求訪談與痛點分析</li>
+      <li>自動化專案規格定義與報價</li>
+      <li>跨部門（業務／機構／電控）溝通協調</li>
+      <li>技術提案、規格書、效益評估撰寫</li>
+      <li>現場試機、驗收與上線支援</li>
+      <li>製程改善（人因／噪音／效率）</li>
+    </ul>
+
+    <h3>技術專長</h3>
+    <div>
+      <span class="tag">機械手臂整合</span>
+      <span class="tag">視覺檢測/CCD</span>
+      <span class="tag">氣動／伺服機構</span>
+      <span class="tag">點雲掃描軟體設計</span>
+      <span class="tag">SolidWorks</span>
+      <span class="tag">C / C++</span>
+      <span class="tag">C#</span>
+      <span class="tag">文件製作</span>
+    </div>
+
+    <h3>專業證照</h3>
+    <ul>
+      <li>勞工安全衛生小綠卡</li>
+      <li>丙級電腦軟體應用技術士</li>
+      <li>丙級電腦硬體裝修技術士</li>
+      <li>TQC 文書處理 Word</li>
+      <li>不動產經紀營業員</li>
+    </ul>
+
+    <h3>個人特質</h3>
+    <ul>
+      <li>主動發現問題</li>
+      <li>結果導向</li>
+      <li>抗壓性高</li>
+      <li>細節敏感度高</li>
+      <li>持續改善思維</li>
+      <li>任務推進能力</li>
+      <li>快速吸收與重構知識</li>
+      <li>能快速識別問題核心</li>
+    </ul>
+  </aside>
+
+  <!-- 右欄 -->
+  <main>
+    <div class="title-row">
+      <h1>個 人 簡 介</h1>
+      <p>業務出身、跨足自動化工程，能將客戶語言翻譯成技術規格，再把技術方案翻譯回客戶聽得懂的價值。</p>
+    </div>
+
+    <section>
+      <p>具備 <span class="highlight-num">3 年以上</span> 跨業務／工程經驗，從不動產經紀、三星電信通路門市管理，轉入自動化產業擔任設備工程師、軟體工程師至業務工程師，熟悉「客戶開發 → 現場勘查 → 需求釐清 → 方案提案 → 報價簽約 → 設計協作 → 試機驗收」完整專案生命週期。</p>
+      <p>在青廷自動化任職期間，<span class="highlight-num">4 個月內</span>實際參與 <span class="highlight-num">10 件以上</span>自動化提案／導入案，產業橫跨食品、汽車零件、醫療器材、塑膠射出與水泥製管，主導撰寫多份需求訪談報告、設備規格書、效益評估表與報價暨專案內容確認書。</p>
+    </section>
+
+    <section id="experience">
+      <h2>工 作 經 歷</h2>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">業務工程師</span>
+          <span class="job-meta">2026/03 ～ 2026/06（4 個月）</span>
+        </div>
+        <div class="job-company">青廷自動化有限公司｜台中市太平區｜自動控制相關</div>
+        <ul>
+          <li><b>客戶端業務對接：</b>主動開發米廠、汽車零件廠、醫材與射出廠等客戶，深入產線了解搬運、檢測、噪音、人因等痛點，並擔任客戶與內部工程師之間的翻譯橋梁。</li>
+          <li><b>需求收集與方案提案：</b>獨立完成現場勘查、需求釐清、規格定義、初步報價與專案內容確認書，並於客戶端技術會議簡報，建立信任並推進訂單。</li>
+          <li><b>製程瓶頸分析：</b>協同工程師評估自動化導入方案，含機械手臂整合、視覺檢測、專用機設計、噪音／人因工程改善等，並產出效益評估表。</li>
+          <li><b>協力廠商：主動尋找現有技術廠商導入，達成深度合作，讓現行專案穩定的同時也讓公司有新進案件。</li>
+          <li><b>設備驗收與上線支援：</b>負責驗收標準與現場試機協助。</li>
+          <li><b>內部數位化推動：</b>導入業務部任務追蹤與跨部門溝通工具，並撰寫使用手冊。</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">軟體工程師</span>
+          <span class="job-meta">2025/07 ～ 2026/03（9 個月）</span>
+        </div>
+        <div class="job-company">自動化系統商｜台中市烏日區｜電腦軟體相關</div>
+        <ul>
+          <li>撰寫線雷射掃描程式，將工件表面建構為點雲圖，供機械手臂計算取放位點與軌跡。</li>
+          <li>結合視覺與機構參數，並參與設備現場除錯。</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">設備工程師</span>
+          <span class="job-meta">2024/03 ～ 2024/06（4 個月）</span>
+        </div>
+        <div class="job-company">德制國際｜台中市太平區｜自動控制相關</div>
+        <ul>
+          <li>機械手臂與自動化設備之現場設計、組立與機構維護。</li>
+          <li>軟體維護、企業網頁維護，並協助 SolidWorks 機構繪圖。</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">店長／門市管理人員</span>
+          <span class="job-meta">2023/03 ～ 2024/03（1 年 1 個月）</span>
+        </div>
+        <div class="job-company">三星 SAMSUNG 通訊門市｜台中市太平區</div>
+        <ul>
+          <li>負責門市營運、業績達成、客戶諮詢與售後處理，建立穩定的客戶締結關係與回購率。</li>
+          <li>培養快速判讀客戶需求、提出方案並完成成交的業務直覺。</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">不動產營業員</span>
+          <span class="job-meta">2019/11 ～ 2021/02（1 年 4 個月）</span>
+        </div>
+        <div class="job-company">房仲｜台中市太平區</div>
+        <ul>
+          <li>主動開發案源、帶看、議價與成交，學會在資訊不對等的場域中，用同理心與專業說服客戶議價。</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ══════════════════ 履歷第二頁 ══════════════════ -->
+<div id="cases" class="page page-2">
+  <aside>
+    <div class="name-block">
+      <div class="name">代表案件</div>
+      <div class="role">Selected Project Highlights</div>
+    </div>
+
+    <h3>產業涵蓋</h3>
+    <ul>
+      <li>食品包裝（米廠堆疊）</li>
+      <li>食品自動化（智能調酒）</li>
+      <li>連接器組裝（9pin半自動）</li>
+      <li>塑膠射出（埋入射出）</li>
+      <li>滑軌（鋼珠壓入）</li>
+      <li>醫療器材（口腔鏡貼機）</li>
+      <li>水泥製管（離心成型）</li>
+      <li>環安製程（噪音／人因）</li>
+    </ul>
+
+    <h3>專案文件產出</h3>
+    <ul>
+      <li>需求訪談與評估報告</li>
+      <li>設備規格說明書</li>
+      <li>設備報價暨專案內容確認書</li>
+      <li>效益評估表（ROI 試算）</li>
+      <li>驗收標準書／驗收報告</li>
+      <li>開案會議問題追蹤紀錄</li>
+      <li>NDA 保密協議簽署</li>
+    </ul>
+
+    <h3>導入工具</h3>
+    <ul>
+      <li>業務部任務</li>
+      <li>任務導出小工具</li>
+      <li>跨部門即時溝通</li>
+      <li>SolidWorks（機構提案輔助）</li>
+    </ul>
+
+    <h3>教育程度</h3>
+    <ul>
+      <li><b>朝陽科技大學</b><br/>資訊工程系｜2019.9 ～ 2023.6</li>
+      <li><b>大明高中</b><br/>資訊科｜2015.7 ～ 2018.7</li>
+    </ul>
+
+    <h3>求職偏好</h3>
+    <div class="info-row"><span class="label">職稱</span><span>業務工程師 / Sales Engineer</span></div>
+    <div class="info-row"><span class="label">地區</span><span>台中市</span></div>
+    <div class="info-row"><span class="label">薪資</span><span>40000</span></div>
+    <div class="info-row"><span class="label">到職</span><span>可隨時報到</span></div>
+  </aside>
+
+  <main>
+    <div class="title-row">
+      <h1>代 表 案 件 實 績</h1>
+      <p>節錄於青廷自動化任職期間（2026/03 ～ 2026/06）實際參與之提案／導入專案。點擊卡片可查看完整案件頁面。</p>
+    </div>
+
+    <section>
+      <h2>自動化專案提案</h2>
+
+      <a class="case-link" href="project/上誼米廠.html">
+        <div class="case-card">
+          <div class="case-go">›</div>
+          <div class="case-title">米廠成品包裝與堆疊自動化｜報價為:<strong>350萬</strong></div>
+          <div class="case-detail">針對 <strong>30kg／3kg／1.5kg</strong> 三種米袋規格，提出機械手臂堆棧、輸送整平與快拆夾具（夾爪＋多吸頭）整合方案；以 <strong>3kg 規格 8 小時 4000 包（約 8.3 包/分鐘）</strong>為 KPI，現勘評估後將「倒吊式」修正為「落地支架式」。</div>
+        </div>
+      </a>
+
+      <a class="case-link" href="project/振添製管.html">
+        <div class="case-card">
+          <div class="case-go">›</div>
+          <div class="case-title">水泥｜離心製管製程自動化｜報價為:<strong>280萬</strong></div>
+          <div class="case-detail">獨立主導需求訪談並產出簡報與評估報告，涵蓋 <strong>自動刮料、拆組模（A/B/C 三方案）、模具自動清潔、澆注帆布自動啟閉、蒸汽養護自動控制</strong>等模組；同步整合噪音改善與人因工程方案，提出 <strong>4～6 個月</strong>交機時程。</div>
+        </div>
+      </a>
+
+      <a class="case-link" href="project/南俊鋼珠.html">
+        <div class="case-card">
+          <div class="case-go">›</div>
+          <div class="case-title">南俊國際｜鋼珠自動壓入機｜報價為:<strong>60萬</strong></div>
+          <div class="case-detail">撰寫設備規格說明書：<strong>317mm 長條塑膠件 + Ø2.8mm 鋼珠</strong>，採膠輪壓珠＋ 1～5 號平行站位設計，<strong>Cycle Time ≦ 5 秒/pcs</strong>，配備 NG 自動剔除與全罩式安全防護。</div>
+        </div>
+      </a>
+
+      <a class="case-link" href="project/欣莉達口腔鏡.html">
+        <div class="case-card">
+          <div class="case-go">›</div>
+          <div class="case-title">牙醫廠商｜口腔鏡貼機｜報價為:<strong>55萬</strong></div>
+          <div class="case-detail">主導《設備報價暨專案內容確認書》撰寫，含 <strong>本體倉儲、輸送排列、鏡片倉儲、組裝模組</strong> 四大模組設計，<strong>節拍 2.5 秒一支、連續運轉 4 小時驗收</strong>；同步主持開案會議並完成問題追蹤紀錄（Issue Log）。</div>
+        </div>
+      </a>
+
+      <div class="grid-2">
+        <a class="case-link" href="project/全傳調酒.html">
+          <div class="case-card">
+            <div class="case-go">›</div>
+            <div class="case-title">全傳智能｜自動調酒機</div>
+            <div class="case-detail">負責產品細節對接，目前尚有10 餘項議題釐清；協調提供漸層酒款做雙方一致驗收基準。</div>
+          </div>
+        </a>
+
+        <a class="case-link" href="project/怡利電子.html">
+          <div class="case-card">
+            <div class="case-go">›</div>
+            <div class="case-title">怡利電子｜埋入射出機機械手臂上下料｜評估報價為:<strong>315萬</strong></div>
+            <div class="case-detail">效益評估：，<strong>4 人→1 人回收期 21.9 個月</strong>，6 人→1 人 13.1 個月。</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="grid-2">
+        <a class="case-link" href="project/至興驗收.html">
+          <div class="case-card">
+            <div class="case-go">›</div>
+            <div class="case-title">至興｜影像辨識零件安裝驗收｜報價為:<strong>40萬</strong></div>
+            <div class="case-detail">撰寫驗收標準：<strong>17 項機構零件、雙機型</strong>，AOI 標準化。</div>
+          </div>
+        </a>
+
+        <a class="case-link" href="project/弘佳千鼎.html">
+          <div class="case-card">
+            <div class="case-go">›</div>
+            <div class="case-title">SAKURA下游塑膠射出廠商｜9pin 半自動插入機 + 汽車零件廠商｜NDA 簽訂</div>
+            <div class="case-detail">塑膠廠商機構草圖與規格構想；汽車零件廠商完成 NDA 保密契約簽署，進入實質對接。</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="autobiography">
+      <h2>自 傳</h2>
+      <div class="auto-bio">
+        <p>我對工程的熱情和對跨領域整合的興趣，是驅使我走上業務工程師這條路最大的動力。於朝陽科技大學資訊工程系就讀至三下，具備 C#／C++等程式語言基礎，並擁有丙級軟體應用、硬體裝修技術士證照與勞安小綠卡。</p>
+        <p>過去的工作經歷讓我累積了跨領域的客戶對接經驗——不動產業務教會我「在資訊不對等的場域用同理心建立信任」、電信通路門市鍛鍊我「在十分鐘內判讀需求並提出方案」。這些看似與工程無關的歷練，正是業務工程師的底層能力：把客戶語言翻譯成技術規格，再把技術方案翻譯回客戶聽得懂的價值。</p>
+        <p>2024 年正式跨入自動控制設備領域，先從機械手臂與自動化設備的設計、組立與維護開始，再進入點雲視覺軟體撰寫，最後在 2026 年成為青廷自動化的業務工程師。4 個月內參與了 10 餘個案件，獨立完成多份需求訪談報告、規格說明書、效益評估表與專案內容確認書。每當把客戶現場的混亂痛點，拆解成清楚的規格與報價，再看著工程師據此設計出實機，是一種「跨界翻譯成功」的滿足感，也是選擇業務工程師這條路最大的驅動力。</p>
+      </div>
+    </section>
+  </main>
+</div>
+</div><!-- resume-wrap -->
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
