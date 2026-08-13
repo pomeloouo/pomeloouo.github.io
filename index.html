@@ -6,6 +6,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <style>
 /* ── 全域 ── */
+
+
+  #three-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+.site-content {
+    position: relative;
+    z-index: 1;
+  }
+
+
+
+
+
+
 :root{
   --primary:#1e3a5f;
   --accent:#3a6ea5;
@@ -286,6 +310,15 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
 </style>
 </head>
 <body>
+<!-- 帝國駭客-->
+
+ <canvas id="three-canvas"></canvas>
+
+<div class="site-content">
+
+
+
+
 
 <!-- ══════════════════ HERO ══════════════════ -->
 <section id="hero" class="hero">
@@ -628,6 +661,73 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
   </main>
 </div>
 </div><!-- resume-wrap -->
+</div><!-- site-content -->
+
+ <script>
+  // 頁面背景效果 (Matrix Rain 變化版 - 橫向流動) - Canvas 2D 實作
+  // 從 https://tian1224.uk/js/three_animation.js 還原重建
+  (function () {
+      const canvas = document.querySelector('#three-canvas');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+
+      // 矩陣字元設定
+      const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]";
+      const fontSize = 16;
+      let columns = 0;
+      let drops = [];
+
+      function resize() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          columns = Math.ceil(canvas.height / fontSize); // 改為以高度計算行數(橫向流動)
+
+          // 重新初始化 drops(每行的 X 起始位置,從畫面左側外開始)
+          drops = [];
+          for (let i = 0; i < columns; i++) {
+              drops[i] = -(Math.random() * (canvas.width / fontSize));
+          }
+      }
+      window.addEventListener('resize', resize); // 視窗大小改變時重新調整
+      resize();
+
+      function draw() {
+          // 半透明黑色背景,產生拖尾效果
+          ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          ctx.fillStyle = '#00FF41'; // 經典駭客風格綠
+          ctx.font = fontSize + 'px monospace';
+
+          for (let i = 0; i < drops.length; i++) {
+              // 隨機字元(x = drops[i], y = 行號,由左往右流動)
+              const text = characters.charAt(Math.floor(Math.random() * characters.length));
+              ctx.fillText(text, drops[i] * fontSize, i * fontSize);
+
+              // 如果字元移出畫面右側,隨機機率從左側重新開始
+              if (drops[i] * fontSize > canvas.width && Math.random() > 0.975) {
+                  drops[i] = -Math.ceil(canvas.width / fontSize);
+              }
+              drops[i]++;
+          }
+      }
+
+      let lastTime = 0;
+      const fpsInterval = 1000 / 30; // 固定速度(30fps)
+
+      function animate(time) {
+          requestAnimationFrame(animate);
+
+          const elapsed = time - lastTime;
+          if (elapsed > fpsInterval) {
+              lastTime = time - (elapsed % fpsInterval);
+              draw();
+          }
+      }
+      animate(0);
+  })();
+  </script>
 
 </body>
 </html>
