@@ -6,8 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <style>
 /* ── 全域 ── */
-
-
+/* ── 打字效果 ── */
+.typing-cursor {
+  color: rgb(102, 102, 102);
+  animation: 1s ease 0s infinite normal none running blink;
+}
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+/* ── 打字效果 ── */
+/* ── 背景 ── */
   #three-canvas {
     position: fixed;
     top: 0;
@@ -24,12 +33,7 @@
     position: relative;
     z-index: 1;
   }
-
-
-
-
-
-
+/* ── 背景 ── */
 :root{
   --primary:#1e3a5f;
   --accent:#3a6ea5;
@@ -52,7 +56,6 @@ body{
   line-height:1.55;
   font-size:14px;
 }
-
 /* ── Hero ── */
 .hero{
   min-height:100vh;
@@ -139,7 +142,6 @@ body{
   border:1px solid rgba(255,255,255,.2);
 }
 .hero-pills a.ghost:hover{background:rgba(255,255,255,.16);color:#fff;transform:translateY(-2px);}
-
 /* ── 統計列 ── */
 .stats-bar{
   background:#1e3a5f;
@@ -152,7 +154,6 @@ body{
 .stat{text-align:center;}
 .stat-val{font-size:28px;font-weight:700;color:#4d9de0;}
 .stat-lbl{font-size:12px;color:#9ec0e7;margin-top:4px;letter-spacing:1px;}
-
 /* ── 履歷容器 ── */
 .resume-wrap{
   padding:32px 16px 16px;
@@ -160,7 +161,6 @@ body{
   flex-direction:column;
   align-items:center;
 }
-
 /* ── A4 頁面 ── */
 .page{
   width:210mm;
@@ -171,7 +171,6 @@ body{
   display:grid;
   grid-template-columns:35% 65%;
 }
-
 /* ── 左欄 ── */
 aside{
   background:var(--primary);
@@ -209,7 +208,6 @@ aside .tag{
   border-radius:10px;padding:3px 9px;
   font-size:11.5px;margin:3px 4px 3px 0;
 }
-
 /* ── 右欄 ── */
 main{padding:38px 36px;}
 main .title-row{
@@ -237,7 +235,6 @@ main .job-meta{font-size:12.5px;color:var(--text-soft);}
 main .job-company{font-size:13px;color:var(--accent);margin-bottom:6px;}
 main .highlight-num{color:var(--accent);font-weight:700;}
 main .auto-bio p{text-indent:2em;margin-bottom:10px;}
-
 /* ── 可點擊的案件卡 ── */
 a.case-link{
   display:block;
@@ -252,7 +249,6 @@ a.case-link:hover .case-card{
   box-shadow:0 4px 16px rgba(58,110,165,.18);
 }
 a.case-link:hover .case-card .case-title{color:#2d6da8;}
-
 .case-card{
   background:var(--bg-soft);
   border-left:3px solid var(--accent);
@@ -279,12 +275,9 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
   color:var(--text-soft);font-size:12.5px;line-height:1.55;
 }
 .case-card .case-detail strong{color:var(--accent);}
-
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-
 /* ── 第二頁 ── */
 .page-2{page-break-before:always;}
-
 /* ── 列印 ── */
 @media print{
   .hero,.stats-bar{display:none;}
@@ -293,7 +286,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
   aside{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
 }
 @page{size:A4;margin:0;}
-
 /* ── RWD ── */
 @media(max-width:900px){
   .page{width:100%;grid-template-columns:1fr;}
@@ -311,23 +303,16 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
 </head>
 <body>
 <!-- 帝國駭客-->
-
  <canvas id="three-canvas"></canvas>
-
 <div class="site-content">
-
-
-
-
-
 <!-- ══════════════════ HERO ══════════════════ -->
 <section id="hero" class="hero">
   <div class="hero-inner">
     <div class="hero-badge">PORTFOLIO · 作品集</div>
-    <h1>林 泓 佑</h1>
+    <h1><span id="cmd-name"></span><span id="cursor-name" class="typing-cursor">_</span></h1>
     <p class="hero-tagline">
       Sales Engineer ｜ 業務工程師<br>
-      <em>把客戶語言翻譯成技術規格，再把技術方案翻譯回客戶聽得懂的價值</em>
+     <em><span id="cmd-tagline"></span><span id="cursor-tagline" class="typing-cursor">_</span></em>
     </p>
     <div class="hero-pills">
       <a href="#resume" class="primary">↓ 查看履歷</a>
@@ -337,7 +322,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
     </div>
   </div>
 </section>
-
 <!-- 統計列 -->
 <div class="stats-bar">
   <div class="stat"><div class="stat-val">3+</div><div class="stat-lbl">年跨業經驗</div></div>
@@ -345,26 +329,22 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
   <div class="stat"><div class="stat-val">4 個月</div><div class="stat-lbl">業務工程師任期</div></div>
   <div class="stat"><div class="stat-val">8+</div><div class="stat-lbl">產業橫跨</div></div>
 </div>
-
 <!-- ══════════════════ 履歷第一頁 ══════════════════ -->
 <div class="resume-wrap">
 <div id="resume" class="page">
-
   <!-- 左欄 -->
   <aside>
     <div class="name-block">
       <div class="name">林泓佑</div>
       <div class="role">Sales Engineer ｜ 業務工程師</div>
     </div>
-
     <h3>個人資料</h3>
-    <div class="info-row"><span class="label">出生</span><span>2000/08/11｜26 歲｜男</span></div>
+    <div class="info-row"><span class="label">出生</span><span>2000/08/11｜25 歲｜男</span></div>
     <div class="info-row"><span class="label">居住</span><span>台中市 太平區</span></div>
     <div class="info-row"><span class="label">電話</span><span>0966-837-850</span></div>
     <div class="info-row"><span class="label">Email</span><span>qqwwa28855388@gmail.com</span></div>
     <div class="info-row"><span class="label">兵役</span><span>役畢（2019/7）</span></div>
     <div class="info-row"><span class="label">駕照</span><span>普通重型機車、手排小型車</span></div>
-
     <h3>核心職能</h3>
     <ul>
       <li>客戶現場需求訪談與痛點分析</li>
@@ -374,7 +354,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
       <li>現場試機、驗收與上線支援</li>
       <li>製程改善（人因／噪音／效率）</li>
     </ul>
-
     <h3>技術專長</h3>
     <div>
       <span class="tag">機械手臂整合</span>
@@ -386,7 +365,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
       <span class="tag">C#</span>
       <span class="tag">文件製作</span>
     </div>
-
     <h3>專業證照</h3>
     <ul>
       <li>勞工安全衛生小綠卡</li>
@@ -395,7 +373,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
       <li>TQC 文書處理 Word</li>
       <li>不動產經紀營業員</li>
     </ul>
-
     <h3>個人特質</h3>
     <ul>
       <li>主動發現問題</li>
@@ -408,19 +385,16 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
       <li>能快速識別問題核心</li>
     </ul>
   </aside>
-
   <!-- 右欄 -->
   <main>
     <div class="title-row">
       <h1>個 人 簡 介</h1>
       <p>業務出身、跨足自動化工程，能將客戶語言翻譯成技術規格，再把技術方案翻譯回客戶聽得懂的價值。</p>
     </div>
-
     <section>
       <p>具備 <span class="highlight-num">3 年以上</span> 跨業務／工程經驗，從不動產經紀、三星電信通路門市管理，轉入自動化產業擔任設備工程師、軟體工程師至業務工程師，熟悉「客戶開發 → 現場勘查 → 需求釐清 → 方案提案 → 報價簽約 → 設計協作 → 試機驗收」完整專案生命週期。</p>
       <p>在青廷自動化任職期間，<span class="highlight-num">4 個月內</span>實際參與 <span class="highlight-num">10 件以上</span>自動化提案／導入案，產業橫跨食品、汽車零件、醫療器材、塑膠射出與水泥製管，主導撰寫多份需求訪談報告、設備規格書、效益評估表與報價暨專案內容確認書。</p>
     </section>
-
     <section id="experience">
       <h2>工 作 經 歷</h2>
 <div class="job">
@@ -438,10 +412,9 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
         <div class="case-card">
           <div class="case-go">›</div>
           <div class="case-title">滑鼠中鍵點擊這裡進入公司網頁</div>
-              
+
         </div>
       </a>
-
             <a class="case-link" href="https://pomeloouo.github.io/hg/upload">
           <div class="case-card">
           <div class="case-go">›</div>
@@ -449,10 +422,9 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
          </div>
           </a>
 
-          
         </ul>
       </div>
-      
+
       <div class="job">
         <div class="job-head">
           <span class="job-title">業務工程師</span>
@@ -468,7 +440,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
           <li><b>內部數位化推動：</b>導入業務部任務追蹤與跨部門溝通工具，並撰寫使用手冊。</li>
         </ul>
       </div>
-
       <div class="job">
         <div class="job-head">
           <span class="job-title">軟體工程師</span>
@@ -480,7 +451,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
           <li>結合視覺與機構參數，並參與設備現場除錯。</li>
         </ul>
       </div>
-
       <div class="job">
         <div class="job-head">
           <span class="job-title">設備工程師</span>
@@ -492,7 +462,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
           <li>軟體維護、企業網頁維護，並協助 SolidWorks 機構繪圖。</li>
         </ul>
       </div>
-
       <div class="job">
         <div class="job-head">
           <span class="job-title">店長／門市管理人員</span>
@@ -504,7 +473,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
           <li>培養快速判讀客戶需求、提出方案並完成成交的業務直覺。</li>
         </ul>
       </div>
-
       <div class="job">
         <div class="job-head">
           <span class="job-title">不動產營業員</span>
@@ -518,7 +486,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
     </section>
   </main>
 </div>
-
 <!-- ══════════════════ 履歷第二頁 ══════════════════ -->
 <div id="cases" class="page page-2">
   <aside>
@@ -526,7 +493,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
       <div class="name">代表案件</div>
       <div class="role">Selected Project Highlights</div>
     </div>
-
     <h3>產業涵蓋</h3>
     <ul>
       <li>食品包裝（米廠堆疊）</li>
@@ -538,7 +504,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
       <li>水泥製管（離心成型）</li>
       <li>環安製程（噪音／人因）</li>
     </ul>
-
     <h3>專案文件產出</h3>
     <ul>
       <li>需求訪談與評估報告</li>
@@ -549,7 +514,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
       <li>開案會議問題追蹤紀錄</li>
       <li>NDA 保密協議簽署</li>
     </ul>
-
     <h3>導入工具</h3>
     <ul>
       <li>業務部任務</li>
@@ -557,30 +521,25 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
       <li>跨部門即時溝通</li>
       <li>SolidWorks（機構提案輔助）</li>
     </ul>
-
     <h3>教育程度</h3>
     <ul>
       <li><b>朝陽科技大學</b><br/>資訊工程系｜2019.9 ～ 2023.6</li>
       <li><b>大明高中</b><br/>資訊科｜2015.7 ～ 2018.7</li>
     </ul>
-
     <h3>求職偏好</h3>
     <div class="info-row"><span class="label">職稱</span><span>業務工程師 / Sales Engineer</span></div>
     <div class="info-row"><span class="label">地區</span><span>台中市</span></div>
     <div class="info-row"><span class="label">薪資</span><span>50000</span></div>
     <div class="info-row"><span class="label">到職</span><span>可隨時報到</span></div>
   </aside>
-
   <main>
     <div class="title-row">
       <h1>代 表 案 件 實 績</h1>
       <p>節錄於青廷自動化任職期間（2026/03 ～ 2026/06）實際參與之提案／導入專案。點擊卡片可查看完整案件頁面。</p>
        <h1>點擊卡片可查看完整案件頁面。</h1>
     </div>
-
     <section>
       <h2>自動化專案提案</h2>
-
       <a class="case-link" href="project/rice.html">
         <div class="case-card">
           <div class="case-go">›</div>
@@ -588,7 +547,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
           <div class="case-detail">針對 <strong>30kg／3kg／1.5kg</strong> 三種米袋規格，提出機械手臂堆棧、輸送整平與快拆夾具（夾爪＋多吸頭）整合方案；以 <strong>3kg 規格 8 小時 4000 包（約 8.3 包/分鐘）</strong>為 KPI，現勘評估後將「倒吊式」修正為「落地支架式」。</div>
         </div>
       </a>
-
       <a class="case-link" href="project/pipe.html">
         <div class="case-card">
           <div class="case-go">›</div>
@@ -596,7 +554,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
           <div class="case-detail">獨立主導需求訪談並產出簡報與評估報告，涵蓋 <strong>自動刮料、拆組模（A/B/C 三方案）、模具自動清潔、澆注帆布自動啟閉、蒸汽養護自動控制</strong>等模組；同步整合噪音改善與人因工程方案，提出 <strong>4～6 個月</strong>交機時程。</div>
         </div>
       </a>
-
       <a class="case-link" href="project/steelballs.html">
         <div class="case-card">
           <div class="case-go">›</div>
@@ -604,7 +561,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
           <div class="case-detail">撰寫設備規格說明書：<strong>317mm 長條塑膠件 + Ø2.8mm 鋼珠</strong>，採膠輪壓珠＋ 1～5 號平行站位設計，<strong>Cycle Time ≦ 5 秒/pcs</strong>，配備 NG 自動剔除與全罩式安全防護。</div>
         </div>
       </a>
-
       <a class="case-link" href="project/dentisit.html">
         <div class="case-card">
           <div class="case-go">›</div>
@@ -612,7 +568,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
           <div class="case-detail">主導《設備報價暨專案內容確認書》撰寫，含 <strong>本體倉儲、輸送排列、鏡片倉儲、組裝模組</strong> 四大模組設計，<strong>節拍 2.5 秒一支、連續運轉 4 小時驗收</strong>；同步主持開案會議並完成問題追蹤紀錄（Issue Log）。</div>
         </div>
       </a>
-
       <div class="grid-2">
         <a class="case-link" href="project/wine.html">
           <div class="case-card">
@@ -621,7 +576,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
             <div class="case-detail">負責產品細節對接，目前尚有10 餘項議題釐清；協調提供漸層酒款做雙方一致驗收基準。</div>
           </div>
         </a>
-
         <a class="case-link" href="project/yili.html">
           <div class="case-card">
             <div class="case-go">›</div>
@@ -630,7 +584,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
           </div>
         </a>
       </div>
-
       <div class="grid-2">
         <a class="case-link" href="project/pedal.html">
           <div class="case-card">
@@ -639,7 +592,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
             <div class="case-detail">撰寫驗收標準：<strong>17 項機構零件、雙機型</strong>，AOI 標準化。</div>
           </div>
         </a>
-
         <a class="case-link" href="project/mix.html">
           <div class="case-card">
             <div class="case-go">›</div>
@@ -649,7 +601,6 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
         </a>
       </div>
     </section>
-
     <section id="autobiography">
       <h2>自 傳</h2>
       <div class="auto-bio">
@@ -662,27 +613,47 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
 </div>
 </div><!-- resume-wrap -->
 </div><!-- site-content -->
-
  <script>
+//打字效果
+function typeWriter(element, text, speed = 100) {
+    return new Promise((resolve) => {
+        let i = 0;
+        function type() {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            } else {
+                resolve();
+            }
+        }
+        type();
+    });
+}
+
+//打字效果
+async function runTyping() {
+  document.getElementById('cursor-tagline').style.display = 'none'; // 副標題游標先藏起來，還沒輪到它
+  await typeWriter(document.getElementById('cmd-name'), '林 泓 佑', 150);
+  document.getElementById('cursor-name').style.display = 'none';    // 名字打完,游標關掉
+  document.getElementById('cursor-tagline').style.display = 'inline'; // 換副標題的游標亮起來
+  await typeWriter(document.getElementById('cmd-tagline'), '把客戶語言翻譯成技術規格，再把技術方案翻譯回客戶聽得懂的價值', 60);
+}
+runTyping();
   // 頁面背景效果 (Matrix Rain 變化版 - 橫向流動) - Canvas 2D 實作
-  // 從 https://tian1224.uk/js/three_animation.js 還原重建
   (function () {
       const canvas = document.querySelector('#three-canvas');
       if (!canvas) return;
-
       const ctx = canvas.getContext('2d');
-
       // 矩陣字元設定
       const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]";
       const fontSize = 16;
       let columns = 0;
       let drops = [];
-
       function resize() {
           canvas.width = window.innerWidth;
           canvas.height = window.innerHeight;
           columns = Math.ceil(canvas.height / fontSize); // 改為以高度計算行數(橫向流動)
-
           // 重新初始化 drops(每行的 X 起始位置,從畫面左側外開始)
           drops = [];
           for (let i = 0; i < columns; i++) {
@@ -691,20 +662,16 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
       }
       window.addEventListener('resize', resize); // 視窗大小改變時重新調整
       resize();
-
       function draw() {
           // 半透明黑色背景,產生拖尾效果
           ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
           ctx.fillRect(0, 0, canvas.width, canvas.height);
-
           ctx.fillStyle = '#00FF41'; // 經典駭客風格綠
           ctx.font = fontSize + 'px monospace';
-
           for (let i = 0; i < drops.length; i++) {
               // 隨機字元(x = drops[i], y = 行號,由左往右流動)
               const text = characters.charAt(Math.floor(Math.random() * characters.length));
               ctx.fillText(text, drops[i] * fontSize, i * fontSize);
-
               // 如果字元移出畫面右側,隨機機率從左側重新開始
               if (drops[i] * fontSize > canvas.width && Math.random() > 0.975) {
                   drops[i] = -Math.ceil(canvas.width / fontSize);
@@ -712,13 +679,10 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
               drops[i]++;
           }
       }
-
       let lastTime = 0;
       const fpsInterval = 1000 / 30; // 固定速度(30fps)
-
       function animate(time) {
           requestAnimationFrame(animate);
-
           const elapsed = time - lastTime;
           if (elapsed > fpsInterval) {
               lastTime = time - (elapsed % fpsInterval);
@@ -728,6 +692,5 @@ a.case-link:hover .case-card .case-go{opacity:1;right:8px;}
       animate(0);
   })();
   </script>
-
 </body>
 </html>
