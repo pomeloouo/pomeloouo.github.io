@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant-TW">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>9PIN 半自動端子插入機 3D 模型｜林泓佑作品集</title>
-<meta name="description" content="林泓佑為 9PIN 半自動端子插入機提案製作的網頁 3D 模型，可旋轉檢視機台底座、承載治具與壓入機構。">
+<meta name="description" content="林泓佑為 9PIN 半自動端子插入機提案製作的互動 3D 模型：鋁擠型機架、XY 分度滑台、壓入氣壓缸、定位治具與卡榫檢查，可旋轉、拆解並逐步播放人工排針到壓入完成的流程。">
 <link rel="canonical" href="https://pomeloouo.github.io/project/9PIN_3D.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#09090b">
 <meta name="color-scheme" content="dark">
 <link rel="icon" href="../favicon.ico">
@@ -12,338 +14,973 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:site_name" content="林泓佑 作品集">
 <meta property="og:title" content="9PIN 半自動端子插入機 3D 模型｜林泓佑作品集">
-<meta property="og:description" content="林泓佑為 9PIN 半自動端子插入機提案製作的網頁 3D 模型，可旋轉檢視機台底座、承載治具與壓入機構。">
+<meta property="og:description" content="可旋轉、拆解、逐步播放的半自動端子插入機 3D 模型：人工排針、雙手啟動、夾持定位、逐一壓入、卡榫檢查。">
 <meta property="og:url" content="https://pomeloouo.github.io/project/9PIN_3D.html">
 <meta property="og:image" content="https://pomeloouo.github.io/og-cover.png">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "CreativeWork", "name": "9PIN 半自動端子插入機 3D 模型", "description": "林泓佑為 9PIN 半自動端子插入機提案製作的網頁 3D 模型，可旋轉檢視機台底座、承載治具與壓入機構。", "url": "https://pomeloouo.github.io/project/9PIN_3D.html", "inLanguage": "zh-Hant-TW", "author": {"@type": "Person", "@id": "https://pomeloouo.github.io/#person", "name": "林泓佑", "url": "https://pomeloouo.github.io/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "林泓佑 作品集", "item": "https://pomeloouo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "代表案件", "item": "https://pomeloouo.github.io/#cases"}, {"@type": "ListItem", "position": 3, "name": "9PIN 半自動端子插入機 3D 模型", "item": "https://pomeloouo.github.io/project/9PIN_3D.html"}]}]}</script>
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CreativeWork",
+      "@id": "https://pomeloouo.github.io/project/9PIN_3D.html#model",
+      "name": "9PIN 半自動端子插入機 3D 模型",
+      "description": "以 Three.js 程式化建模的半自動端子插入機互動 3D 模型，呈現鋁擠型機架、XY 分度滑台、壓入氣壓缸、定位治具、9PIN 母座與端子線材，並模擬人工排針、雙手啟動、夾持定位、逐一壓入、卡榫檢查到取出的流程。",
+      "url": "https://pomeloouo.github.io/project/9PIN_3D.html",
+      "image": "https://pomeloouo.github.io/og-cover.png",
+      "inLanguage": "zh-Hant-TW",
+      "genre": "互動 3D 機構模型",
+      "keywords": "端子插入機, 半自動設備, 連接器, 治具設計, Three.js, 3D 模型",
+      "isPartOf": { "@type": "WebPage", "url": "https://pomeloouo.github.io/project/mix.html" },
+      "author": { "@type": "Person", "@id": "https://pomeloouo.github.io/#person", "name": "林泓佑", "url": "https://pomeloouo.github.io/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "林泓佑 作品集", "item": "https://pomeloouo.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "代表案件", "item": "https://pomeloouo.github.io/#cases" },
+        { "@type": "ListItem", "position": 3, "name": "9PIN 半自動端子插入機 3D 模型", "item": "https://pomeloouo.github.io/project/9PIN_3D.html" }
+      ]
+    }
+  ]
+}
+</script>
+<script>
+if(!/[?&]embed=0/.test(location.search)&&(window.self!==window.top||/[?&]embed=1/.test(location.search)))document.documentElement.classList.add('embed');
+window.__errs=[];
+window.addEventListener('error',function(e){
+  var m=e.message||(e.target&&e.target.src?'載入失敗：'+e.target.src:'');
+  if(!m)return;window.__errs.push(m);
+  var b=document.getElementById('err');if(b){b.hidden=false;b.textContent='3D 模型載入發生問題：'+m;}
+},true);
+</script>
+<script type="importmap">
+{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+</script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#0f172a;font-family:sans-serif;overflow:hidden;}
-canvas{display:block;}
-#tb{position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,.88);border:1px solid rgba(56,189,248,.35);color:#38bdf8;font-size:13px;font-weight:700;padding:5px 20px;border-radius:7px;pointer-events:none;white-space:nowrap;}
-#hint{position:absolute;top:10px;left:10px;background:rgba(15,23,42,.82);border:1px solid rgba(148,163,184,.25);color:#cbd5e1;font-size:10px;padding:4px 10px;border-radius:5px;pointer-events:none;}
-#hint span{color:#38bdf8;font-weight:700;}
-#legend{position:absolute;top:10px;right:10px;background:rgba(15,23,42,.88);border:1px solid rgba(148,163,184,.2);border-radius:8px;padding:9px 13px;color:#e2e8f0;font-size:10px;min-width:165px;}
-#legend h3{font-size:11px;color:#38bdf8;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid rgba(56,189,248,.2);}
-.lr{display:flex;align-items:center;gap:6px;margin:3px 0;}
-.dot{width:11px;height:11px;border-radius:2px;flex-shrink:0;}
-#ctrl{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:7px;}
-button{background:rgba(30,41,59,.92);border:1px solid rgba(148,163,184,.3);color:#e2e8f0;font-size:10px;padding:5px 13px;border-radius:5px;cursor:pointer;}
-button:hover{background:rgba(56,189,248,.18);border-color:#38bdf8;color:#38bdf8;}
-#st{position:absolute;bottom:46px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,.84);border:1px solid rgba(56,189,248,.4);color:#38bdf8;font-size:11px;padding:4px 16px;border-radius:5px;pointer-events:none;white-space:nowrap;}
+:root{--bg:#09090b;--bg2:#0f1013;--bg3:#16171b;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.15);--text:#ececec;--muted:#a0a2a8;--dim:#74767d;--acc:#b5d63f;--acc-ink:#0c0d0a;--acc-soft:rgba(181,214,63,.1);--acc-line:rgba(181,214,63,.35);--warm:#f0a948;--bad:#ef5b4c;--mono:ui-monospace,"Cascadia Code",Consolas,monospace;--r:14px;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:"Microsoft JhengHei","PingFang TC","Noto Sans TC","Noto Sans CJK TC","Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15.5px;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(900px 520px at 85% -8%,rgba(181,214,63,.07),transparent 62%)}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1320px;margin:0 auto;padding:0 24px}
+.nav{position:fixed;inset:0 0 auto 0;z-index:20;background:rgba(9,9,11,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:12px;height:64px;font-size:14px;white-space:nowrap}
+.nav a{text-decoration:none;color:var(--muted)}
+.nav a:hover{color:var(--text)}
+.nav .sep{color:var(--dim)}
+.nav .here{color:var(--text);font-weight:700;overflow:hidden;text-overflow:ellipsis}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:14.5px;font-weight:700;padding:12px 22px;border-radius:12px;border:1px solid var(--line2);white-space:nowrap;transition:transform .3s var(--ease),border-color .2s,color .2s}
+.btn:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-2px)}
+.btn.primary{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.btn.primary:hover{color:var(--acc-ink)}
+.nav .btn{margin-left:auto;padding:8px 15px;font-size:13.5px;color:var(--acc-ink)}
+.head{padding:104px 0 26px}
+.head h1{font-size:clamp(26px,3.6vw,40px);line-height:1.3;letter-spacing:.5px}
+.head p{color:var(--muted);max-width:760px;margin-top:10px}
+.lab{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+#stage{position:relative;height:min(74vh,780px);min-height:500px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#09090b;touch-action:none}
+#stage canvas{display:block;width:100%;height:100%;outline:none}
+#labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lbl{font-size:12px;line-height:1.3;padding:3px 9px;border-radius:999px;background:rgba(15,16,19,.88);border:1px solid var(--line2);color:var(--text);white-space:nowrap;transform:translateY(-14px)}
+.lbl.sel{border-color:var(--acc);color:var(--acc)}
+.ov{position:absolute;z-index:3;display:flex;gap:6px}
+.ov.views{top:12px;left:12px}
+.ov.togs{top:12px;right:12px}
+.chip{font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:10px;border:1px solid var(--line2);background:rgba(15,16,19,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--muted);white-space:nowrap;transition:border-color .2s,color .2s,background .2s}
+.chip:hover{color:var(--text);border-color:var(--acc-line)}
+.chip[aria-pressed="true"]{background:var(--acc-soft);border-color:var(--acc-line);color:var(--acc)}
+.chip.warn[aria-pressed="true"]{background:rgba(239,91,76,.12);border-color:rgba(239,91,76,.5);color:var(--bad)}
+.tp{position:absolute;z-index:3;left:12px;right:12px;bottom:12px;background:rgba(15,16,19,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.tp-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tp .chip{background:var(--bg3)}
+.tp .chip.go{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);min-width:64px}
+.tp-step{flex:1 1 180px;min-width:0;font-size:13.5px}
+.tp-step b{color:var(--acc);margin-right:8px;font-family:var(--mono);font-weight:700}
+.tp-step span{font-weight:700}
+.tp-time{font-family:var(--mono);font-size:12.5px;color:var(--muted);white-space:nowrap}
+#scrub{width:100%;margin-top:8px;accent-color:var(--acc);height:16px;background:transparent}
+.hint{position:absolute;z-index:2;left:14px;top:54px;font-size:11.5px;color:var(--dim);pointer-events:none}
+#err{position:absolute;z-index:5;left:12px;right:12px;top:50%;transform:translateY(-50%);background:rgba(22,23,27,.96);border:1px solid rgba(239,91,76,.5);color:#f3b7b0;border-radius:12px;padding:14px 16px;font-size:13.5px;text-align:center}
+aside{display:grid;gap:14px}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.card h2{font-size:14.5px;letter-spacing:.5px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.card h2 small{font-size:11.5px;color:var(--dim);font-weight:400}
+.steps{list-style:none;display:grid;gap:4px}
+.steps button{width:100%;display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:center;text-align:left;background:transparent;border:1px solid transparent;border-radius:10px;padding:6px 8px;font-size:13.5px;color:var(--muted)}
+.steps button:hover{background:var(--bg3);color:var(--text)}
+.steps i{font-style:normal;font-family:var(--mono);font-size:11.5px;width:22px;height:22px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center}
+.steps em{font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+.steps .on button{background:var(--acc-soft);border-color:var(--acc-line);color:var(--text)}
+.steps .on i{background:var(--acc);border-color:var(--acc);color:var(--acc-ink);font-weight:700}
+.steps .done i{border-color:var(--acc-line);color:var(--acc)}
+#stepdesc{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);line-height:1.75;min-height:4.6em}
+.pinwrap{display:flex;gap:16px;align-items:center}
+.pins{display:grid;grid-template-columns:repeat(3,38px);gap:6px;padding:8px;background:var(--bg3);border:1px solid var(--line);border-radius:10px}
+.pin{width:38px;height:38px;border-radius:8px;border:1px solid var(--line2);display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:var(--dim);position:relative;background:#0b0c0e}
+.pin::before{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--c);opacity:0;transform:scale(.5);transition:opacity .2s,transform .2s}
+.pin span{position:relative;z-index:1;text-shadow:0 0 3px #000,0 0 3px #000}
+.pin.s1::before{opacity:.55;transform:scale(.72)}
+.pin.s2::before,.pin.s3::before,.pin.s4::before{opacity:1;transform:scale(1)}
+.pin.s1 span,.pin.s2 span,.pin.s3 span,.pin.s4 span{color:#fff}
+.pin.s3{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc) inset}
+.pin.s4{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad) inset}
+.pinlegend{font-size:12px;color:var(--muted);display:grid;gap:3px}
+.pinlegend b{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:middle}
+#result{margin-top:10px;font-size:13px;font-weight:700;color:var(--muted)}
+#result.ok{color:var(--acc)}
+#result.ng{color:var(--bad)}
+#pname{font-size:15px;font-weight:700;color:var(--acc)}
+#pdesc{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.75}
+section.blk{padding:54px 0 0}
+section.blk h2{font-size:21px;margin-bottom:16px}
+.points{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.points .card h3{font-size:15px;margin-bottom:6px;color:var(--text)}
+.points .card p{font-size:13.5px;color:var(--muted);line-height:1.8}
+.note{margin-top:16px;font-size:13px;color:var(--dim)}
+.end{display:flex;gap:12px;flex-wrap:wrap;padding:40px 0 20px}
+footer{border-top:1px solid var(--line);margin-top:30px;padding:22px 0 40px;color:var(--dim);font-size:13px}
+@media(max-width:1020px){.lab{grid-template-columns:1fr}aside{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}}
+@media(max-width:820px){
+  .wrap{padding:0 16px}
+  .head{padding:88px 0 18px}
+  #stage{height:68vh;min-height:440px}
+  .ov{left:8px;right:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .ov::-webkit-scrollbar{display:none}
+  .ov.views{top:8px}
+  .ov.togs{top:46px;right:8px}
+  .hint{display:none}
+  .chip{padding:6px 10px;font-size:12px}
+  .tp{left:8px;right:8px;bottom:8px;padding:8px 10px}
+  .tp-step{flex-basis:100%;order:-1}
+  .nav .wrap{gap:8px;font-size:13px}
+  .nav .mid{display:none}
+}
+html.embed,html.embed body{height:100%;overflow:hidden}
+html.embed .nav,html.embed .head,html.embed aside,html.embed section.blk,html.embed .end,html.embed footer{display:none}
+html.embed .wrap{max-width:none;padding:0}
+html.embed .lab{display:block}
+html.embed #stage{position:fixed;inset:0;height:auto;min-height:0;border:0;border-radius:0}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<div id="tb">9PIN 半自動端子插入機　3D v4</div>
-<div id="hint"><span>拖曳</span> 旋轉 ｜ <span>滾輪</span> 縮放 ｜ <span>右鍵</span> 平移</div>
-<div id="legend">
-  <h3>機構圖例</h3>
-  <div class="lr"><div class="dot" style="background:#334155"></div>機台底座</div>
-  <div class="lr"><div class="dot" style="background:#2563eb"></div>X 軸滑軌</div>
-  <div class="lr"><div class="dot" style="background:#06b6d4"></div>Y 軸移動板</div>
-  <div class="lr"><div class="dot" style="background:#b45309"></div>承載治具（無側擋）</div>
-  <div class="lr"><div class="dot" style="background:#7c3aed"></div>9PIN 母座（立式）</div>
-  <div class="lr"><div class="dot" style="background:#166534"></div>端子模具（開口，固定）</div>
-  <div class="lr"><div class="dot" style="background:#991b1b"></div>壓入機構（左側）</div>
-  <div class="lr"><div class="dot" style="background:#ef4444"></div>→ 壓入方向</div>
-</div>
-<div id="st">▶ 按「執行動作」觀看插入流程</div>
-<div id="ctrl">
-  <button onclick="resetView()">重置視角</button>
-  <button onclick="runAnim()">▶ 執行動作</button>
-  <button onclick="toggleEx()">拆解視圖</button>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
-const W=window.innerWidth,H=window.innerHeight;
+<header class="nav">
+  <div class="wrap">
+    <a href="../index.html">林泓佑</a><span class="sep">/</span><a class="mid" href="../index.html#cases">代表案件</a><span class="sep mid">/</span><span class="here">9PIN 插入機</span>
+    <a class="btn primary" href="mix.html#model3d">案件介紹</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="head">
+    <h1>9PIN 半自動端子插入機 3D 模型</h1>
+    <p>作業員把端子排到治具上，機器負責定位、逐一壓入與卡榫檢查。這個模型把提案階段的機構構想畫成可以旋轉、拆解、逐步播放的桌上型機台。</p>
+  </div>
+
+  <div class="lab">
+    <div id="stage" aria-label="9PIN 半自動端子插入機 3D 檢視區">
+      <div id="labels"></div>
+      <div class="ov views" role="group" aria-label="視角">
+        <button class="chip" data-view="overview" aria-pressed="true">總覽</button>
+        <button class="chip" data-view="press" aria-pressed="false">壓入特寫</button>
+        <button class="chip" data-view="fixture" aria-pressed="false">治具俯視</button>
+        <button class="chip" data-view="side" aria-pressed="false">側視</button>
+      </div>
+      <div class="ov togs" role="group" aria-label="顯示切換">
+        <button class="chip" id="tg-explode" aria-pressed="false">爆炸圖</button>
+        <button class="chip" id="tg-guard" aria-pressed="true">護罩</button>
+        <button class="chip" id="tg-wire" aria-pressed="false">線框</button>
+        <button class="chip warn" id="tg-ng" aria-pressed="false">模擬 NG</button>
+      </div>
+      <div class="hint">拖曳旋轉，滾輪或雙指縮放，右鍵或雙指平移，點零件看名稱</div>
+      <div id="err" hidden></div>
+      <div class="tp">
+        <div class="tp-row">
+          <button class="chip" id="bt-prev">上一步</button>
+          <button class="chip go" id="bt-play">暫停</button>
+          <button class="chip" id="bt-next">下一步</button>
+          <button class="chip" id="bt-replay">重播</button>
+          <div class="tp-step"><b id="st-no">1/7</b><span id="st-name">放置母座</span></div>
+          <div class="tp-time" title="動畫時間為示意，不是實機節拍">示意節拍 <span id="st-time">0.0</span> / <span id="st-total">0.0</span> 秒</div>
+        </div>
+        <input id="scrub" type="range" min="0" max="100" step="0.01" value="0" aria-label="流程進度">
+      </div>
+    </div>
+
+    <aside>
+      <div class="card">
+        <h2>流程步驟 <small>秒數為示意</small></h2>
+        <ol class="steps" id="steps"></ol>
+        <p id="stepdesc"></p>
+      </div>
+      <div class="card">
+        <h2>腳位狀態 <small>配色對應為示意</small></h2>
+        <div class="pinwrap">
+          <div class="pins" id="pins"></div>
+          <div class="pinlegend">
+            <div><b style="background:#74767d;opacity:.6"></b>已排針</div>
+            <div><b style="background:#ececec"></b>已壓入</div>
+            <div><b style="background:#b5d63f"></b>卡榫 OK</div>
+            <div><b style="background:#ef5b4c"></b>卡榫 NG</div>
+          </div>
+        </div>
+        <div id="result">等待排針</div>
+      </div>
+      <div class="card">
+        <h2>選取零件</h2>
+        <div id="pname">尚未選取</div>
+        <div id="pdesc">在模型上點任一零件，這裡會顯示名稱與用途。開啟爆炸圖可以一次看到所有零件名稱。</div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="blk">
+    <h2>機構重點</h2>
+    <div class="points">
+      <div class="card"><h3>人排針，機器壓入</h3><p>需要眼力判斷的配色與線序留給作業員，反覆施力的插入動作交給氣壓缸。保留人工彈性，設備成本也比全自動低。</p></div>
+      <div class="card"><h3>先定位再壓入</h3><p>母座靠住治具的基準角，由氣動側夾固定。治具座用定位銷和快拆夾安裝，換型後位置不跑掉，每支端子的壓入點一致。</p></div>
+      <div class="card"><h3>逐孔分度壓入</h3><p>XY 滑台把 9 個孔位依序送到壓入刀下方，一次只壓一支，壓入力小，深度由氣壓缸行程決定，不靠手感。</p></div>
+      <div class="card"><h3>卡榫當站檢查</h3><p>壓完後逐孔量端子高度。卡榫沒有卡住的端子會彈回偏高，當站判定 NG 並亮紅燈，不良品不會流到下一站。</p></div>
+      <div class="card"><h3>雙手啟動與光柵</h3><p>左右啟動鈕要同時按下才動作，前方開口由安全光柵監控，其餘三面與上方是透明護罩，急停鈕在右手側。</p></div>
+    </div>
+    <p class="note">這是提案階段的概念模型，尺寸、線色對應與節拍時間都是示意，不代表最終設備規格。</p>
+  </section>
+
+  <div class="end">
+    <a class="btn primary" href="mix.html">回案件介紹</a>
+    <a class="btn" href="../index.html#cases">其他代表案件</a>
+    <a class="btn" href="../index.html">回首頁</a>
+  </div>
+</main>
+
+<footer><div class="wrap">林泓佑作品集　9PIN 半自動端子插入機 3D 模型，以 Three.js 程式化建模。</div></footer>
+
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+import {CSS2DRenderer,CSS2DObject} from 'three/addons/renderers/CSS2DRenderer.js';
+
+const $=s=>document.querySelector(s);
+const stage=$('#stage');
+const Q=new URLSearchParams(location.search);
+const isMobile=matchMedia('(max-width:820px),(pointer:coarse)').matches;
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- renderer ---------- */
+let renderer;
+try{renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});}
+catch(e){const b=$('#err');b.hidden=false;b.textContent='這個瀏覽器無法啟用 WebGL，3D 模型沒辦法顯示。';throw e;}
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,isMobile?1.5:2));
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.0;
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+stage.prepend(renderer.domElement);
+const labelRenderer=new CSS2DRenderer({element:$('#labels')});
+
 const scene=new THREE.Scene();
-scene.background=new THREE.Color(0x0f172a);
-scene.fog=new THREE.FogExp2(0x0f172a,0.007); // lighter fog
+scene.background=new THREE.Color(0x09090b);
+scene.fog=new THREE.Fog(0x09090b,4200,9000);
+const pmrem=new THREE.PMREMGenerator(renderer);
+scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
 
-const camera=new THREE.PerspectiveCamera(44,W/H,0.1,300);
-const renderer=new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(W,H);renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-document.body.appendChild(renderer.domElement);
+const camera=new THREE.PerspectiveCamera(32,1,5,14000);
+const controls=new OrbitControls(camera,renderer.domElement);
+controls.enableDamping=true;controls.dampingFactor=0.08;
+controls.minDistance=90;controls.maxDistance=5200;
+controls.maxPolarAngle=Math.PI*0.497;
+controls.zoomSpeed=0.8;
 
-scene.add(new THREE.AmbientLight(0xffffff,0.52));
-const sun=new THREE.DirectionalLight(0xffffff,0.95);
-sun.position.set(8,20,12);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);scene.add(sun);
-const fl=new THREE.DirectionalLight(0x38bdf8,0.3);fl.position.set(-10,6,-6);scene.add(fl);
-const rim=new THREE.PointLight(0xf59e0b,0.4,40);rim.position.set(0,10,-5);scene.add(rim);
-const grid=new THREE.GridHelper(40,40,0x1e293b,0x1e293b);grid.position.y=-0.14;scene.add(grid);
+const sun=new THREE.DirectionalLight(0xfff4e6,2.4);
+sun.position.set(380,820,460);sun.target.position.set(0,100,0);
+sun.castShadow=true;
+sun.shadow.mapSize.set(isMobile?1024:2048,isMobile?1024:2048);
+Object.assign(sun.shadow.camera,{left:-560,right:560,top:560,bottom:-560,near:200,far:1900});
+sun.shadow.bias=-0.0006;sun.shadow.normalBias=1.2;sun.shadow.radius=5;
+scene.add(sun,sun.target);
+const fill=new THREE.DirectionalLight(0xbcd0ff,0.55);fill.position.set(-600,300,-200);scene.add(fill);
+const rim=new THREE.DirectionalLight(0xd9f08a,0.35);rim.position.set(-200,400,-700);scene.add(rim);
 
-// ── helpers ──────────────────────────────────────────────
-function bx(w,h,d,c,r=0.55,m=0.25){
-  const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),
-    new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:m}));
-  o.castShadow=true;o.receiveShadow=true;return o;
+/* ---------- materials ---------- */
+const std=(color,metalness,roughness,extra)=>new THREE.MeshStandardMaterial(Object.assign({color,metalness,roughness},extra||{}));
+const M={
+  alu:std(0xc3c6cb,0.92,0.36),
+  aluSoft:std(0xa9adb3,0.9,0.48),
+  aluDark:std(0x25272c,0.85,0.42),
+  plate:std(0x2d2f35,0.8,0.5),
+  steel:std(0xaeb2b8,1,0.24),
+  chrome:std(0xe3e6e9,1,0.07),
+  black:std(0x141518,0.05,0.55),
+  rubber:std(0x0d0d0f,0,0.9),
+  grey:std(0x565a62,0.2,0.6),
+  green:std(0x2f7d4f,0.1,0.5),
+  red:std(0xc4302b,0.1,0.42),
+  yellow:std(0xd9a91c,0.1,0.5),
+  bronze:std(0xa9691f,0.85,0.4),
+  zinc:std(0xb9b49d,0.9,0.42),
+  nickel:std(0xcfd0cc,1,0.2),
+  tin:std(0xd2cdb8,1,0.28),
+  paint:std(0x2a2c31,0.15,0.62),
+  tube:std(0x2a6ec4,0,0.38),
+  face:std(0xd6d4c8,0,0.6),
+  nylon:new THREE.MeshPhysicalMaterial({color:0xd4d0c2,metalness:0,roughness:0.5,clearcoat:0.25,clearcoatRoughness:0.5}),
+  guard:new THREE.MeshPhysicalMaterial({color:0xa9c0cc,metalness:0,roughness:0.06,transparent:true,opacity:0.13,side:THREE.DoubleSide,depthWrite:false,envMapIntensity:1.6})
+};
+M.blackDS=M.black.clone();M.blackDS.side=THREE.DoubleSide;
+const lamp=(color)=>new THREE.MeshStandardMaterial({color:0x1c1d20,emissive:color,emissiveIntensity:0,roughness:0.4});
+
+/* ---------- geometry helpers ---------- */
+function mesh(g,m){const o=new THREE.Mesh(g,m);o.castShadow=true;o.receiveShadow=true;return o;}
+function add(p,o,x=0,y=0,z=0){o.position.set(x,y,z);p.add(o);return o;}
+function bx(w,h,d,m){return mesh(new THREE.BoxGeometry(w,h,d),m);}
+function cy(r,h,m,axis='y',seg=24,rb_=null){
+  const g=new THREE.CylinderGeometry(r,rb_??r,h,seg);
+  if(axis==='x')g.rotateZ(-Math.PI/2);else if(axis==='z')g.rotateX(Math.PI/2);
+  return mesh(g,m);
 }
-function cy(rt,rb,h,c,s=16){
-  const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,s),
-    new THREE.MeshStandardMaterial({color:c,roughness:0.4,metalness:0.5}));
-  o.castShadow=true;return o;
+/* chamfered box, w along x, h along y, d along z */
+function rb(w,h,d,m,r=1){
+  r=Math.min(r,w/2-0.05,h/2-0.05,d/2-0.05);
+  const a=w/2-r,b=d/2-r,c=Math.min(r*1.5,a,b);
+  const s=new THREE.Shape();
+  s.moveTo(-a+c,-b);s.lineTo(a-c,-b);s.quadraticCurveTo(a,-b,a,-b+c);s.lineTo(a,b-c);s.quadraticCurveTo(a,b,a-c,b);
+  s.lineTo(-a+c,b);s.quadraticCurveTo(-a,b,-a,b-c);s.lineTo(-a,-b+c);s.quadraticCurveTo(-a,-b,-a+c,-b);
+  const g=new THREE.ExtrudeGeometry(s,{depth:h-2*r,bevelEnabled:true,bevelSize:r,bevelThickness:r,bevelSegments:2,curveSegments:3});
+  g.translate(0,0,-(h-2*r)/2);g.rotateX(Math.PI/2);
+  return mesh(g,m);
 }
-function add(p,o,x,y,z){o.position.set(x,y,z);(p&&p.add)?p.add(o):scene.add(o);return o;}
-
-// ── 1. BASE ───────────────────────────────────────────────
-add(scene,bx(17,0.55,12,0x1e293b),0,0.28,0);
-add(scene,bx(16.5,0.14,11.5,0x334155),0,0.65,0);
-[[-7,-4.5],[-7,4.5],[7,-4.5],[7,4.5]].forEach(([x,z])=>{
-  add(scene,cy(0.32,0.38,0.55,0x0f172a),x,-0.08,z);
-});
-
-// ── 2. X RAILS ────────────────────────────────────────────
-add(scene,bx(11,0.28,0.38,0x2563eb,0.4,0.6),-0.5,0.88,-2.6);
-add(scene,bx(11,0.28,0.38,0x2563eb,0.4,0.6),-0.5,0.88, 2.6);
-const xsc=cy(0.09,0.09,11,0x94a3b8,8);xsc.rotation.z=Math.PI/2;add(scene,xsc,-0.5,0.88,0);
-add(scene,bx(0.9,0.9,0.9,0x0f172a),4.8,0.93,0);
-
-// ── 3. XY TABLE ───────────────────────────────────────────
-const xG=new THREE.Group();xG.position.set(-0.5,0,0);scene.add(xG);
-add(xG,bx(1.3,0.42,0.68,0x1d4ed8,0.45,0.7),0,0.88,-2.6);
-add(xG,bx(1.3,0.42,0.68,0x1d4ed8,0.45,0.7),0,0.88, 2.6);
-add(xG,bx(3.0,0.28,5.5,0x0891b2),0,1.12,0);
-add(xG,bx(0.18,0.26,5.0,0x06b6d4,0.4,0.6),-0.95,1.3,0);
-add(xG,bx(0.18,0.26,5.0,0x06b6d4,0.4,0.6), 0.95,1.3,0);
-add(xG,bx(0.85,0.85,0.85,0x0f172a),0,1.05,-3.3);
-const yG=new THREE.Group();yG.position.set(0,0,0);xG.add(yG);
-add(yG,bx(2.5,0.36,0.75,0x0e7490),0,1.42,0);
-
-// ── 4. FIXTURE  (open ±X — no side walls) ─────────────────
-const fixBase=add(yG,bx(1.9,0.45,2.0,0xb45309),0,1.7,0);
-const suppF=add(yG,bx(1.85,1.5,0.28,0x78350f),0,2.45,-0.97);
-const suppB=add(yG,bx(1.85,1.5,0.28,0x78350f),0,2.45, 0.97);
-add(yG,bx(0.2,0.35,1.85,0x92400e),-0.88,1.98,0);
-add(yG,bx(0.2,0.35,1.85,0x92400e), 0.88,1.98,0);
-
-// ── 5. 9PIN HOUSING  (upright, holes face +X) ─────────────
-const hG=new THREE.Group();hG.position.set(0,2.8,0);yG.add(hG);
-hG.add(bx(0.55,1.78,1.78,0x5b21b6));
-const hFl=bx(0.12,1.9,1.9,0x3b0764);hFl.position.set(-0.32,0,0);hG.add(hFl);
-for(let r=0;r<3;r++)for(let c=0;c<3;c++){
-  const py=(r-1)*0.52,pz=(c-1)*0.52;
-  const rim=bx(0.1,0.42,0.42,0xa78bfa);rim.position.set(0.30,py,pz);hG.add(rim);
-  const cav=bx(0.55,0.32,0.32,0x4c1d95);cav.position.set(0,py,pz);hG.add(cav);
-  const op=new THREE.Mesh(new THREE.BoxGeometry(0.15,0.24,0.24),
-    new THREE.MeshStandardMaterial({color:0x06020f}));
-  op.position.set(0.32,py,pz);hG.add(op);
+/* aluminium extrusion with T slots */
+const profCache={};
+function profileShape(s){
+  if(profCache[s])return profCache[s];
+  const h=s/2,k=s*0.24,pts=[];
+  const side=[[-h+2.5,-h],[-4,-h],[-4,-h+2],[-k,-h+2],[-k,-h+6.5],[k,-h+6.5],[k,-h+2],[4,-h+2],[4,-h],[h-2.5,-h]];
+  for(let i=0;i<4;i++){const a=i*Math.PI/2,c=Math.cos(a),n=Math.sin(a);side.forEach(([x,y])=>pts.push([x*c-y*n,x*n+y*c]));}
+  const sh=new THREE.Shape();sh.moveTo(pts[0][0],pts[0][1]);
+  for(let i=1;i<pts.length;i++)sh.lineTo(pts[i][0],pts[i][1]);
+  sh.closePath();
+  const hole=new THREE.Path();hole.absarc(0,0,s*0.11,0,Math.PI*2,true);sh.holes.push(hole);
+  return profCache[s]=sh;
+}
+function extr(s,len,axis,m){
+  const g=new THREE.ExtrudeGeometry(profileShape(s),{depth:len,bevelEnabled:false,curveSegments:8});
+  g.translate(0,0,-len/2);
+  if(axis==='x')g.rotateY(Math.PI/2);else if(axis==='y')g.rotateX(Math.PI/2);
+  return mesh(g,m);
+}
+/* flat shape drawn in (z,y), extruded along x with width w, centred on x */
+function sideExtrude(pts,w,m){
+  const sh=new THREE.Shape();sh.moveTo(pts[0][0],pts[0][1]);
+  for(let i=1;i<pts.length;i++)sh.lineTo(pts[i][0],pts[i][1]);
+  sh.closePath();
+  const g=new THREE.ExtrudeGeometry(sh,{depth:w,bevelEnabled:false});
+  g.translate(0,0,-w/2);g.rotateY(-Math.PI/2);
+  return mesh(g,m);
+}
+function tube(pts,r,m,seg=28){
+  const c=new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(p[0],p[1],p[2])),false,'catmullrom',0.5);
+  return mesh(new THREE.TubeGeometry(c,seg,r,8,false),m);
+}
+function inst(g,m,list,parent){
+  const im=new THREE.InstancedMesh(g,m,list.length),o=new THREE.Object3D();
+  list.forEach((p,i)=>{o.position.set(p[0],p[1],p[2]);o.updateMatrix();im.setMatrixAt(i,o.matrix);});
+  im.castShadow=true;im.receiveShadow=true;parent.add(im);return im;
 }
 
-// ── 6. WIRE MOLD  (open-top tray, FIXED) ──────────────────
-// Tray: bottom plate + two side rails — NO top cover
-// Wires sit inside: 3×3 grid matching connector hole Y/Z positions
-//   Row Y: 2.28, 2.80, 3.32  |  Col Z: -0.52, 0, +0.52
-
-// Bottom plate of tray
-add(scene,bx(4.8,0.12,1.5,0x166534),3.2,2.12,0);
-// Front / back side rails (Z direction)
-add(scene,bx(4.8,1.32,0.12,0x166534),3.2,2.79,-0.75);
-add(scene,bx(4.8,1.32,0.12,0x166534),3.2,2.79, 0.75);
-// Exit end cap (right side)
-add(scene,bx(0.18,1.32,1.55,0x15803d),5.64,2.79,0);
-
-// Cable jacket (wires bundled, exits right side)
-const jkt=cy(0.42,0.42,3.0,0x1e293b,8);jkt.rotation.z=Math.PI/2;
-add(scene,jkt,7.15,2.8,0);
-// Jacket strain relief bump
-const sr=cy(0.52,0.52,0.28,0x0f172a,10);sr.rotation.z=Math.PI/2;
-add(scene,sr,5.8,2.8,0);
-
-// ── Wire fan-out function ──
-function wireTube(x1,y1,z1,x2,y2,z2,color){
-  const p1=new THREE.Vector3(x1,y1,z1);
-  const p2=new THREE.Vector3(x2,y2,z2);
-  const dir=new THREE.Vector3().subVectors(p2,p1);
-  const len=dir.length();
-  if(len<0.001)return;
-  const mid=new THREE.Vector3().lerpVectors(p1,p2,0.5);
-  const tube=cy(0.065,0.065,len,color,7);
-  tube.position.copy(mid);
-  tube.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.normalize());
-  scene.add(tube);
+/* ---------- parts registry ---------- */
+const root=new THREE.Group();scene.add(root);
+const parts=[],P={};
+function part(key,name,desc,parent,ex,anchor){
+  const g=new THREE.Group();
+  g.userData.part={key,name,desc};
+  g.userData.ex=new THREE.Vector3(ex[0],ex[1],ex[2]);
+  g.userData.anim=new THREE.Vector3();
+  const el=document.createElement('div');el.className='lbl';el.textContent=name;
+  const lb=new CSS2DObject(el);lb.position.set(anchor[0],anchor[1],anchor[2]);lb.visible=false;g.add(lb);
+  g.userData.label=lb;
+  parent.add(g);parts.push(g);P[key]=g;return g;
 }
 
-// 9 wire colors: row0=bottom(Y=2.28), row1=mid(Y=2.80), row2=top(Y=3.32)
-const WC=[
-  0x7c3f1e,0xd1d5db,0xdc2626,  // row0: brown, white, red
-  0x2563eb,0xca8a04,0x16a34a,  // row1: blue, yellow, green
-  0x111827,0xea580c,0x84cc16   // row2: black, orange, lime
-];
-const BX=5.45,BY=2.8,BZ=0; // bundle convergence point inside mold
+/* ---------- frame ---------- */
+{
+  const g=part('frame','鋁擠型機架','40 與 30 系列鋁擠型組成的桌上型機架，四角調整腳用來調水平，立柱支撐上方護罩。',root,[0,-80,0],[-285,-32,232]);
+  add(g,extr(40,600,'x',M.alu),0,-32,-190);add(g,extr(40,600,'x',M.alu),0,-32,230);
+  add(g,extr(40,380,'z',M.alu),-280,-32,20);add(g,extr(40,380,'z',M.alu),280,-32,20);
+  for(const x of[-285,285])for(const z of[-195,150])add(g,extr(30,440,'y',M.alu),x,220,z);
+  add(g,extr(30,540,'x',M.alu),0,425,-195);add(g,extr(30,540,'x',M.alu),0,425,150);
+  add(g,extr(30,315,'z',M.alu),-285,425,-22.5);add(g,extr(30,315,'z',M.alu),285,425,-22.5);
+  const corners=[[-270,0,-180],[270,0,-180],[-270,0,220],[270,0,220]];
+  inst(new THREE.CylinderGeometry(5,5,36,12),M.steel,corners.map(c=>[c[0],-70,c[2]]),g);
+  inst(new THREE.CylinderGeometry(9,9,6,6),M.steel,corners.map(c=>[c[0],-56,c[2]]),g);
+  inst(new THREE.CylinderGeometry(15,23,10,24),M.rubber,corners.map(c=>[c[0],-92,c[2]]),g);
+  /* corner gussets on the posts */
+  const gl=[];for(const x of[-285,285])for(const z of[-195,150])gl.push([x-Math.sign(x)*22,12,z]);
+  inst(new THREE.BoxGeometry(14,24,26),M.aluSoft,gl,g);
+}
+{
+  const g=part('base','機台底板','黑色陽極處理鋁板，所有機構鎖在同一塊基準面上，確保滑台與壓入軸的相對位置。',root,[0,0,0],[230,0,-120]);
+  add(g,rb(600,12,460,M.plate,1.5),0,-6,20);
+  const b=[];for(const x of[-270,-135,0,135,270])for(const z of[-178,238])b.push([x,0.8,z]);
+  inst(new THREE.CylinderGeometry(5,5,3,16),M.steel,b,g);
+}
 
-for(let r=0;r<3;r++){
-  for(let c=0;c<3;c++){
-    const tY=2.8+(r-1)*0.52;   // matches connector hole row Y
-    const tZ=(c-1)*0.52;        // matches connector hole col Z
-    const clr=WC[r*3+c];
-
-    // Fan-out wire (bundle → terminal)
-    wireTube(BX,BY,BZ, 0.82,tY,tZ, clr);
-
-    // Metal terminal tip (at connector side)
-    const t=cy(0.07,0.07,0.4,0x9ca3af,8);t.rotation.z=Math.PI/2;
-    add(scene,t,0.82,tY,tZ);
-    // Crimp band
-    const b=cy(0.093,0.093,0.1,0x6b7280,8);b.rotation.z=Math.PI/2;
-    add(scene,b,1.04,tY,tZ);
-    // Colored wire insulation stub visible near terminal
-    const ins=bx(0.5,0.11,0.11,clr);
-    add(scene,ins,1.3,tY,tZ);
+/* ---------- guard, tower light, light curtain ---------- */
+const beamMat=new THREE.LineBasicMaterial({color:0xff4a3a,transparent:true,opacity:0.32});
+{
+  const g=part('guard','透明護罩','後方、左右與上方的 PC 透明護罩，擋住夾手與飛濺風險，同時保留觀察視線。',root,[0,210,-30],[285,395,-22]);
+  const pn=[[540,400,3,0,210,-195],[3,400,315,-285,210,-22.5],[3,400,315,285,210,-22.5],[600,3,375,0,441.5,-22.5]];
+  pn.forEach(p=>{const m=bx(p[0],p[1],p[2],M.guard);m.castShadow=false;m.receiveShadow=false;m.renderOrder=5;m.userData.glass=true;add(g,m,p[3],p[4],p[5]);});
+}
+const towerMats=[lamp(0xff3020),lamp(0xffb020),lamp(0x40ff60)];
+{
+  const g=part('tower','三色警示燈','紅燈代表異常停機，黃燈代表人工作業中，綠燈代表自動循環中。',root,[30,250,-30],[250,520,-195]);
+  add(g,cy(12,8,M.black),250,444,-195);add(g,cy(4,22,M.steel),250,459,-195);
+  towerMats.forEach((m,i)=>{add(g,cy(12,16,m),250,514-i*17,-195);});
+  add(g,cy(12.5,4,M.black),250,524,-195);add(g,cy(12.5,3,M.black),250,471,-195);
+}
+let beams;
+{
+  const g=part('curtain','安全光柵','監控前方上料開口，機構動作時有手伸入就立即停止。',root,[0,0,70],[-257,326,150]);
+  for(const s of[-1,1]){
+    add(g,rb(26,300,26,M.yellow,2),s*257,170,150);
+    add(g,bx(1.5,270,10,M.black),s*243.6,170,150);
+    add(g,bx(27,8,27,M.black),s*257,324,150);add(g,bx(27,8,27,M.black),s*257,16,150);
   }
+  const v=[];for(let i=0;i<13;i++){const y=40+i*21.5;v.push(-243,y,150,243,y,150);}
+  const bg=new THREE.BufferGeometry();bg.setAttribute('position',new THREE.Float32BufferAttribute(v,3));
+  beams=new THREE.LineSegments(bg,beamMat);beams.userData.noPick=true;g.add(beams);
 }
 
-// ── 7. HORIZONTAL ACTUATOR  (LEFT, pushes +X) ─────────────
-add(scene,bx(0.7,7.2,0.7,0x1e293b),-7.5,3.95,0);
-add(scene,bx(1.0,0.35,1.0,0x0f172a),-7.5,7.65,0);
-add(scene,bx(1.0,1.0,1.0,0x0c1222),-7.5,7.25,0);
-const actB=cy(0.45,0.45,3.5,0x7f1d1d,14);actB.rotation.z=Math.PI/2;
-add(scene,actB,-5.75,2.65,0);
-const cL=cy(0.48,0.48,0.15,0x450a0a,14);cL.rotation.z=Math.PI/2;add(scene,cL,-7.5,2.65,0);
-const cR=cy(0.48,0.48,0.15,0x450a0a,14);cR.rotation.z=Math.PI/2;add(scene,cR,-4.0,2.65,0);
-add(scene,bx(0.5,1.5,1.2,0x7f1d1d),-7.3,2.65,0);
-add(scene,bx(8.5,0.17,0.17,0x4b5563),-2.75,1.88,-0.65);
-add(scene,bx(8.5,0.17,0.17,0x4b5563),-2.75,1.88, 0.65);
-const actC=add(scene,bx(0.58,1.45,1.4,0xbe123c),-4.0,2.65,0);
-const actR=cy(0.135,0.135,2.5,0x9ca3af,8);actR.rotation.z=Math.PI/2;
-add(scene,actR,-2.8,2.65,0);
-const actH=add(scene,bx(0.3,1.95,2.1,0xf43f5e),-1.55,2.65,0);
-
-// ── 8. ARROWS ─────────────────────────────────────────────
-function ar(d,o,c,l){
-  return new THREE.ArrowHelper(
-    new THREE.Vector3(...d).normalize(),new THREE.Vector3(...o),l,c,l*0.14,l*0.08);
+/* ---------- linear guide helper ---------- */
+function carriage(parent,x,y,z,axis,w=34,h=20,len=40,m=M.steel){
+  const g=new THREE.Group();g.position.set(x,y,z);parent.add(g);
+  if(axis==='x'){add(g,rb(len,h,w,m,1));add(g,bx(3,h-2,w-2,M.green),len/2+1.5,0,0);add(g,bx(3,h-2,w-2,M.green),-len/2-1.5,0,0);}
+  else if(axis==='z'){add(g,rb(w,h,len,m,1));add(g,bx(w-2,h-2,3,M.green),0,0,len/2+1.5);add(g,bx(w-2,h-2,3,M.green),0,0,-len/2-1.5);}
+  else{add(g,rb(w,len,h,m,1));add(g,bx(w-2,3,h-2,M.green),0,len/2+1.5,0);add(g,bx(w-2,3,h-2,M.green),0,-len/2-1.5,0);}
+  return g;
 }
-scene.add(ar([1,0,0], [-8,0.9, 4.8],0x3b82f6,2.4));
-scene.add(ar([0,0,-1],[-8,0.9, 4.8],0x22c55e,2.4));
-scene.add(ar([0,1,0], [-8,0.9, 4.8],0xef4444,2.4));
-scene.add(ar([1,0,0],[-8.5,4.5,0],0xef4444,8.5)); // big insertion arrow →
-
-// ── ORBIT CONTROLS ────────────────────────────────────────
-// phi ≈ 1.05 gives ~30° elevation (side-oblique view, not top-down)
-let isDr=false,isRt=false,mpx=0,mpy=0;
-let th=0.85, ph=1.05, rad=26, pnX=0, pnY=0;
-const la=new THREE.Vector3(-0.5,2.8,0); // lookAt center of machine action area
-
-function uc(){
-  camera.position.set(
-    la.x+pnX + rad*Math.sin(ph)*Math.sin(th),
-    la.y+pnY + rad*Math.cos(ph),
-    la.z      + rad*Math.sin(ph)*Math.cos(th)
-  );
-  camera.lookAt(la.x+pnX, la.y+pnY, la.z);
+function motor(parent,x,y,z,axis,dir){
+  /* 28 mm stepper, body extends away from the screw along dir */
+  const g=new THREE.Group();g.position.set(x,y,z);parent.add(g);
+  const L=(a,b,c)=>axis==='x'?[a,b,c]:[c,b,a];
+  const mk=(len,m,off,r)=>{const d=L(len,28,28);const o=rb(d[0],d[1],d[2],m,r);const p=L(dir*off,0,0);add(g,o,p[0],p[1],p[2]);};
+  mk(5,M.alu,2.5,0.8);mk(32,M.black,21,1.5);mk(6,M.alu,40,0.8);
+  const cp=cy(7,14,M.aluSoft,axis,20);const p=L(-dir*8,0,0);add(g,cp,p[0],p[1],p[2]);
+  const con=L(8,8,12),cpos=L(dir*36,17,0);add(g,bx(con[0],con[1],con[2],M.face),cpos[0],cpos[1],cpos[2]);
+  return g;
 }
-uc();
 
-const cv=renderer.domElement;
-cv.addEventListener('mousedown',e=>{isDr=true;isRt=e.button===2;mpx=e.clientX;mpy=e.clientY;});
-cv.addEventListener('contextmenu',e=>e.preventDefault());
-window.addEventListener('mouseup',()=>isDr=false);
-window.addEventListener('mousemove',e=>{
-  if(!isDr)return;
-  const dx=e.clientX-mpx,dy=e.clientY-mpy;
-  if(isRt){pnX-=dx*0.022;pnY+=dy*0.022;}
-  else{th-=dx*0.008;ph=Math.max(0.08,Math.min(Math.PI-0.08,ph-dy*0.008));}
-  mpx=e.clientX;mpy=e.clientY;uc();
-});
-cv.addEventListener('wheel',e=>{e.preventDefault();rad=Math.max(5,Math.min(65,rad+e.deltaY*0.022));uc();},{passive:false});
-let ltd=0;
-cv.addEventListener('touchstart',e=>{
-  if(e.touches.length===1){isDr=true;isRt=false;mpx=e.touches[0].clientX;mpy=e.touches[0].clientY;}
-  if(e.touches.length===2)ltd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-});
-cv.addEventListener('touchend',()=>isDr=false);
-cv.addEventListener('touchmove',e=>{
-  e.preventDefault();
-  if(e.touches.length===1&&isDr){
-    const dx=e.touches[0].clientX-mpx,dy=e.touches[0].clientY-mpy;
-    th-=dx*0.01;ph=Math.max(0.08,Math.min(Math.PI-0.08,ph-dy*0.01));
-    mpx=e.touches[0].clientX;mpy=e.touches[0].clientY;uc();
+/* ---------- X axis (fixed) ---------- */
+{
+  const g=part('xaxis','X 軸滑軌與螺桿','兩支線性滑軌加一支螺桿，由步進馬達帶動，負責把孔位沿左右方向分度到壓入刀下方。',root,[0,0,0],[176,34,15]);
+  add(g,rb(300,15,15,M.steel,0.8),-22,7.5,-55);add(g,rb(300,15,15,M.steel,0.8),-22,7.5,85);
+  add(g,cy(5,292,M.chrome,'x',16),-22,14,15);
+  add(g,rb(12,26,34,M.aluDark,1),-168,13,15);add(g,rb(12,26,34,M.aluDark,1),124,13,15);
+  motor(g,146,14,15,'x',1);
+  const sc=[];for(let i=0;i<8;i++){sc.push([-152+i*37,15.2,-55],[-152+i*37,15.2,85]);}
+  inst(new THREE.CylinderGeometry(2.6,2.6,0.8,10),M.black,sc,g);
+}
+
+/* ---------- moving containers ---------- */
+const stageX=new THREE.Group();root.add(stageX);
+const stageY=new THREE.Group();stageX.add(stageY);
+const slide=new THREE.Group();root.add(slide);
+
+{
+  const g=part('xtable','X 軸滑座與 Y 軸滑軌','跨在 X 軸滑塊上的滑座，上面再裝前後方向的 Y 軸滑軌與螺桿，兩軸疊成 XY 分度滑台。',stageX,[0,45,0],[-75,40,128]);
+  for(const x of[-45,45])for(const z of[-55,85])carriage(g,x,16,z,'x');
+  add(g,rb(150,12,225,M.aluDark,1.2),0,32,17.5);
+  add(g,rb(12,13,215,M.steel,0.8),-52,44.5,22.5);add(g,rb(12,13,215,M.steel,0.8),52,44.5,22.5);
+  add(g,cy(4,214,M.chrome,'z',14),0,52,17);
+  add(g,rb(26,24,10,M.alu,1),0,50,-90);add(g,rb(26,24,10,M.alu,1),0,50,125);
+  motor(g,0,52,-109,'z',-1);
+}
+const ledMats=[];
+{
+  const g=part('ytable','Y 軸承載板（載板）','承載治具座的移動平台。上料時滑到前方靠近作業員，啟動後送進壓入位。板上有治具定位銷與檢查指示燈。',stageY,[0,95,0],[75,64,-58]);
+  for(const x of[-52,52])for(const z of[-35,35])carriage(g,x,49,z,'z',30,16,34);
+  add(g,rb(150,10,120,M.aluDark,1.2),0,62,0);
+  add(g,cy(3,10,M.steel,'y',16),34,70,34);add(g,cy(3,10,M.steel,'y',16),34,70,-34);
+  /* indicator board */
+  const b=new THREE.Group();b.position.set(58,79,50);b.rotation.x=0.95;g.add(b);
+  add(b,rb(32,3,32,M.black,0.8));
+  add(g,bx(4,12,4,M.aluSoft),58,72,52);
+  for(let i=0;i<9;i++){const m=lamp(0x40ff60);ledMats.push(m);add(b,cy(2.6,1.2,m,'y',14),((i%3)-1)*8.5,2,(Math.floor(i/3)-1)*8.5);}
+}
+{
+  const g=part('nest','定位治具座','母座的安裝座。右側與後側是基準面，前方敞開方便放料。整塊治具可依產品型號更換。',stageY,[0,150,0],[26,90,-22]);
+  add(g,rb(84,6,84,M.bronze,1),0,70,0);
+  add(g,rb(8,16,44,M.bronze,1),21.4,81,0);
+  add(g,rb(44,16,8,M.bronze,1),-4,81,-21.4);
+}
+let clampRod;
+{
+  const g=part('clamp','氣動側夾與快拆夾','筆型氣壓缸把母座推向基準角並保持夾持。後方的快拆夾壓住治具座，換型時扳開就能取下。',stageY,[-85,150,55],[-62,96,62]);
+  const c=new THREE.Group();c.position.set(-17,84,17);c.rotation.y=Math.PI/4;g.add(c);
+  add(c,cy(9,34,M.alu,'x',20),-46,0,0);
+  add(c,cy(10,4,M.aluDark,'x',20),-28,0,0);add(c,cy(10,4,M.aluDark,'x',20),-64,0,0);
+  add(c,rb(6,22,24,M.aluSoft,1),-28,-4,0);add(c,bx(40,5,20,M.aluSoft),-46,-12.5,0);
+  add(c,cy(3,6,M.nickel,'y',12),-58,11,0);
+  add(c,tube([[-58,14,0],[-60,22,0],[-70,20,2],[-76,6,3],[-76,-12,3]],1.8,M.tube,16));
+  clampRod=new THREE.Group();c.add(clampRod);
+  add(clampRod,cy(3,22,M.chrome,'x',12),-18,0,0);
+  add(clampRod,rb(8,14,16,M.steel,1),-5,0,0);
+  /* toggle clamp */
+  add(g,bx(26,3,30,M.zinc),-60,68.5,-36);
+  add(g,bx(3,22,18,M.zinc),-66,80,-30);add(g,bx(3,22,18,M.zinc),-66,80,-42);
+  add(g,bx(36,6,6,M.zinc),-48,88,-36);
+  add(g,cy(2.2,14,M.steel,'y',10),-33,82,-36);add(g,cy(4.2,4,M.rubber,'y',14),-33,75,-36);
+  const h=cy(4.6,40,M.red,'y',14);h.rotation.z=0.45;add(g,h,-76,104,-36);
+}
+{
+  const g=part('comb','線材梳','三道開槽把 9 條線依列分開固定，讓線材不會互相纏繞，也讓壓入刀下降時不會壓到線。',stageY,[95,120,0],[65,158,0]);
+  const s=new THREE.Shape();
+  [[-20,0],[20,0],[20,88],[11.8,88],[11.8,52],[8.2,52],[8.2,88],[1.8,88],[1.8,52],[-1.8,52],[-1.8,88],[-8.2,88],[-8.2,52],[-11.8,52],[-11.8,88],[-20,88]]
+    .forEach((p,i)=>i?s.lineTo(p[0],p[1]):s.moveTo(p[0],p[1]));
+  s.closePath();
+  const cg=new THREE.ExtrudeGeometry(s,{depth:6,bevelEnabled:false});cg.translate(0,0,-3);cg.rotateY(Math.PI/2);
+  add(g,mesh(cg,M.alu),65,67,0);
+  add(g,rb(18,6,44,M.alu,1),65,70,0);
+}
+{
+  const g=part('housing','9PIN 母座','三乘三共 9 孔的連接器母座，孔口朝上放進治具。每個孔內有擋點，端子卡榫彈開後就退不出來。',stageY,[0,215,0],[0,101,19]);
+  const s=new THREE.Shape(),a=17,c=2.5;
+  s.moveTo(-a+c,-a);s.lineTo(a-c,-a);s.quadraticCurveTo(a,-a,a,-a+c);s.lineTo(a,a-c);s.quadraticCurveTo(a,a,a-c,a);
+  s.lineTo(-a+c,a);s.quadraticCurveTo(-a,a,-a,a-c);s.lineTo(-a,-a+c);s.quadraticCurveTo(-a,-a,-a+c,-a);
+  for(let i=0;i<9;i++){const h=new THREE.Path();h.absarc(((i%3)-1)*10,(Math.floor(i/3)-1)*10,3.3,0,Math.PI*2,true);s.holes.push(h);}
+  const hg=new THREE.ExtrudeGeometry(s,{depth:25,bevelEnabled:true,bevelSize:0.5,bevelThickness:0.5,bevelSegments:1,curveSegments:10});
+  hg.rotateX(-Math.PI/2);
+  add(g,mesh(hg,M.nylon),0,73.5,0);
+  add(g,bx(12,9,2.4,M.nylon),0,88,18);add(g,bx(12,2.5,4,M.nylon),0,93,18.6);
+  add(g,bx(2.4,20,5,M.nylon),-18,84,-8);add(g,bx(2.4,20,5,M.nylon),-18,84,8);
+}
+
+/* ---------- terminals and wires ---------- */
+const PINC=[['棕',0x8a5a2b],['紅',0xd0392c],['橘',0xe5802a],['黃',0xe2bf2a],['黃綠',0x86c232],['藍',0x2d6bd0],['白',0xdcdad0],['灰',0x8a8d94],['黑',0x1b1c1f]];
+const SEAT=100,PRE=14,STROKE=57;
+const pins=[];
+{
+  const g=part('terms','端子與線材','9 支壓著端子，後面各接一條線。端子側邊有卡榫彈片，壓到定位後彈開卡住母座。線色用來分辨腳位功能。',stageY,[0,290,0],[150,146,0]);
+  const unit=new THREE.CylinderGeometry(1.5,1.5,1,10);
+  for(let i=0;i<9;i++){
+    const cI=(i%3)-1,rI=Math.floor(i/3)-1,x=cI*10,z=rI*10,hb=137-cI*8;
+    const wm=std(PINC[i][1],0,0.55);
+    const pg=new THREE.Group();g.add(pg);
+    const tg=new THREE.Group();tg.position.set(x,SEAT+PRE,z);pg.add(tg);
+    add(tg,cy(2.8,3,M.tin,'y',14),0,-1.5,0);
+    add(tg,cy(1.9,15,M.tin,'y',12),0,-10.5,0);
+    add(tg,cy(1.9,4,M.tin,'y',12,0.9),0,-20,0);
+    add(tg,cy(3.0,3,M.tin,'y',12,1.9),0,-8,0);
+    add(tg,cy(2.1,4.5,M.tin,'y',12),0,2,0);
+    const vw=mesh(unit,wm);pg.add(vw);
+    const top=hb-12;
+    const cw=tube([[x,hb-20,z],[x,hb-10,z],[x+2.6,hb-2.8,z],[x+9.5,hb,z],[40,hb,z],[66,hb,z],[86,(hb+135)/2,z*0.55],[102,135,z*0.15]],1.5,wm,40);
+    pg.add(cw);
+    pins.push({pg,tg,vw,x,z,top});
   }
-  if(e.touches.length===2){
-    const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-    rad=Math.max(5,Math.min(65,rad-(d-ltd)*0.05));ltd=d;uc();
-  }
-},{passive:false});
+  add(g,cy(7.5,24,M.rubber,'x',18),110,135,0);
+  add(g,tube([[104,135,0],[142,135,0],[186,121,2],[213,90,4],[226,56,5]],6.2,M.black,30));
+  add(g,cy(6.2,2,M.grey,'y',16),226.3,55,5);
+}
 
-// ── ANIMATION ─────────────────────────────────────────────
-// Push head right edge: -1.55+0.15=-1.40
-// Connector left face after X align(+0.2): xG(-0.5+0.2)+hG(0)+left(-0.28) = -0.58
-// GAP = -0.58 - (-1.40) = 0.82
-// Terminal tips at X=0.82, connector right face at -0.5+0.2+0.28=-0.02 → gap to terminal = 0.84
-// Insert stroke 2.2: connector moves max(0, 2.2-0.82) = 1.38
-// Final housing right face: -0.5+0.2+1.38+0.28 = 1.36 > 0.82 ✓ terminals inserted
+/* ---------- press column, slide, cylinder ---------- */
+{
+  const g=part('column','壓入立柱與垂直滑軌','固定在底板後方的立柱。正面的垂直滑軌導引壓入頭上下，頂部托架承載氣壓缸，吸收壓入反力。',root,[0,0,-140],[55,326,-165]);
+  add(g,rb(110,330,30,M.alu,2),0,165,-165);
+  add(g,rb(150,12,62,M.alu,1.5),0,6,-161);
+  add(g,rb(15,175,13,M.steel,0.8),0,197.5,-143.5);
+  add(g,rb(84,12,125,M.alu,1.5),0,290,-87.5);
+  for(const x of[-38,38])add(g,sideExtrude([[0,0],[105,0],[105,5],[0,34]],8,M.alu),x,296,-150);
+  const b=[];for(const x of[-58,58])for(const z of[-180,-142])b.push([x,13,z]);
+  inst(new THREE.CylinderGeometry(4.5,4.5,3.5,14),M.steel,b,g);
+}
+{
+  const g=part('head','壓入頭與壓入刀','跟著滑塊上下的懸臂。前端薄刀從線材旁邊下降，頂在端子後緣把端子推到定位深度，刀寬小於孔距。',slide,[0,60,0],[0,266,18]);
+  add(g,rb(80,90,12,M.aluDark,1.5),0,230,-122);
+  carriage(g,0,210,-136,'y',34,16,36);carriage(g,0,252,-136,'y',34,16,36);
+  add(g,rb(40,30,132,M.aluDark,2),0,248,-50);
+  add(g,rb(26,14,18,M.alu,1),0,226,-3.3);
+  add(g,bx(6,62,2.6,M.steel),0,188,-3.3);
+  add(g,cy(8,130,M.chrome,'y',20),0,328,-55);
+  add(g,cy(12,10,M.steel,'y',6),0,268,-55);add(g,cy(10,6,M.steel,'y',20),0,277,-55);
+}
+const reedMats=[lamp(0xff7a20),lamp(0xff7a20)];
+{
+  const g=part('cyl','壓入氣壓缸','提供壓入力的氣壓缸。缸身兩顆磁簧開關回報上下端點，節流接頭調整下壓與回程速度。',root,[0,150,-140],[0,424,-55]);
+  add(g,rb(52,12,52,M.aluSoft,1.5),0,302,-55);
+  add(g,rb(46,100,46,M.alu,2),0,358,-55);
+  add(g,rb(52,12,52,M.aluSoft,1.5),0,414,-55);
+  const n=[];for(const x of[-20,20])for(const z of[-75,-35])n.push([x,421.5,z]);
+  inst(new THREE.CylinderGeometry(3.4,3.4,3,6),M.steel,n,g);
+  add(g,bx(1.2,96,5,M.aluDark),23.4,358,-55);
+  [326,390].forEach((y,i)=>{add(g,bx(5,20,7,M.black),26,y,-55);add(g,bx(1,3,3,reedMats[i]),28.8,y+5,-55);});
+  add(g,tube([[26,338,-55],[30,352,-62],[34,350,-100],[40,330,-140],[52,300,-150]],1.1,M.black,16));
+  add(g,tube([[26,402,-55],[32,416,-64],[38,400,-104],[46,350,-142],[54,310,-150]],1.1,M.black,16));
+  for(const y of[302,414]){add(g,cy(4.5,10,M.nickel,'x',14),-31,y,-55);add(g,cy(6,6,M.tube,'x',14),-38,y,-55);}
+  add(g,tube([[-40,302,-55],[-62,296,-66],[-96,250,-130],[-150,140,-168],[-172,70,-172],[-172,54,-172]],2.6,M.tube,36));
+  add(g,tube([[-40,414,-55],[-66,410,-70],[-104,330,-140],[-136,150,-174],[-150,74,-172],[-150,54,-172]],2.6,M.tube,36));
+}
+const laserMat=new THREE.MeshBasicMaterial({color:0xff3a2a,transparent:true,opacity:0.85});
+let laser;
+{
+  const g=part('sensor','雷射位移計（卡榫檢查）','壓完後逐孔量端子後緣高度。卡榫有卡住的端子高度一致，偏高代表彈回，判定為 NG。',root,[-120,40,40],[-44,254,-3]);
+  add(g,rb(16,34,22,M.paint,1.5),-44,233,-3.3);
+  add(g,bx(16.4,10,12,std(0xf0a948,0.1,0.5)),-44,238,-3.3);
+  add(g,bx(10,1,14,M.black),-44,215.6,-3.3);
+  add(g,rb(6,20,152,M.aluSoft,1),-55,240,-77);
+  add(g,tube([[-44,250,-8],[-46,262,-30],[-50,256,-100],[-52,240,-150]],1.3,M.black,16));
+  laser=mesh(new THREE.CylinderGeometry(0.45,0.45,116,6),laserMat);laser.castShadow=false;laser.receiveShadow=false;laser.userData.noPick=true;
+  add(g,laser,-44,158,-3.3);laser.visible=false;
+}
 
-const OX={c:actC.position.x,r:actR.position.x,h:actH.position.x,xg:xG.position.x,ygz:yG.position.z};
-const GAP=0.82, STR=2.2;
+/* ---------- pneumatics ---------- */
+{
+  const g=part('reg','調壓過濾器','廠務空壓先經過這裡濾水並調到工作壓力，壓力錶讓作業員一眼確認壓入力設定。',root,[-140,0,0],[-225,184,-150]);
+  add(g,rb(8,150,40,M.aluSoft,1),-250,75,-150);add(g,bx(22,6,30,M.aluSoft),-240,130,-150);
+  add(g,rb(42,42,42,M.paint,2),-225,130,-150);
+  add(g,cy(15,26,M.black,'y',24),-225,164,-150);add(g,cy(11,5,M.grey,'y',24),-225,179,-150);
+  add(g,cy(18,54,M.black,'y',24),-225,82,-150);add(g,cy(15,6,M.black,'y',24,9),-225,52,-150);add(g,cy(4,6,M.nickel,'y',10),-225,46,-150);
+  add(g,cy(17,9,M.black,'z',28),-225,130,-124.5);add(g,cy(14.5,1,M.face,'z',28),-225,130,-119.8);
+  const nd=bx(1.2,11,0.6,M.red);nd.rotation.z=-0.7;add(g,nd,-222,134,-119);
+  add(g,cy(4.5,10,M.nickel,'x',14),-200,130,-150);add(g,cy(4.5,10,M.nickel,'x',14),-250,130,-158);
+  add(g,tube([[-196,130,-150],[-186,122,-158],[-190,44,-170],[-188,12,-172]],3,M.tube,24));
+  add(g,tube([[-254,130,-158],[-264,124,-166],[-266,40,-176],[-262,6,-180],[-240,3,-186]],3,M.tube,24));
+}
+{
+  const g=part('valves','電磁閥座','三顆電磁閥分別控制壓入缸下壓、回程與側夾。閥座集中供氣，配管短、維修時容易辨識。',root,[-80,0,-140],[-150,62,-172]);
+  add(g,rb(76,16,30,M.aluSoft,1),-150,8,-172);
+  [-172,-150,-128].forEach(x=>{add(g,rb(20,30,26,M.black,1),x,31,-172);add(g,bx(18,6,12,M.grey),x,49,-166);add(g,cy(3.6,8,M.nickel,'y',12),x,50,-176);});
+  add(g,cy(4,8,M.nickel,'x',12),-190,8,-172);
+}
 
+/* ---------- operator panel ---------- */
+const startCaps=[];
+const hmi=document.createElement('canvas');hmi.width=352;hmi.height=208;
+const hmiTex=new THREE.CanvasTexture(hmi);hmiTex.colorSpace=THREE.SRGBColorSpace;
+{
+  const g=part('panel','操作面板','左右各一顆啟動鈕，必須雙手同時按下才會動作。右側有急停鈕與顯示步驟、良品數的小螢幕。',root,[0,0,150],[195,74,190]);
+  const prof=[[-38,0],[38,0],[38,24],[-38,62]];
+  const ang=Math.atan2(38,76);
+  const mkBtn=(par,x,z)=>{
+    const b=new THREE.Group();b.position.set(x,0,z);par.add(b);
+    add(b,cy(13,5,M.black,'y',24),0,2.5,0);
+    const ring=mesh(new THREE.CylinderGeometry(17,17,13,28,1,true),M.blackDS);add(b,ring,0,6.5,0);
+    const m=new THREE.MeshStandardMaterial({color:0x2f9648,emissive:0x35ff6a,emissiveIntensity:0,roughness:0.4});
+    const cap=cy(11,8,m,'y',24);add(b,cap,0,9,0);startCaps.push(cap);
+  };
+  /* right console */
+  add(g,sideExtrude(prof,140,M.paint),195,0,207);
+  const r=new THREE.Group();r.position.set(195,43,207);r.rotation.x=ang;g.add(r);
+  add(r,rb(98,5,62,M.black,1.5),-16,2.5,0);
+  const scr=new THREE.Mesh(new THREE.PlaneGeometry(88,52),new THREE.MeshBasicMaterial({map:hmiTex,toneMapped:false}));
+  scr.rotation.x=-Math.PI/2;add(r,scr,-16,5.3,0);
+  add(r,cy(17,2,M.yellow,'y',28),50,1,-20);add(r,cy(10,8,M.black,'y',20),50,5,-20);
+  add(r,cy(15,6,M.red,'y',28),50,12,-20);add(r,cy(12,3,M.red,'y',28,15),50,16.5,-20);
+  mkBtn(r,50,22);
+  /* left box */
+  add(g,sideExtrude(prof,70,M.paint),-225,0,207);
+  const l=new THREE.Group();l.position.set(-225,43,207);l.rotation.x=ang;g.add(l);
+  mkBtn(l,0,8);
+  add(l,cy(9,3,M.steel,'y',20),0,1.5,-26);add(l,cy(7,7,M.black,'y',20),0,6,-26);add(l,bx(3,3,13,M.black),0,10.5,-26);
+  startCaps.reverse();
+}
+
+/* ---------- floor ---------- */
+{
+  const fc=document.createElement('canvas');fc.width=fc.height=256;const fx=fc.getContext('2d');
+  const fg=fx.createRadialGradient(128,128,56,128,128,126);fg.addColorStop(0,'#fff');fg.addColorStop(1,'#000');
+  fx.fillStyle='#000';fx.fillRect(0,0,256,256);fx.fillStyle=fg;fx.beginPath();fx.arc(128,128,127,0,Math.PI*2);fx.fill();
+  const f=new THREE.Mesh(new THREE.CircleGeometry(2300,72),new THREE.MeshStandardMaterial({color:0x0e0f12,roughness:0.92,metalness:0,transparent:true,alphaMap:new THREE.CanvasTexture(fc)}));
+  f.rotation.x=-Math.PI/2;f.position.y=-97;f.receiveShadow=true;f.userData.noPick=true;scene.add(f);
+  const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d');
+  const gr=x.createRadialGradient(128,128,20,128,128,128);gr.addColorStop(0,'rgba(0,0,0,.6)');gr.addColorStop(0.6,'rgba(0,0,0,.28)');gr.addColorStop(1,'rgba(0,0,0,0)');
+  x.fillStyle=gr;x.fillRect(0,0,256,256);
+  const s=new THREE.Mesh(new THREE.PlaneGeometry(1150,980),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false}));
+  s.rotation.x=-Math.PI/2;s.position.set(0,-96.4,20);s.userData.noPick=true;scene.add(s);
+  const grid=new THREE.GridHelper(1800,18,0x1a1b20,0x15161a);grid.position.y=-96.7;grid.userData.noPick=true;scene.add(grid);
+}
+
+/* ---------- timeline ---------- */
 const STEPS=[
-  {l:'步驟1：放置 9PIN 母座（手動）',d:60},
-  {l:'步驟2：X 軸對位中...',d:80},
-  {l:'步驟3：→ 水平壓入端子！（左側機構）',d:110},
-  {l:'步驟4：退回復位，取出成品',d:95},
+  {n:'放置母座',d:1.4,t:'作業員把 9PIN 母座放進定位治具，靠住右側與後側的基準面。此時滑台停在前方上料位，黃燈亮。'},
+  {n:'人工排針',d:9*0.55,t:'依線色與線材功能，把 9 支端子逐一預插到孔口，線材卡進線材梳。排針的同時目視確認卡榫彈片沒有變形。'},
+  {n:'雙手啟動',d:1.0,t:'雙手同時按下左右兩顆啟動鈕，確認手已離開作業區。之後由前方光柵持續監控開口。'},
+  {n:'夾持定位',d:1.4,t:'氣動側夾把母座推向基準角並保持夾持，滑台把治具從上料位送到壓入位。'},
+  {n:'逐一壓入',d:9*1.15,t:'XY 滑台把每個孔位分度到壓入刀下方，氣壓缸下壓把端子推到定位深度，再回程換下一孔，共 9 次。'},
+  {n:'卡榫檢查',d:0.5+9*0.36,t:'位移計逐孔量測端子高度。卡榫有卡住的端子高度一致，彈回偏高就判定 NG，指示燈板同步顯示每一孔的結果。'},
+  {n:'退回取出',d:3.0,t:'滑台退回上料位，側夾鬆開，作業員取出完成品。出現 NG 時亮紅燈並停在上料位，由人工重排該支端子。'}
 ];
-let on=false,si=0,st=0;
-const sel=document.getElementById('st');
-function eio(t){return t<0.5?2*t*t:-1+(4-2*t)*t;}
-
-function runAnim(){
-  if(on)return;on=true;si=0;st=0;
-  actC.position.x=OX.c;actR.position.x=OX.r;actH.position.x=OX.h;
-  xG.position.x=OX.xg;yG.position.z=OX.ygz;
-}
-function resetView(){th=0.85;ph=1.05;rad=26;pnX=0;pnY=0;uc();}
-
-let expl=false;
-function toggleEx(){
-  expl=!expl;const o=expl?1.8:0;
-  fixBase.position.y=1.7+0;
-  suppF.position.y=2.45+o;suppB.position.y=2.45+o;
-  hG.position.y=2.8+o*2;
-}
-
-function loop(){
-  requestAnimationFrame(loop);
-  if(on){
-    const s=STEPS[si],p=eio(Math.min(st/s.d,1));sel.textContent=s.l;
-    if(si===1){
-      // X-only alignment (no Z move — keeps terminal Z aligned with housing holes)
-      xG.position.x=OX.xg+p*0.2;
-    }
-    if(si===2){
-      // Horizontal insertion: actuator pushes +X
-      const sk=p*STR;
-      actC.position.x=OX.c+sk;
-      actR.position.x=OX.r+sk;
-      actH.position.x=OX.h+sk;
-      // Connector slides right after gap closes
-      xG.position.x=(OX.xg+0.2)+Math.max(0,sk-GAP);
-    }
-    if(si===3){
-      // Retract: all actuator parts return to start
-      const sk=(1-p)*STR;
-      actC.position.x=OX.c+sk;
-      actR.position.x=OX.r+sk;
-      actH.position.x=OX.h+sk;
-      xG.position.x=(OX.xg+0.2*(1-p))+Math.max(0,sk-GAP+(GAP*p));
-    }
-    st++;
-    if(st>s.d){
-      si++;st=0;
-      if(si>=STEPS.length){on=false;sel.textContent='✅ 插入完成！按「執行動作」再次播放';}
-    }
+const S=[0];STEPS.forEach(s=>S.push(S[S.length-1]+s.d));
+const T=S[S.length-1];
+const T_DONE=S[6]+0.9;
+const NG_PIN=5;
+const ease=x=>x<=0?0:x>=1?1:x*x*(3-2*x);
+const stepAt=t=>{for(let k=STEPS.length-1;k>=0;k--)if(t>=S[k])return k;return 0;};
+const LOAD=[0,75];
+const pressPos=i=>[-pins[i].x,-pins[i].z];
+const chkPos=i=>[-44-pins[i].x,-pins[i].z-1.1];
+const K=[];const key=(t,p)=>K.push([t,p[0],p[1]]);
+key(0,LOAD);key(S[3]+0.5,LOAD);key(S[3]+1.4,pressPos(0));
+for(let i=1;i<9;i++){const a=S[4]+i*1.15;key(a,pressPos(i-1));key(a+0.3,pressPos(i));}
+key(S[5],pressPos(8));
+for(let i=0;i<9;i++){const a=S[5]+0.5+i*0.36;key(a,chkPos(i));key(a+0.2,chkPos(i));}
+key(S[6],chkPos(8));key(S[6]+0.9,LOAD);key(T+1,LOAD);
+function stageAt(t){
+  for(let j=K.length-2;j>=0;j--){
+    if(t>=K[j][0]){const a=K[j],b=K[j+1],f=ease((t-a[0])/(b[0]-a[0]));return[a[1]+(b[1]-a[1])*f,a[2]+(b[2]-a[2])*f];}
   }
-  renderer.render(scene,camera);
+  return LOAD;
 }
-loop();
+const pressD=u=>u<0.3?0:u<0.65?ease((u-0.3)/0.35):u<0.78?1:u<1.15?1-ease((u-0.78)/0.37):0;
 
-window.addEventListener('resize',()=>{
-  camera.aspect=window.innerWidth/window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth,window.innerHeight);
+let ng=Q.get('ng')==='1';
+const pinState=new Array(9).fill(0);
+let towerMode=1;
+
+function pose(t){
+  const k=stepAt(t),u=t-S[k];
+  const lift=(k===6&&!ng)?ease((u-1.3)/1.1)*85:0;
+  P.housing.userData.anim.y=(k===0?(1-ease(u/1.15))*70:0)+lift;
+  P.terms.userData.anim.y=lift;
+  P.terms.visible=t>=S[1];
+  /* stage */
+  const sp=stageAt(t);stageX.position.x=sp[0];stageY.position.z=sp[1];
+  /* press slide */
+  let d=0;
+  if(k===4){const i=Math.min(8,Math.floor(u/1.15));d=pressD(u-i*1.15);}
+  slide.position.y=-STROKE*d;
+  reedMats[0].emissiveIntensity=d>0.97?2.2:0;reedMats[1].emissiveIntensity=d<0.03?2.2:0;
+  /* clamp */
+  const c=t<S[3]?0:t<S[6]+0.9?ease((t-S[3])/0.5):1-ease((t-S[6]-0.9)/0.4);
+  clampRod.position.x=-8+8*c;
+  /* start buttons */
+  const pressed=k===2&&u>0.15&&u<0.78;
+  startCaps.forEach(b=>{b.position.y=pressed?6.2:9;b.material.emissiveIntensity=pressed?1.4:(t<S[2]&&t>=S[1]+STEPS[1].d-0.01?0.5:0.05);});
+  /* pins */
+  let anyNg=false;
+  for(let i=0;i<9;i++){
+    const p=pins[i],t0=S[1]+i*0.55;
+    let off=PRE,st=0;
+    if(t<t0){p.pg.visible=false;}
+    else{
+      p.pg.visible=true;st=1;
+      p.pg.position.y=(1-ease((t-t0)/0.45))*46;
+      const ui=t-(S[4]+i*1.15);
+      if(ui>=0){
+        const di=pressD(ui),follow=STROKE*(1-di);
+        if(ui<0.78)off=Math.min(PRE,follow);
+        else{off=(ng&&i===NG_PIN)?Math.min(4.5,follow):0;st=2;}
+        if(ui>=0.65)st=2;
+      }
+      if(t>=S[5]+0.5+i*0.36+0.2){st=(ng&&i===NG_PIN)?4:3;if(st===4)anyNg=true;}
+    }
+    if(!p.pg.visible)p.pg.position.y=0;
+    p.tg.position.y=SEAT+off;
+    const bot=SEAT+off+3,len=Math.max(0.1,p.top-bot);
+    p.vw.position.set(p.x,(p.top+bot)/2,p.z);p.vw.scale.y=len;
+    pinState[i]=st;
+    const lm=ledMats[i];
+    lm.emissive.setHex(st===4?0xff3020:0x40ff60);lm.emissiveIntensity=st>=3?2.4:0;
+  }
+  /* laser */
+  laser.visible=k===5&&u>=0.5;
+  /* tower */
+  towerMode=anyNg?0:(t<S[2]?1:(k===6&&u>1.3?1:2));
+  towerMats.forEach((m,i)=>{m.emissiveIntensity=i===towerMode?1.1:0;m.color.setHex(i===towerMode?[0x7a1a14,0x7a5410,0x1c6a2c][i]:0x1c1d20);});
+}
+
+/* ---------- explode ---------- */
+let exF=0,exT=0;
+function applyParts(){
+  for(const g of parts){
+    g.position.copy(g.userData.ex).multiplyScalar(exF).add(g.userData.anim);
+    g.userData.label.visible=g.visible&&(exF>0.5||g===selected);
+  }
+}
+
+/* ---------- UI ---------- */
+const stepsEl=$('#steps'),pinsEl=$('#pins');
+STEPS.forEach((s,i)=>{
+  const li=document.createElement('li');
+  li.innerHTML='<button type="button" data-k="'+i+'"><i>'+(i+1)+'</i><span>'+s.n+'</span><em>'+s.d.toFixed(1)+' 秒</em></button>';
+  stepsEl.appendChild(li);
 });
+PINC.forEach((c,i)=>{
+  const dv=document.createElement('div');dv.className='pin';dv.style.setProperty('--c','#'+c[1].toString(16).padStart(6,'0'));
+  dv.title='第 '+(i+1)+' 支，'+c[0]+'線';dv.innerHTML='<span>'+(i+1)+'</span>';pinsEl.appendChild(dv);
+});
+$('#st-total').textContent=T.toFixed(1);
+const scrub=$('#scrub');scrub.max=T.toFixed(2);
+
+let t=0,playing=!reduceMotion,stopAt=null,dirty=true,selected=null;
+let uiSig='',uiStep=-1;
+function drawHMI(k,ok,bad){
+  const x=hmi.getContext('2d');
+  x.fillStyle='#0b0c0f';x.fillRect(0,0,352,208);
+  x.fillStyle='#16171b';x.fillRect(0,0,352,44);
+  x.font='700 20px "Microsoft JhengHei","PingFang TC","Noto Sans TC",sans-serif';x.textBaseline='middle';
+  x.fillStyle='#a0a2a8';x.fillText('9PIN 插入機',14,23);
+  x.textAlign='right';x.fillStyle=bad?'#ef5b4c':'#b5d63f';x.fillText(bad?'異常':'運轉',338,23);x.textAlign='left';
+  x.fillStyle='#74767d';x.font='700 17px "Microsoft JhengHei","PingFang TC","Noto Sans TC",sans-serif';x.fillText('步驟 '+(k+1)+' / 7',14,72);
+  x.fillStyle='#ececec';x.font='700 34px "Microsoft JhengHei","PingFang TC","Noto Sans TC",sans-serif';x.fillText(STEPS[k].n,14,112);
+  x.font='700 22px ui-monospace,Consolas,monospace';
+  x.fillStyle='#b5d63f';x.fillText('OK '+ok,14,170);
+  x.fillStyle=bad?'#ef5b4c':'#74767d';x.fillText('NG '+bad,120,170);
+  for(let i=0;i<9;i++){const s=pinState[i];x.fillStyle=s===4?'#ef5b4c':s===3?'#b5d63f':s===2?'#ececec':s===1?'#55575e':'#22242a';x.fillRect(236+(i%3)*34,62+Math.floor(i/3)*42,26,34);}
+  hmiTex.needsUpdate=true;
+}
+function updateUI(){
+  const k=stepAt(t);
+  $('#st-time').textContent=t.toFixed(1);
+  if(document.activeElement!==scrub||playing)scrub.value=t.toFixed(2);
+  const sig=k+'|'+pinState.join('')+'|'+ng;
+  if(sig!==uiSig){
+    uiSig=sig;
+    const ok=pinState.filter(s=>s===3).length,bad=pinState.filter(s=>s===4).length;
+    [...pinsEl.children].forEach((e,i)=>{e.className='pin s'+pinState[i];});
+    const r=$('#result');
+    const placed=pinState.filter(s=>s>=1).length,pressedN=pinState.filter(s=>s>=2).length;
+    if(bad){r.className='ng';r.textContent='第 '+(NG_PIN+1)+' 支卡榫未卡住，判定 NG，等待人工重排';}
+    else if(ok===9){r.className='ok';r.textContent='9 支卡榫檢查全數 OK';}
+    else if(ok>0){r.className='';r.textContent='檢查中，已確認 '+ok+' / 9';}
+    else if(pressedN>0){r.className='';r.textContent='壓入中，已完成 '+pressedN+' / 9';}
+    else if(placed>0){r.className='';r.textContent='排針中，已就位 '+placed+' / 9';}
+    else{r.className='';r.textContent='等待排針';}
+    drawHMI(k,ok,bad);
+  }
+  if(k!==uiStep){
+    uiStep=k;
+    $('#st-no').textContent=(k+1)+'/7';$('#st-name').textContent=STEPS[k].n;$('#stepdesc').textContent=STEPS[k].t;
+    [...stepsEl.children].forEach((li,i)=>{li.className=i===k?'on':i<k?'done':'';});
+  }
+}
+function setPlaying(v){playing=v;$('#bt-play').textContent=v?'暫停':'播放';dirty=true;}
+function seek(v,play,until){t=Math.max(0,Math.min(T-0.001,v));stopAt=until??null;setPlaying(!!play);}
+$('#bt-play').onclick=()=>{if(!playing&&t>=T-0.01)t=0;stopAt=null;setPlaying(!playing);};
+$('#bt-replay').onclick=()=>seek(0,true);
+$('#bt-next').onclick=()=>{const k=stepAt(t+0.01);if(k>=STEPS.length-1&&t>=T-0.02){seek(0,true,S[1]);return;}seek(t,true,S[k+1]);};
+$('#bt-prev').onclick=()=>{const k=stepAt(t+0.01);seek(S[t-S[k]>0.4?k:Math.max(0,k-1)],false);};
+stepsEl.onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=+b.dataset.k;seek(S[k],true,S[k+1]);};
+scrub.oninput=()=>seek(+scrub.value,false);
+
+const VIEWS={
+  overview:{p:[770,455,1050],t:[0,132,20]},
+  press:{p:[175,225,250],t:[0,130,0]},
+  fixture:{p:[-150,345,290],t:[0,95,40]},
+  side:{p:[1060,235,20],t:[0,150,10]},
+  explode:{p:[940,620,1300],t:[0,185,0]}
+};
+let tween=null;
+function fitScale(){const a=stage.clientWidth/Math.max(1,stage.clientHeight);return Math.max(1,1.62/a);}
+function setView(name,instant){
+  const v=VIEWS[name];if(!v)return;
+  const tg=new THREE.Vector3(...v.t),ps=new THREE.Vector3(...v.p).sub(tg).multiplyScalar(fitScale()).add(tg);
+  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.view===name));
+  if(instant||reduceMotion){camera.position.copy(ps);controls.target.copy(tg);controls.update();tween=null;}
+  else tween={p0:camera.position.clone(),t0:controls.target.clone(),p1:ps,t1:tg,f:0};
+  dirty=true;
+}
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+controls.addEventListener('start',()=>{tween=null;document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed','false'));});
+controls.addEventListener('change',()=>{dirty=true;});
+
+const tog=(id,fn,init)=>{const b=$(id);let v=init;b.setAttribute('aria-pressed',v);b.onclick=()=>{v=!v;b.setAttribute('aria-pressed',v);fn(v);dirty=true;};return x=>{v=x;b.setAttribute('aria-pressed',v);fn(v);dirty=true;};};
+let wasPlaying=false;
+const setExplode=tog('#tg-explode',v=>{
+  exT=v?1:0;
+  if(v){wasPlaying=playing;seek(T_DONE,false);setView('explode');}
+  else{if(wasPlaying&&!reduceMotion)seek(0,true);setView('overview');}
+  if(reduceMotion)exF=exT;
+},false);
+const setGuard=tog('#tg-guard',v=>{P.guard.visible=v;},true);
+const allMats=new Set();
+root.traverse(o=>{if(o.isMesh&&!o.userData.glass&&!o.userData.noPick&&o.material.isMeshStandardMaterial)allMats.add(o.material);});
+const setWire=tog('#tg-wire',v=>{allMats.forEach(m=>{m.wireframe=v;});},false);
+const setNg=tog('#tg-ng',v=>{ng=v;uiSig='';},ng);
+
+/* ---------- picking ---------- */
+const ray=new THREE.Raycaster(),ptr=new THREE.Vector2();
+const selBox=new THREE.Box3(),selHelper=new THREE.Box3Helper(selBox,0xb5d63f);selHelper.visible=false;selHelper.userData.noPick=true;scene.add(selHelper);
+function select(g){
+  if(selected)selected.userData.label.element.classList.remove('sel');
+  selected=g;
+  if(g){g.userData.label.element.classList.add('sel');$('#pname').textContent=g.userData.part.name;$('#pdesc').textContent=g.userData.part.desc;}
+  else{$('#pname').textContent='尚未選取';$('#pdesc').textContent='在模型上點任一零件，這裡會顯示名稱與用途。開啟爆炸圖可以一次看到所有零件名稱。';}
+  dirty=true;
+}
+function partOf(o){while(o){if(o.userData&&o.userData.part)return o;o=o.parent;}return null;}
+let down=null;
+const cv=renderer.domElement;
+cv.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];});
+cv.addEventListener('pointerup',e=>{
+  if(!down)return;const mv=Math.hypot(e.clientX-down[0],e.clientY-down[1]);down=null;if(mv>6)return;
+  const r=cv.getBoundingClientRect();
+  ptr.set(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1);
+  ray.setFromCamera(ptr,camera);
+  const hits=ray.intersectObject(root,true).filter(h=>{
+    if(h.object.userData.noPick)return false;
+    for(let o=h.object;o;o=o.parent)if(!o.visible)return false;
+    return true;
+  });
+  const solid=hits.find(h=>!h.object.userData.glass)||hits[0];
+  select(solid?partOf(solid.object):null);
+});
+
+/* ---------- resize, visibility, loop ---------- */
+function resize(){
+  const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;
+  renderer.setSize(w,h,false);labelRenderer.setSize(w,h);
+  camera.aspect=w/h;camera.updateProjectionMatrix();dirty=true;
+}
+new ResizeObserver(resize).observe(stage);
+let onScreen=true;
+new IntersectionObserver(es=>{onScreen=es[0].isIntersecting;if(onScreen)dirty=true;},{threshold:0.02}).observe(stage);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){last=performance.now();dirty=true;}});
+
+resize();
+setView(VIEWS[Q.get('view')]?Q.get('view'):'overview',true);
+if(Q.has('t')){t=Math.max(0,Math.min(T-0.001,parseFloat(Q.get('t'))||0));setPlaying(false);}
+else if(reduceMotion){t=T_DONE;setPlaying(false);}
+if(Q.get('guard')==='0')setGuard(false);
+if(Q.get('wire')==='1')setWire(true);
+if(Q.get('explode')==='1'){setExplode(true);exF=1;setView('explode',true);}
+if(Q.get('pick')&&P[Q.get('pick')])select(P[Q.get('pick')]);
+
+let last=performance.now();
+function frame(now){
+  requestAnimationFrame(frame);
+  const dt=Math.max(0,Math.min((now-last)/1000,0.1));last=now;
+  if(!onScreen||document.hidden)return;
+  if(playing){
+    t+=dt;
+    if(stopAt!=null&&t>=stopAt){t=Math.min(stopAt,T)-0.002;stopAt=null;setPlaying(false);}
+    else if(t>=T){t=0;}
+    dirty=true;
+  }
+  if(Math.abs(exT-exF)>0.001){exF+=(exT-exF)*Math.min(1,dt*5);if(Math.abs(exT-exF)<=0.001)exF=exT;dirty=true;}
+  if(tween){
+    tween.f=Math.min(1,tween.f+dt/0.8);const f=ease(tween.f);
+    camera.position.lerpVectors(tween.p0,tween.p1,f);controls.target.lerpVectors(tween.t0,tween.t1,f);
+    if(tween.f>=1)tween=null;dirty=true;
+  }
+  controls.update();
+  if(!dirty)return;
+  dirty=false;
+  pose(t);applyParts();updateUI();
+  if(selected&&selected.visible){root.updateMatrixWorld(true);selBox.setFromObject(selected);selHelper.visible=!selBox.isEmpty();}
+  else selHelper.visible=false;
+  renderer.render(scene,camera);labelRenderer.render(scene,camera);
+}
+requestAnimationFrame(frame);
+window.__ready=true;
 </script>
+<noscript><p style="padding:24px">這個頁面需要啟用 JavaScript 才能顯示 3D 模型。</p></noscript>
 </body>
 </html>
