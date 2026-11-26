@@ -1,236 +1,498 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LiDAR 點雲視覺化工具｜林泓佑作品集</title>
-<meta name="description" content="林泓佑製作的 LiDAR 點雲視覺化工具，展示線雷射掃描點雲資料在瀏覽器中的呈現與操作。">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>線雷射洗車系統：用 2D LiDAR 重建車體 3D 點雲與噴塗路徑｜林泓佑</title>
+<meta name="description" content="林泓佑在自動化系統商擔任軟體工程師時負責的機械手臂洗車系統掃描端：用 YDLIDAR X2L 2D 雷射加線性馬達逐層堆疊出車體 3D 點雲，轉世界座標、融合、5cm 整併、兩點求噴槍姿態。頁面附實測資料、C# 程式節錄與可操作的點雲模擬器。">
 <link rel="canonical" href="https://pomeloouo.github.io/project/lidar.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#09090b">
 <meta name="color-scheme" content="dark">
 <link rel="icon" href="../favicon.ico">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:site_name" content="林泓佑 作品集">
-<meta property="og:title" content="LiDAR 點雲視覺化工具｜林泓佑作品集">
-<meta property="og:description" content="林泓佑製作的 LiDAR 點雲視覺化工具，展示線雷射掃描點雲資料在瀏覽器中的呈現與操作。">
+<meta property="og:title" content="線雷射洗車系統：用 2D LiDAR 重建車體 3D 點雲｜林泓佑">
+<meta property="og:description" content="不買 3D 雷射，用 2D 線雷射加線性馬達逐層掃出車體點雲，再算出雙手臂噴塗路徑。附實測資料與互動模擬器。">
 <meta property="og:url" content="https://pomeloouo.github.io/project/lidar.html">
 <meta property="og:image" content="https://pomeloouo.github.io/og-cover.png">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "CreativeWork", "name": "LiDAR 點雲視覺化工具", "description": "林泓佑製作的 LiDAR 點雲視覺化工具，展示線雷射掃描點雲資料在瀏覽器中的呈現與操作。", "url": "https://pomeloouo.github.io/project/lidar.html", "inLanguage": "zh-Hant-TW", "author": {"@type": "Person", "@id": "https://pomeloouo.github.io/#person", "name": "林泓佑", "url": "https://pomeloouo.github.io/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "林泓佑 作品集", "item": "https://pomeloouo.github.io/"}, {"@type": "ListItem", "position": 2, "name": "代表案件", "item": "https://pomeloouo.github.io/#cases"}, {"@type": "ListItem", "position": 3, "name": "LiDAR 點雲視覺化工具", "item": "https://pomeloouo.github.io/project/lidar.html"}]}]}</script>
-
-
-  <!-- Swiper (PPT 輪播) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-
-  <style>
-    :root { --maxW: 1000px; }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Noto Sans, Arial, "微軟正黑體";
-      background: #0b0f14; color: #dfe6ee; line-height: 1.6;
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://pomeloouo.github.io/project/lidar.html#work",
+      "name": "線雷射洗車系統：2D LiDAR 車體點雲重建與噴塗路徑",
+      "url": "https://pomeloouo.github.io/project/lidar.html",
+      "inLanguage": "zh-Hant-TW",
+      "programmingLanguage": ["C#", "JavaScript"],
+      "runtimePlatform": ".NET 8 WPF、HelixToolkit、Three.js",
+      "dateModified": "2026-11-26",
+      "description": "用多顆 YDLIDAR X2L 2D 雷射與線性馬達逐層掃描，重建汽車外部輪廓的 3D 點雲，轉換到世界座標後融合，再以 5cm 整併與兩點求法線算出左右機械手臂的噴塗路徑。",
+      "keywords": "LiDAR, 點雲, 線雷射, 機械手臂, 洗車系統, 座標轉換, Kabsch, 路徑規劃",
+      "author": { "@type": "Person", "@id": "https://pomeloouo.github.io/#person", "name": "林泓佑", "url": "https://pomeloouo.github.io/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "林泓佑 作品集", "item": "https://pomeloouo.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "線雷射洗車系統", "item": "https://pomeloouo.github.io/project/lidar.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "為什麼用 2D 雷射而不是 3D 雷射？", "acceptedAnswer": { "@type": "Answer", "text": "專案有成本限制，所以改用 2D 的 YDLIDAR X2L 搭配線性馬達，每抬升 2 mm 掃一圈，把一層一層的 2D 輪廓堆疊成 3D 點雲。" } },
+        { "@type": "Question", "name": "林泓佑在這個專案負責什麼？", "acceptedAnswer": { "@type": "Answer", "text": "負責掃描端軟體：雷射資料讀取、座標轉換、逐層堆疊與點雲融合、點選量測與匯出，以及把點雲整理成機械手臂可以用的位點與姿態。" } },
+        { "@type": "Question", "name": "頁面上的模擬器是真的在算嗎？", "acceptedAnswer": { "@type": "Answer", "text": "是。模擬器對參數化車體做射線求交，加上量測雜訊與遺漏點，逐層掃描後轉世界座標融合，再做 5cm 整併與兩點求法線產生噴塗路徑，也可以切換成實測掃描資料。" } }
+      ]
     }
-    a { color: #68b5ff; text-decoration: none; }
-
-    /* 置頂導覽 */
-    .topbar {
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(6px);
-      background: rgba(11,15,20,.6);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-      padding: .75rem 1rem;
-    }
-    .topbar .wrap { max-width: var(--maxW); margin: 0 auto; display: flex; gap: 1rem; align-items: center; }
-    .topbar a.btn { padding: .45rem .8rem; border: 1px solid rgba(255,255,255,.15); border-radius: 10px; }
-/* 淡藍色框框 */
-    .intro-box {
-      background-color: rgba(173, 216, 230, 0.15); /* 淡藍色背景 */
-      border: 1px solid rgba(173, 216, 230, 0.5);  /* 淡藍色邊框 */
-      border-radius: 8px; /* 圓角 */
-      padding: 1rem 1.5rem;
-      margin: 1rem auto 2rem auto;
-      width: 80%;
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-    /* Hero 區（滾動動畫） */
-    .hero {
-      position: relative; 
-  height: 100vh;        /* 播放區塊拉滿整個視窗高度 */
-  display: flex; 
-  flex-direction: column;
-  justify-content: flex-start; /* 往上對齊 */
-  align-items: center;
-  padding-top: 2rem;    /* 上方留一點空間 */
-  background: radial-gradient(1000px 600px at 50% 20%, #122033 0%, #0b0f14 60%);
-  overflow: clip;
-    }
-    .hero-inner {
-      text-align: center; max-width: var(--maxW); padding: 0 1rem;
-      will-change: transform, opacity;
-    }
-    .hero h1 { margin: 0 0 .5rem; font-size: clamp(32px, 6vw, 56px); letter-spacing: .02em; }
-    .hero p  { margin: 0 auto 1rem; color: #a9b7c6; max-width: 720px; }
-    .hero .badge {
-      display: inline-block; margin-bottom: .75rem; padding: .25rem .6rem;
-      border: 1px solid rgba(255,255,255,.15); border-radius: 999px; font-size: .85rem; color:#9cc9ff;
-    }
-    .hero-graphic {
-     width: min(1000px, 95vw); /* 播放區塊更大 */
-  height: 70vh;             /* 👈 將圖高度拉大到螢幕 70% */
-  margin: 2rem auto 0; 
-  border-radius: 20px;
-  background: linear-gradient(135deg, #1a2a3d, #0f1621);
-  border: 1px solid rgba(255,255,255,.06);
-  box-shadow: 0 15px 60px rgba(0,0,0,.45), inset 0 0 80px rgba(88,157,255,.12);
-  position: relative; 
-  overflow: hidden;
-    }
-    /* 假的雷射掃描線 */
-    .scan {
-      position: absolute; left:0; right:0; top:0; height: 2px; background: #7ec1ff33;
-      animation: scan 3.5s linear infinite;
-    }
-    @keyframes scan {
-      0% { transform: translateY(0); opacity:.4;}
-      50% { opacity: 1;}
-      100% { transform: translateY(100%); opacity:.15;}
-    }
-
-    /* 內容區 */
-    .content {
-      max-width: var(--maxW); margin: 0 auto; padding: 3rem 1rem 4rem;
-    }
-    .content h2 { font-size: 1.6rem; margin: 0 0 1rem; }
-    .muted { color: #9db0c4; }
-
-    /* Swiper（PPT） */
-    .swiper {
-      width: 100%;
-      height: 120vh;     /* 👈 主要修改：高度改成螢幕的 80% */
-      margin: 1rem auto 0;
-    }
-    .swiper-slide { 
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .swiper-slide img {
-      max-width: 100%;
-      max-height: 100%;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: 0 12px 40px rgba(0,0,0,.45);
-      object-fit: contain;  /* 保持比例完整顯示 */
-      user-select: none; -webkit-user-drag: none;
-    }
-  </style>
+  ]
+}
+</script>
+<link rel="stylesheet" href="css/washcell.css">
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
 </head>
-
 <body>
-  <div class="topbar">
-    <div class="wrap">
-      <a class="btn" href="../index.html">← 回首頁</a>
-      <span class="muted">LiDAR 點雲視覺化 · 專案頁</span>
+<header class="nav">
+  <div class="wrap">
+    <a href="../">林泓佑</a><span style="color:var(--dim)">/</span><span class="here">線雷射洗車系統</span>
+    <span class="sp"></span>
+    <a class="opt" href="#sim">模擬器</a>
+    <a class="opt" href="robotic.html">手臂端與現場</a>
+    <a class="btn primary" href="https://line.me/ti/p/KkJwi5DEfz" target="_blank" rel="noopener">LINE 聯絡</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <h1>用 2D 線雷射，掃出整台車的 3D 點雲</h1>
+      <p class="sub">機械手臂洗車系統的掃描端：從一圈角度與距離，到手臂的噴塗姿態。</p>
+      <p>洗車的手臂要沿著車身噴，得先知道這台車長什麼樣子。這個專案不買 3D 雷射，改用便宜的 2D 線雷射加一支線性馬達，一層一層把車體輪廓堆出來，再整理成手臂能直接用的點與方向。</p>
+      <div class="meta">自動化系統商，軟體工程師，2025/07-2026/03。C#、WPF、HelixToolkit、YDLIDAR X2L。</div>
+      <div class="row">
+        <a class="btn primary" href="#sim">直接操作模擬器</a>
+        <a class="btn" href="robotic.html">看手臂端與現場</a>
+      </div>
     </div>
+    <figure>
+      <img src="img/lidar/rig-b.webp" alt="實驗台：線性馬達上的 2D 線雷射正在掃描模型車，螢幕上是即時點雲" width="1400" height="1050" fetchpriority="high">
+      <figcaption>實驗台。線雷射裝在線性馬達上，掃桌上的模型車，螢幕是我寫的點雲檢視程式。</figcaption>
+    </figure>
   </div>
 
-  <!-- Hero -->
-  <section class="hero" id="hero">
-    <div class="hero-inner" id="heroInner">
-      <span class="badge">HelixToolkit.Wpf · 即時點雲</span>
-      <h1>LiDAR 點雲視覺化工具</h1>
-      <p>將光達掃描數據即時呈現、旋轉檢視，並完成虛實空間校正與標註。</p>
-      <div class="hero-graphic">
-        <div class="scan"></div>
-        <!-- 封面圖 (自選) -->
-        <img src="./ppt/ppt11.png" alt="LiDAR Graphic" style="width:100%;height:100%;object-fit:cover;opacity:1;">
+  <div class="facts">
+    <div><b>2 mm</b><span>線性馬達每層抬升量</span></div>
+    <div><b>35 層</b><span>一次側面掃描的層數</span></div>
+    <div><b>約 1.5°</b><span>X2L 實測單圈角度間隔</span></div>
+    <div><b>7 圈</b><span>每層合併的圈數</span></div>
+    <div><b>1000 mm</b><span>噴塗工具長度（TCP）</span></div>
+  </div>
+
+  <section>
+    <div class="head"><h2>為什麼不直接買 3D 雷射</h2><p class="intro">主管給的條件很明確：成本要壓低。所以問題變成，能不能用 2D 的東西做出 3D 的結果。</p></div>
+    <div class="compare">
+      <div class="before">
+        <h3>直覺的做法：3D 雷射</h3>
+        <ul>
+          <li>一顆就能拿到整片點雲，軟體最省事</li>
+          <li>單價高，左右加上方至少要三顆</li>
+          <li>洗車環境有水霧與髒污，壞了更換成本也高</li>
+        </ul>
+      </div>
+      <div class="after">
+        <h3>這個專案的做法：2D 線雷射加一支軸</h3>
+        <ul>
+          <li>2D 雷射一圈只給一個平面上的「角度、距離」</li>
+          <li>把雷射裝在線性馬達上，每抬升 2 mm 掃一次</li>
+          <li>缺的那一個維度由馬達位置補上，逐層堆成 3D</li>
+          <li>代價是掃描要花時間，而且座標換算要自己寫</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- 主要內容與 PPT 輪播 -->
-  <main class="content">
-    <h2>專案簡介</h2>
-    <p class="muted">以 WPF + HelixToolkit 建立 3D 點雲視覺化，支援大型資料流暢瀏覽、空間校正與標記。</p>
-
-    <h2 style="margin-top:2rem;">簡報（PPT）</h2>
-
-    <div class="swiper">
-      <div class="swiper-wrapper" id="pptWrapper">
-        <!-- JS 會自動加圖片進來 -->
-      <div class="swiper-pagination"></div>
+  <section>
+    <div class="head"><h2>硬體怎麼擺</h2><p class="intro">目標是重建汽車的外部輪廓。側面與上方看到的東西不一樣，所以雷射分兩種擺法。</p></div>
+    <div class="split wide-l">
+      <div>
+        <div class="scroll">
+        <table class="tbl">
+          <thead><tr><th>位置</th><th>數量</th><th>掃描方向</th><th>拿到的資料</th><th>涵蓋範圍</th></tr></thead>
+          <tbody>
+            <tr><td>車輛左右兩側</td><td>2</td><td>橫向掃描，垂直車身</td><td>XY 平面輪廓，沒有 Z</td><td>車門到地面</td></tr>
+            <tr><td>車輛正上方</td><td>1</td><td>由天花板垂直向下</td><td>YX 平面，轉 90° 後當成 YZ</td><td>車頂、引擎蓋、擋風玻璃</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="t" style="margin-top:18px">雷射型號是 YDLIDAR X2L，量測範圍約 0.1 到 8 公尺。從實測檔案看，它一圈大約 220 到 230 個點，角度間隔約 1.5°，所以我每一層連續存 7 圈再合併，讓輪廓密一點。</p>
+        <p class="t">手臂端的條件也會回頭影響掃描：現場是左右各一支六軸手臂，噴塗工具長 1000 mm，也就是 TCP 在法蘭前方 1000 mm，兩支手臂以車體中線對稱分工。細節放在<a href="robotic.html" style="color:var(--acc)">手臂端與現場</a>那一頁。</p>
       </div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
+      <figure class="fig light">
+        <img src="img/lidar/sketch-planes.webp" alt="手繪草圖：上方雷射與側面雷射的掃描扇形，分別從側視與前視角度畫出" width="539" height="190" loading="lazy">
+        <figcaption>當時畫的草圖。左邊是側視，上方雷射的扇形蓋住車頂；右邊是前視，側面雷射蓋住車門到地面。</figcaption>
+      </figure>
     </div>
-  </main>
+  </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script>
-    // 自動偵測 PPT 圖片
-    const wrapper = document.getElementById('pptWrapper');
-    const maxSlides = 20; // 偵測 ppt1.png ~ ppt20.png
+  <section>
+    <div class="head"><h2>資料怎麼流</h2><p class="intro">從雷射吐出來的一行文字，到手臂拿到的一個姿態，中間是五個步驟。</p></div>
+    <ol class="flow">
+      <li><h3>單層 2D 掃描</h3><p>每顆雷射輸出 <code>angle, range</code>。距離為 0 的是沒量到，直接丟掉。</p></li>
+      <li><h3>逐層堆疊</h3><p>線性馬達每走一步存一個檔，層數乘上步距就是這一層的高度。</p></li>
+      <li><h3>轉世界座標</h3><p>每顆雷射的位置與角度已知，極座標轉直角座標後旋轉、平移。</p></li>
+      <li><h3>融合與整併</h3><p>多顆雷射的點放進同一個座標系，再沿輪廓每 5 cm 整併成一個點。</p></li>
+      <li><h3>姿態與路徑</h3><p>相鄰兩點求出法線當噴槍方向，退縮後串成左右手臂的路徑。</p></li>
+    </ol>
+  </section>
 
-    for (let i = 1; i <= maxSlides; i++) {
-      const img = new Image();
-      img.src = `./ppt/ppt${i}.png`;
+  <section id="sim">
+    <div class="head"><h2>點雲模擬器</h2><p class="intro">下面這個不是預錄的動畫，是瀏覽器當場在算。參數化的七人座車體放在場地中央，三顆 2D 雷射各自發射射線、跟車體求交、加上雜訊與遺漏點，逐層掃完後融合，再規劃出兩支手臂的噴塗路徑。拖曳可旋轉，滾輪或雙指可縮放。</p></div>
+    <div class="sim">
+      <div class="sim-top">
+        <div class="seg" role="group" aria-label="資料來源">
+          <button type="button" data-mode="sim" aria-pressed="true">模擬車體</button>
+          <button type="button" data-mode="real" aria-pressed="false">實測掃描資料</button>
+        </div>
+        <div id="simStatus" role="status" aria-live="polite">模擬器載入中</div>
+      </div>
+      <div class="sim-body">
+        <div class="sim-view">
+          <div id="simCanvas" aria-label="3D 點雲檢視區"></div>
+          <div class="legend">
+            <label><input type="checkbox" id="vA" checked><i id="dA" style="background:#b5d63f"></i><span id="lA">左側雷射</span></label>
+            <label><input type="checkbox" id="vB" checked><i id="dB" style="background:#4fc3d9"></i><span id="lB">右側雷射</span></label>
+            <label class="only-sim"><input type="checkbox" id="vC" checked><i style="background:#f0a948"></i>天花板雷射</label>
+            <label class="only-sim"><input type="checkbox" id="cPath" checked>噴塗路徑</label>
+            <label><input type="checkbox" id="cMeasure">兩點量測</label>
+          </div>
+          <div id="pickInfo">點一下點雲上的任一點，可以看座標與到各雷射的距離。</div>
+        </div>
+        <div class="sim-panel">
+          <div class="grp only-sim">
+            <h4>掃描</h4>
+            <label class="ctl">每層步距<output id="pStepV"></output><input type="range" id="pStep" min="2" max="50" step="2" value="20"></label>
+            <label class="ctl">角解析度<output id="pResV"></output><input type="range" id="pRes" min="0.25" max="2" step="0.25" value="0.5"></label>
+            <label class="ctl">測距雜訊<output id="pNoiseV"></output><input type="range" id="pNoise" min="0" max="30" step="1" value="6"></label>
+            <label class="ctl">遺漏點比例<output id="pDropV"></output><input type="range" id="pDrop" min="0" max="30" step="1" value="5"></label>
+          </div>
+          <div class="grp only-sim">
+            <h4>雷射位置</h4>
+            <label class="ctl">側面雷射離車中線<output id="pSideDV"></output><input type="range" id="pSideD" min="1.6" max="3.5" step="0.1" value="2.2"></label>
+            <label class="ctl">側面雷射前後錯開<output id="pSideXV"></output><input type="range" id="pSideX" min="0" max="3" step="0.1" value="2.4"></label>
+            <label class="ctl">天花板雷射高度<output id="pTopHV"></output><input type="range" id="pTopH" min="2.4" max="4" step="0.1" value="3"></label>
+            <label class="chk"><input type="checkbox" id="cGround" checked>濾掉地面點</label>
+          </div>
+          <div class="grp only-sim">
+            <h4>安裝誤差與標靶校正</h4>
+            <label class="chk"><input type="checkbox" id="cErr">右側雷射裝歪（偏 3°、位移數公分）</label>
+            <div class="btns"><button type="button" class="btn" id="bCalib">用標靶校正</button></div>
+            <div class="out" id="calibInfo"></div>
+          </div>
+          <div class="grp only-sim">
+            <h4>噴塗路徑</h4>
+            <label class="ctl">車道間距<output id="pPitchV"></output><input type="range" id="pPitch" min="150" max="500" step="50" value="250"></label>
+            <label class="ctl">退縮距離<output id="pOffV"></output><input type="range" id="pOff" min="50" max="100" step="10" value="80"></label>
+            <label class="ctl">工具下限高度<output id="pZminV"></output><input type="range" id="pZmin" min="200" max="600" step="50" value="300"></label>
+            <div class="out" id="pathInfo"></div>
+          </div>
+          <div class="grp">
+            <h4>檢視與匯出</h4>
+            <label class="chk">著色 <select id="colorMode"><option value="sensor">依雷射</option><option value="height">依高度</option></select></label>
+            <div class="btns">
+              <button type="button" class="btn" id="bRescan">重新掃描</button>
+              <button type="button" class="btn" id="bView">視角重設</button>
+              <button type="button" class="btn" id="bCsv">點雲 CSV</button>
+              <button type="button" class="btn" id="bPly">點雲 PLY</button>
+              <button type="button" class="btn only-sim" id="bPath">路徑 CSV</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note">模擬車體模式的三顆雷射配置，是我把當時的做法重新整理後的完整架構，數字是模擬結果，不是現場量測。「實測掃描資料」才是當時實驗台真的掃出來的點，換算方式與原本的 C# 程式完全相同。</p>
 
-      img.onload = () => {
-        const slide = document.createElement('div');
-        slide.className = 'swiper-slide';
-        slide.appendChild(img);
-        wrapper.appendChild(slide);
-        swiper.update(); // 新增圖片後更新 Swiper
-      };
-    }
+    <div class="split" style="margin-top:36px">
+      <div>
+        <h3>可以試的幾件事</h3>
+        <ul class="rules" style="margin-top:12px">
+          <li><b>把「側面雷射前後錯開」拉到 0。</b>兩顆雷射都在車身正中間，車頭與車尾那兩個面就掃不到，路徑也跟著斷掉。錯開成對角，兩顆雷射各看兩個面，這也是實驗時把模型車轉 45° 的原因。</li>
+          <li><b>勾選「右側雷射裝歪」。</b>藍色點雲會跟其他兩色對不起來。按「用標靶校正」，程式用場地上已知位置的標靶解出雷射真正的位置與角度，點雲就回到正確位置。</li>
+          <li><b>把每層步距拉到 2 mm。</b>這是當時實驗的設定。點數會超過顯示上限，模擬器會等比例下取樣並告訴你比例。</li>
+          <li><b>打開「兩點量測」。</b>在點雲上點兩下得到距離，例如量車頭那兩根標靶之間是不是 2500 mm。</li>
+        </ul>
+      </div>
+      <div>
+        <h3>模擬器裡的物理設定</h3>
+        <ul class="rules" style="margin-top:12px">
+          <li>車體是用數學式描述的七人座輪廓，長 5.0 m、寬 1.9 m、高 1.9 m，含四個輪胎，射線用步進加二分法求交點。</li>
+          <li>側面雷射的掃描面是水平的，沿垂直軸由 100 mm 掃到 2000 mm。天花板雷射的掃描面轉成 YZ 切面，沿車長方向移動。</li>
+          <li>量測範圍 0.12 到 8 m，超出就沒有回波。雜訊加在距離方向，遺漏點隨機丟棄。</li>
+          <li>場地四角有四根半徑 60 mm 的校正標靶，位置已知。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-    // 初始化 Swiper
-    const swiper = new Swiper('.swiper', {
-      loop: true,
-      pagination: { el: '.swiper-pagination', clickable: true },
-      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-      autoplay: { delay: 3500, disableOnInteraction: false },
-    });
+  <section>
+    <div class="head"><h2>演算法與程式</h2><p class="intro">以下 C# 片段節錄自當時的點雲檢視程式（WPF 加 HelixToolkit），註解是整理時補上的。</p></div>
+    <div class="steps">
+      <div class="step">
+        <div>
+          <h3>座標轉換</h3>
+          <p>雷射只知道「我在幾度的方向量到多遠」。先把極座標換成雷射自己的直角座標，再依安裝角旋轉，最後加上安裝位置，就進到世界座標。</p>
+          <p>每顆雷射的位置與角度做成畫面上可以改的欄位，現場量完尺寸填進去，點雲立刻重算。</p>
+        </div>
+        <div>
+          <p class="cap">MainWindow.xaml.cs</p>
+<pre class="code"><span class="c">// 每顆雷射的安裝位置（公尺）與旋轉角</span>
+<span class="k">private</span> Vector3D topLidarPosition   = <span class="k">new</span>(<span class="w">-0.310, 0.305, 0.12</span>);
+<span class="k">private</span> Vector3D rightLidarPosition = <span class="k">new</span>(<span class="w">0, 0, 0.12</span>);
+<span class="k">private double</span> topLidarRotationDeg   = <span class="w">270.0</span>;
+<span class="k">private double</span> rightLidarRotationDeg = <span class="w">0.0</span>;
 
-    // Hero 滾動動畫
-    const hero = document.getElementById('hero');
-    const inner = document.getElementById('heroInner');
-    function clamp(n, min, max) { return Math.max(min, Math.min(n, max)); }
-    function onScroll() {
-      const vh = window.innerHeight;
-      const rect = hero.getBoundingClientRect();
-      const sc = clamp((vh - rect.top) / vh, 0, 1.4);
+<span class="k">foreach</span> (<span class="k">var</span> (ang, rng) <span class="k">in</span> raw)
+{
+    <span class="k">double</span> rad = ang * Math.PI / 180.0;
+    <span class="k">double</span> r   = rng / 1000.0;               <span class="c">// mm 轉 m</span>
 
-      let scale, translateY, opacity;
-      if (sc <= 0.5) {
-        const t = sc / 0.5;
-        scale = 1 + 0.25 * t;
-        translateY = 0;
-        opacity = 1;
-      } else {
-        const t = (sc - 0.5) / 0.9;
-        scale = 1.25 - 0.40 * clamp(t, 0, 1);
-        translateY = -120 * clamp(t, 0, 1);
-        opacity = 1 - 0.85 * clamp(t, 0, 1);
-      }
-      inner.style.transform = `translateY(${translateY}px) scale(${scale})`;
-      inner.style.opacity = opacity;
-    }
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-  </script>
+    <span class="k">double</span> x0 =  r * Math.Sin(rad);           <span class="c">// 極座標轉直角座標</span>
+    <span class="k">double</span> y0 = -r * Math.Cos(rad);
+
+    <span class="k">double</span> x1 = x0 * Math.Cos(rot) - y0 * Math.Sin(rot);   <span class="c">// 依安裝角旋轉</span>
+    <span class="k">double</span> y1 = x0 * Math.Sin(rot) + y0 * Math.Cos(rot);
+
+    res.Add(<span class="k">new</span> Point3D(
+        rightLidarPosition.X + x1,            <span class="c">// 加上安裝位置</span>
+        rightLidarPosition.Y + y1,
+        rightLidarPosition.Z));
+}</pre>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <h3>逐層堆疊</h3>
+          <p>線性馬達每抬升 2 mm 存一個 CSV，檔名就是層數。程式從第 0 層開始一路讀到檔案不存在為止，每讀一層就把高度加上一個步距。</p>
+          <p>2D 雷射本來沒有的那個維度，就是這樣補出來的。</p>
+        </div>
+        <div>
+          <p class="cap">MainWindow.xaml.cs</p>
+<pre class="code"><span class="k">private const double</span> SliceStepHeight = <span class="w">0.002</span>;   <span class="c">// 每層 2 mm</span>
+
+<span class="k">double</span> currentZ = 0.0;
+<span class="k">int</span> layer = 0;
+<span class="k">while</span> (<span class="k">true</span>)
+{
+    <span class="k">string</span> file = layer == 0
+        ? Path.Combine(lidarDir, <span class="w">"right_lidar.csv"</span>)
+        : Path.Combine(lidarDir, $<span class="w">"{layer}.csv"</span>);
+    <span class="k">if</span> (!File.Exists(file)) <span class="k">break</span>;
+
+    <span class="k">var</span> points = LoadRightLidarWithOffset(file, currentZ);
+    rightSliceLayers.Add(points);
+
+    currentZ += SliceStepHeight;              <span class="c">// 下一層</span>
+    layer++;
+}</pre>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <h3>融合，以及只有一顆雷射時怎麼辦</h3>
+          <p>正式配置是多顆雷射各掃各的，轉進同一個世界座標後直接合併成一份點雲。</p>
+          <p>實驗時手上只有一顆雷射，所以我把模型車向左轉 45° 掃一次、向右轉 45° 再掃一次，第二次的資料當成是「另一顆位置不同、角度差 270° 的雷射」掃到的，兩次的點雲就能在軟體裡拼起來。上方模擬器切到「實測掃描資料」看到的雙色點雲就是這樣來的。</p>
+        </div>
+        <figure class="fig light">
+          <img src="img/lidar/cloud.webp" alt="兩次掃描拼接後的雙色點雲，可以看出跑車模型的側面輪廓" width="696" height="536" loading="lazy">
+          <figcaption>兩次掃描拼接後的雙色點雲，橘色與青色各是一次掃描。</figcaption>
+        </figure>
+      </div>
+
+      <div class="step">
+        <div>
+          <h3>兩點決定姿態</h3>
+          <p>一個點只能告訴手臂「去哪裡」，卻不知道噴槍該怎麼轉。同一個切面上相鄰的兩個點可以連成一條切線，切線在切面內轉 90° 就是表面的法線，噴槍沿著法線對準車身，才能平行噴塗。</p>
+          <p>點雲本身有雜訊，直接拿相鄰原始點算，方向會亂跳。所以先沿輪廓把點每 5 cm 整併成一個，再用整併後的點求方向。</p>
+          <svg viewBox="0 0 420 210" role="img" aria-label="示意圖：切面上相鄰兩點決定切線，轉 90 度得到法線，噴塗工具沿法線退縮並延伸 1000 mm 到法蘭" style="width:100%;height:auto;margin-top:14px">
+            <path d="M10 170 C 110 150, 190 120, 260 90 S 380 40, 410 34" fill="none" stroke="#5c6068" stroke-width="2"/>
+            <text x="14" y="194" fill="#74767d" font-size="12">車身表面（切面上的輪廓）</text>
+            <line x1="150" y1="134" x2="262" y2="89" stroke="#4fc3d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <circle cx="170" cy="126" r="5" fill="#b5d63f"/><circle cx="242" cy="97" r="5" fill="#b5d63f"/>
+            <text x="150" y="150" fill="#b5d63f" font-size="12">P1</text><text x="246" y="116" fill="#b5d63f" font-size="12">P2</text>
+            <text x="268" y="84" fill="#4fc3d9" font-size="12">切線</text>
+            <line x1="206" y1="111" x2="197" y2="88" stroke="#f0a948" stroke-width="1.5"/>
+            <circle cx="197" cy="88" r="4" fill="#f0a948"/>
+            <line x1="197" y1="88" x2="165" y2="8" stroke="#ececec" stroke-width="3"/>
+            <circle cx="165" cy="8" r="5" fill="#ececec"/>
+            <text x="74" y="92" fill="#f0a948" font-size="12">TCP，退縮 5-10 cm</text>
+            <text x="176" y="16" fill="#ececec" font-size="12">法蘭</text>
+            <text x="192" y="52" fill="#a0a2a8" font-size="12">工具 1000 mm，沿法線</text>
+          </svg>
+        </div>
+        <div>
+          <p class="cap">lidar-sim.js（本頁模擬器，節錄）</p>
+<pre class="code"><span class="c">// seg：同一個切面上、已整併成每 5cm 一點的輪廓</span>
+<span class="k">function</span> poses(seg, outward, off) {
+  <span class="k">return</span> seg.map((p, i) =&gt; {
+    <span class="k">const</span> a = seg[Math.max(0, i - 1)];
+    <span class="k">const</span> b = seg[Math.min(seg.length - 1, i + 1)];
+
+    <span class="c">// 兩點給切線，切線在切面內轉 90 度就是法線</span>
+    <span class="k">const</span> tx = b[0] - a[0], tz = b[2] - a[2];
+    <span class="k">const</span> len = Math.hypot(tx, tz) || 1;
+    <span class="k">let</span> n = [-tz / len, 0, tx / len];
+
+    <span class="c">// 法線一律朝車外</span>
+    <span class="k">const</span> o = outward(p);
+    <span class="k">if</span> (n[0] * o[0] + n[2] * o[2] &lt; 0) n = [-n[0], 0, -n[2]];
+
+    <span class="k">return</span> {
+      n,
+      tcp:    p.map((v, k) =&gt; v + n[k] * off),          <span class="c">// 退縮</span>
+      flange: p.map((v, k) =&gt; v + n[k] * (off + 1.0)),  <span class="c">// 工具 1000 mm</span>
+    };
+  });
+}</pre>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <h3>路徑規則</h3>
+          <p>有了每個點的姿態，還要決定手臂怎麼走。這些規則是配合手臂端的條件整理出來的，模擬器的路徑就是照這幾條產生。</p>
+        </div>
+        <ul class="rules">
+          <li><b>以車體中線對稱切半。</b>左手臂負責左半邊，右手臂負責右半邊。</li>
+          <li><b>順序是車頭、車頂、車尾，最後才是側面。</b>沿車長方向取切面，一趟就能從車頭翻過車頂走到車尾，手臂路徑是連續的。</li>
+          <li><b>點整併成 5 cm 一個切面。</b>把雜訊平均掉，也讓姿態變化平順。</li>
+          <li><b>取到的線段向外退縮 5 到 10 cm。</b>TCP 不貼著車身走，留噴塗距離。</li>
+          <li><b>每一趟前後各留 500 mm 預退。</b>手臂先沿法線退開再移到下一趟，不會擦到車。</li>
+          <li><b>工具有下限高度。</b>太低的點不排進路徑，避免工具或法蘭撞到地面設備。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><h2>實測結果</h2><p class="intro">實驗台用的是一台模型車。雷射離車大約 20 到 30 公分，一次掃 35 層，共 70 mm 高。</p></div>
+    <div class="gallery">
+      <figure class="fig light g8">
+        <img src="img/lidar/ui.webp" alt="點雲檢視程式的操作介面，左側可設定兩顆雷射的位置與旋轉角" width="1647" height="903" loading="lazy">
+        <figcaption>操作介面。左邊設定兩顆雷射的位置與旋轉角，紫色與橘色標記是雷射所在位置。</figcaption>
+      </figure>
+      <figure class="fig g4">
+        <img src="img/lidar/rig-a.webp" alt="螢幕上逐層堆疊出來的模型車點雲" width="1100" height="1474" loading="lazy">
+        <figcaption>逐層堆疊後，車身側面輪廓出現在螢幕上。</figcaption>
+      </figure>
+      <figure class="fig light">
+        <img src="img/lidar/pick-a.webp" alt="點選點雲上的一點，視窗顯示該點座標與到兩顆雷射的距離" width="1097" height="756" loading="lazy">
+        <figcaption>點任一個點，顯示 XYZ 座標與到兩顆雷射的距離。</figcaption>
+      </figure>
+      <figure class="fig light">
+        <img src="img/lidar/pick-b.webp" alt="點選車尾一點得到的座標，用來與另一點計算距離" width="1067" height="805" loading="lazy">
+        <figcaption>再點車尾一點。兩點座標都有了，就能算出線段長度。</figcaption>
+      </figure>
+    </div>
+    <div class="split" style="margin-top:32px">
+      <div>
+        <h3>怎麼知道點雲是對的</h3>
+        <p class="t" style="margin-top:8px">點雲看起來像一台車，不代表尺寸正確。因為每個點的 XYZ 都有，我在點雲上點兩個點算出距離，再拿尺去量實物上同一段，兩個數字對得起來，才表示虛擬空間與實際空間是匹配的。</p>
+        <p class="t">這個檢查同時驗證了三件事：雷射位置填得對不對、旋轉角對不對、每層步距對不對。</p>
+      </div>
+      <div>
+        <h3>放在這一頁的實測資料</h3>
+        <p class="t" style="margin-top:8px">模擬器的「實測掃描資料」用的是其中一組兩次 45° 掃描：共 69 層、約 2.6 萬個點，只保留距離雷射 600 mm 以內的部分，所以檔案很小。四個角落的點群是實驗台的鋁擠立柱。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><h2>當時沒做完的，現在補上</h2><p class="intro">回頭看當時的程式，有一個地方是先求有：兩份點雲的對齊只算了平移。</p></div>
+    <div class="compare">
+      <div class="before">
+        <h3>當時：只對重心，不轉角度</h3>
+        <p>選三組以上對應點，把兩邊的重心對在一起。雷射只要裝歪一點點，遠處的點就會差很多，只靠平移補不回來。</p>
+<pre class="code"><span class="k">public static</span> Matrix4x4 SolveRigidTransform(
+    List&lt;Vector3&gt; src, List&lt;Vector3&gt; dst)
+{
+    <span class="k">var</span> srcC = Average(src);
+    <span class="k">var</span> dstC = Average(dst);
+    <span class="c">// 省略 SVD</span>
+    <span class="k">var</span> T = Matrix4x4.Identity;
+    T.Translation = dstC - srcC;
+    <span class="k">return</span> T;
+}</pre>
+      </div>
+      <div class="after">
+        <h3>現在：Kabsch 剛體解，旋轉加平移</h3>
+        <p>高度已經由線性馬達決定，所以對齊是平面上的旋轉加平移。這時共變異矩陣的 SVD 解可以化簡成一個 <code>atan2</code>，不需要矩陣函式庫。</p>
+<pre class="code"><span class="c">// 求 R、t 使 dst ≈ R·src + t</span>
+<span class="k">function</span> kabsch2D(src, dst) {
+  <span class="k">const</span> [ax, ay] = centroid(src);
+  <span class="k">const</span> [bx, by] = centroid(dst);
+  <span class="k">let</span> dot = 0, cross = 0;
+  src.forEach((p, i) =&gt; {
+    <span class="k">const</span> px = p[0] - ax, py = p[1] - ay;
+    <span class="k">const</span> qx = dst[i][0] - bx, qy = dst[i][1] - by;
+    dot   += px * qx + py * qy;
+    cross += px * qy - py * qx;
+  });
+  <span class="k">const</span> rot = Math.atan2(cross, dot);
+  <span class="k">const</span> c = Math.cos(rot), s = Math.sin(rot);
+  <span class="k">return</span> { rot,
+    tx: bx - (c * ax - s * ay),
+    ty: by - (s * ax + c * ay) };
+}</pre>
+      </div>
+    </div>
+    <div class="split wide-l" style="margin-top:28px">
+      <div>
+        <h3>用在哪裡：標靶校正</h3>
+        <p class="t" style="margin-top:8px">模擬器的「用標靶校正」就是用這個函式。雷射看到場地上位置已知的標靶，拿標靶在雷射座標裡的位置去對世界座標裡的位置，就能求出雷射實際的安裝位置與角度，不必靠人工一顆一顆量。</p>
+        <p class="t">在模擬器裡把右側雷射故意裝歪 3°、位移 70 與 50 mm，校正解出來的結果是 2.99°、70 與 49 mm。</p>
+        <p class="t">右邊是當時的規劃筆記，裡面已經寫到「靠校正靶校正」，只是程式沒有做到這一步。</p>
+      </div>
+      <figure class="fig light">
+        <img src="img/lidar/notes.webp" alt="專案初期的手寫規劃筆記：原始資料格式、座標軸定義與用校正靶校正的想法" width="1050" height="924" loading="lazy">
+        <figcaption>專案初期的規劃筆記：資料格式、座標軸定義、校正方式。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><h2>限制與下一步</h2></div>
+    <ul class="rules" style="max-width:52em">
+      <li><b>玻璃與深色車漆。</b>2D 三角測距雷射遇到透明或吸光的表面容易沒有回波，模擬器用隨機遺漏點近似，實車上會集中在車窗，需要靠相鄰切面補點。</li>
+      <li><b>掃描時間。</b>2 mm 一層、掃到 2 公尺高要 950 層。實際上線應該依手臂需要的 5 cm 整併尺度把步距放大，模擬器可以直接比較不同步距的結果。</li>
+      <li><b>姿態只用切面內的兩點。</b>遇到同時往兩個方向彎的曲面，法線會少一個方向的傾斜。下一步是用鄰近切面的點擬合局部平面。</li>
+      <li><b>車輪與照後鏡。</b>目前路徑直接沿外輪廓走，凸出物與凹陷處還沒有分開處理。</li>
+    </ul>
+  </section>
+
+  <section class="faq">
+    <div class="head"><h2>常見問題</h2></div>
+    <details open><summary>為什麼用 2D 雷射而不是 3D 雷射？</summary><p>專案有成本限制。2D 的 YDLIDAR X2L 搭配線性馬達，每抬升 2 mm 掃一圈，把一層一層的 2D 輪廓堆疊成 3D 點雲，硬體成本低很多。</p></details>
+    <details><summary>你在這個專案負責什麼？</summary><p>掃描端的軟體：雷射資料讀取、座標轉換、逐層堆疊與點雲融合、點選量測與匯出，以及把點雲整理成機械手臂可以用的位點與姿態。</p></details>
+    <details><summary>模擬器是真的在算嗎？</summary><p>是。它對參數化車體做射線求交，加上量測雜訊與遺漏點，逐層掃描後轉世界座標融合，再做 5 cm 整併與兩點求法線產生路徑。點雲與路徑都可以匯出成 CSV 或 PLY，用其他軟體打開檢查。</p></details>
+  </section>
+
+  <div class="end">
+    <h2>接著看手臂怎麼用這些點</h2>
+    <p>雙手臂的配置、1000 mm 噴塗工具、現場照片與影片，整理在另一頁。</p>
+    <div class="row">
+      <a class="btn primary" href="robotic.html">手臂端與現場</a>
+      <a class="btn" href="../">回到作品集</a>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap">© 2026 林泓佑 Pomelo Lin｜<a href="../">作品集首頁</a>｜<a href="robotic.html">手臂端與現場</a></div></footer>
+<script type="module" src="js/lidar-sim.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
