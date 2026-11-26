@@ -55,9 +55,13 @@
     if (last[key] && now - last[key] < 1500) return;   /* 連點只算一次 */
     last[key] = now;
 
-    if (/^https:\/\/line\.me\//.test(href)) return track('contact_click', { method: 'line', link_text: label });
-    if (/^mailto:/.test(href)) return track('contact_click', { method: 'email', link_text: label });
-    if (/^tel:/.test(href)) return track('contact_click', { method: 'phone', link_text: label });
+    /* 聯絡點擊：contact_click 記錄方式；generate_lead 是 GA4 裡設定的「重要事件」（每次瀏覽只算一次） */
+    var method = /^https:\/\/line\.me\//.test(href) ? 'line' : /^mailto:/.test(href) ? 'email' : /^tel:/.test(href) ? 'phone' : '';
+    if (method) {
+      track('contact_click', { method: method, link_text: label });
+      gtag('event', 'generate_lead', { method: method, page_path: page });
+      return;
+    }
 
     if (a.classList.contains('case')) {
       var h = a.querySelector('h3');
