@@ -27,6 +27,10 @@ function topLin(x) {
 }
 function topZ(x) { return (topLin(x - 0.05) + 2 * topLin(x) + topLin(x + 0.05)) / 4; }
 function halfW(x) { const a = Math.abs(x); if (a <= 1.9) return CAR.W / 2; const t = (a - 1.9) / 0.6; return CAR.W / 2 - 0.24 * Math.pow(t, 2.5); }
+/* 前擋玻璃後方的車內空間：玻璃對雷射是透明的，底面是中控台與前座 */
+const GLASS = { x0: 0.80, x1: 1.50, pillar: 0.13 };
+let sawGlass = false;
+function dashZ(x) { return x >= 1.05 ? 1.02 + 0.08 * (x - 1.05) / 0.45 : 0.92; }
 function inCar(x, y, z) {
   if (x < -2.5 || x > 2.5 || z < 0 || z > 1.95) return false;
   const ay = Math.abs(y);
@@ -38,7 +42,11 @@ function inCar(x, y, z) {
       let hz = h;
       if (z > 1.0) hz = h - 0.16 * Math.pow((z - 1.0) / 0.9, 1.5);
       else if (z < 0.45) hz = h - 0.05 * (0.45 - z) / 0.27;
-      if (ay <= hz) return true;
+      if (ay <= hz) {
+        // 前擋玻璃：雷射打不到玻璃，會穿過去打到車內的中控台
+        if (x >= GLASS.x0 && x <= GLASS.x1 && ay <= hz - GLASS.pillar && z > dashZ(x)) { sawGlass = true; return false; }
+        return true;
+      }
     }
   }
   if (z <= 0.72 && ay >= 0.68 && ay <= 0.93) {           // 四個輪胎
@@ -52,7 +60,7 @@ const POST_R = 0.06, POST_H = 2.1;
 const POSTS = [[3.3, 1.25], [3.3, -1.25], [-3.3, 1.25], [-3.3, -1.25]];
 
 /* ---------- 射線求交 ---------- */
-let hitT = 0, hitKind = 0;                     // kind：1 車體、2 標靶、3 地面
+let hitT = 0, hitKind = 0;                     // kind：1 車體、2 標靶、3 地面、4 穿過前擋玻璃打到車內
 const BB = [-2.5, 2.5, -0.96, 0.96, 0, 1.95];
 function cast(ox, oy, oz, dx, dy, dz, rmax) {
   let best = rmax, kind = 0;
@@ -69,12 +77,12 @@ function cast(ox, oy, oz, dx, dy, dz, rmax) {
     else { let ta = (BB[2 * k] - o[k]) / d[k], tb = (BB[2 * k + 1] - o[k]) / d[k]; if (ta > tb) { const s = ta; ta = tb; tb = s; } if (ta > t0) t0 = ta; if (tb < t1) t1 = tb; if (t0 > t1) ok = false; }
   }
   if (ok) {
-    const STEP = 0.015;
+    const STEP = 0.015; sawGlass = false;
     for (let t = t0 + 1e-4; t <= t1; t += STEP) {
       if (inCar(ox + dx * t, oy + dy * t, oz + dz * t)) {
         let lo = Math.max(t0, t - STEP), hi = t;
         for (let k = 0; k < 10; k++) { const m = (lo + hi) / 2; if (inCar(ox + dx * m, oy + dy * m, oz + dz * m)) hi = m; else lo = m; }
-        best = hi; kind = 1; break;
+        best = hi; kind = sawGlass ? 4 : 1; break;
       }
     }
   }
@@ -155,10 +163,11 @@ function makeCloud(key, label, hex) {
 let clouds = [];
 let mode = 'sim';
 let zRange = [0, 2];
-const cLow = new THREE.Color('#3b5bdb'), cMid = new THREE.Color('#b5d63f'), cHigh = new THREE.Color('#f0a948'), cTarget = new THREE.Color('#ff7a7a'), tmpC = new THREE.Color();
+const cLow = new THREE.Color('#3b5bdb'), cMid = new THREE.Color('#b5d63f'), cHigh = new THREE.Color('#f0a948'), cTarget = new THREE.Color('#ff7a7a'), cGlass = new THREE.Color('#c9a0ff'), tmpC = new THREE.Color();
 function paint(cl, i) {
   const byH = $('colorMode').value === 'height';
   if (cl.kind[i] === 2 && !byH) tmpC.copy(cTarget);
+  else if (cl.kind[i] === 4 && !byH) tmpC.copy(cGlass);
   else if (byH) { const t = Math.min(1, Math.max(0, (cl.pos[i * 3 + 2] - zRange[0]) / (zRange[1] - zRange[0]))); if (t < 0.5) tmpC.copy(cLow).lerp(cMid, t * 2); else tmpC.copy(cMid).lerp(cHigh, (t - 0.5) * 2); }
   else tmpC.copy(cl.color);
   cl.col[i * 3] = tmpC.r; cl.col[i * 3 + 1] = tmpC.g; cl.col[i * 3 + 2] = tmpC.b;
@@ -386,12 +395,14 @@ function poses(seg, plane, outward, off) {
 }
 function planPaths() {
   const pitch = +$('pPitch').value / 1000, off = +$('pOff').value / 1000, zmin = +$('pZmin').value / 1000, SLAB = 0.025;
-  const X = [], Y = [], Z = [];
+  const X = [], Y = [], Z = [], GY = [];           // GY：穿過玻璃的點，只用來判斷哪幾條車道經過前擋
   for (const cl of clouds) for (let i = 0; i < cl.n; i++) {
     const x = cl.pos[i * 3], y = cl.pos[i * 3 + 1], z = cl.pos[i * 3 + 2];
     if (z < 0.05) continue;
     let near = false; for (const p of POSTS) if ((x - p[0]) ** 2 + (y - p[1]) ** 2 < 0.09) { near = true; break; }   // 已知位置的標靶不算車體
-    if (near) continue; X.push(x); Y.push(y); Z.push(z);
+    if (near) continue;
+    if (cl.kind[i] === 4) { GY.push(y); continue; }   // 中控台不是車身表面，不拿來規劃路徑
+    X.push(x); Y.push(y); Z.push(z);
   }
   const n = X.length; if (n < 2000) return null;
   const xmin = quant(X.slice(), 0.003), xmax = quant(X.slice(), 0.997), zmax = quant(Z.slice(), 0.997), ymax = quant(Y.map(Math.abs), 0.997);
@@ -410,6 +421,15 @@ function planPaths() {
       }
       const chain = [];
       for (let b = 0; b < NB; b++) if (bins[b]) { const r = quant(bins[b], 0.8), th = (-20 + (b + 0.5) / 2) * DEG; chain.push([xc + r * Math.cos(th), yl, zc + r * Math.sin(th)]); }
+      // 前擋玻璃沒有點：用玻璃上緣（車頂前緣）與下緣（引擎蓋後緣）直線內插補出玻璃面
+      let gn = 0; for (let i = 0; i < GY.length; i++) if (Math.abs(GY[i] - yl) <= SLAB) gn++;
+      if (gn > 12) for (let i = chain.length - 1; i > 0; i--) {
+        const a = chain[i - 1], b = chain[i], d = Math.hypot(b[0] - a[0], b[2] - a[2]);
+        if (d < 0.12 || d > 1.8 || a[2] < 0.9 || b[2] < 0.9 || Math.min(a[0], b[0]) < 0.4) continue;
+        const m = Math.floor(d / 0.025), add = [];
+        for (let k = 1; k < m; k++) add.push([a[0] + (b[0] - a[0]) * k / m, yl, a[2] + (b[2] - a[2]) * k / m]);
+        chain.splice(i, 0, ...add);
+      }
       for (const seg of resample(chain, 0.05, 0.3)) {
         if (seg.length < 6) continue;
         const ps = poses(seg, 'xz', (p) => [p[0] - xc, 0, p[2] - zc], off); if (flip) ps.reverse(); flip = !flip;
@@ -504,7 +524,7 @@ renderer.domElement.addEventListener('pointerup', (e) => {
   const m = dot(0x7dff6b, dist * 0.008); m.position.set(...p); overlay.add(m);
   const mm = (v) => (v * 1000).toFixed(1);
   
-  let txt = `座標 (X, Y, Z)：${mm(p[0])}, ${mm(p[1])}, ${mm(p[2])} mm\n來源：${cl.label}` + (cl.kind[i] === 2 ? '（校正標靶）' : '');
+  let txt = `座標 (X, Y, Z)：${mm(p[0])}, ${mm(p[1])}, ${mm(p[2])} mm\n來源：${cl.label}` + (cl.kind[i] === 2 ? '（校正標靶）' : cl.kind[i] === 4 ? '（穿過前擋玻璃，打到中控台）' : '');
   for (const s of sensors) {
     let d;
     if (s.type === 'top') d = Math.hypot(p[1], p[2] - P.topH); else d = Math.hypot(p[0] - s.pos[0], p[1] - s.pos[1]);

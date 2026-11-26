@@ -126,7 +126,7 @@
           <thead><tr><th>位置</th><th>數量</th><th>掃描方向</th><th>拿到的資料</th><th>涵蓋範圍</th></tr></thead>
           <tbody>
             <tr><td>車輛左右兩側</td><td>2</td><td>橫向掃描，垂直車身</td><td>XY 平面輪廓，沒有 Z</td><td>車門到地面</td></tr>
-            <tr><td>車輛正上方</td><td>1</td><td>由天花板垂直向下</td><td>YX 平面，轉 90° 後當成 YZ</td><td>車頂、引擎蓋、擋風玻璃</td></tr>
+            <tr><td>車輛正上方</td><td>1</td><td>由天花板垂直向下</td><td>YX 平面，轉 90° 後當成 YZ</td><td>車頂、引擎蓋；擋風玻璃掃不到，量到的是玻璃後面的中控台</td></tr>
           </tbody>
         </table>
         </div>
@@ -168,6 +168,7 @@
             <label><input type="checkbox" id="vA" checked><i id="dA" style="background:#b5d63f"></i><span id="lA">左側雷射</span></label>
             <label><input type="checkbox" id="vB" checked><i id="dB" style="background:#4fc3d9"></i><span id="lB">右側雷射</span></label>
             <label class="only-sim"><input type="checkbox" id="vC" checked><i style="background:#f0a948"></i>天花板雷射</label>
+            <label class="only-sim"><i style="background:#c9a0ff"></i>穿過前擋玻璃</label>
             <label class="only-sim"><input type="checkbox" id="cPath" checked>噴塗路徑</label>
             <label><input type="checkbox" id="cMeasure">兩點量測</label>
           </div>
@@ -233,6 +234,7 @@
           <li>車體是用數學式描述的七人座輪廓，長 5.0 m、寬 1.9 m、高 1.9 m，含四個輪胎，射線用步進加二分法求交點。</li>
           <li>側面雷射的掃描面是水平的，沿垂直軸由 100 mm 掃到 2000 mm。天花板雷射的掃描面轉成 YZ 切面，沿車長方向移動。</li>
           <li>量測範圍 0.12 到 8 m，超出就沒有回波。雜訊加在距離方向，遺漏點隨機丟棄。</li>
+          <li>前擋玻璃掃不到。雷射會穿過玻璃，打到後面的中控台，所以點雲在前擋的位置是一個往車內凹下去的洞，這些點用紫色標示。</li>
           <li>場地四角有四根半徑 60 mm 的校正標靶，位置已知。</li>
         </ul>
       </div>
@@ -469,7 +471,7 @@
   <section>
     <div class="head"><h2>限制與下一步</h2></div>
     <ul class="rules" style="max-width:52em">
-      <li><b>玻璃與深色車漆。</b>2D 三角測距雷射遇到透明或吸光的表面容易沒有回波，模擬器用隨機遺漏點近似，實車上會集中在車窗，需要靠相鄰切面補點。</li>
+      <li><b>玻璃與深色車漆。</b>玻璃是掃不到的，雷射會直接穿過前擋，量到的是車內的中控台，不是玻璃表面。模擬器照這個現象處理：穿過玻璃的點不拿來規劃路徑，玻璃面改用車頂前緣與引擎蓋後緣內插補出來。側窗在模擬器裡仍當成車身，深色車漆的吸光則用隨機遺漏點近似。</li>
       <li><b>掃描時間。</b>2 mm 一層、掃到 2 公尺高要 950 層。實際上線應該依手臂需要的 5 cm 整併尺度把步距放大，模擬器可以直接比較不同步距的結果。</li>
       <li><b>姿態只用切面內的兩點。</b>遇到同時往兩個方向彎的曲面，法線會少一個方向的傾斜。下一步是用鄰近切面的點擬合局部平面。</li>
       <li><b>車輪與照後鏡。</b>目前路徑直接沿外輪廓走，凸出物與凹陷處還沒有分開處理。</li>
@@ -494,6 +496,6 @@
 </main>
 
 <footer><div class="wrap">© 2026 林泓佑 Pomelo Lin｜<a href="../">作品集首頁</a>｜<a href="robotic.html">手臂端與現場</a></div></footer>
-<script type="module" src="js/lidar-sim.js"></script>
+<script type="module" src="js/lidar-sim.js?v=2"></script>
 </body>
 </html>
