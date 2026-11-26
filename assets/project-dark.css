@@ -86,3 +86,29 @@ strong,b{color:#ececec}
 table{border-color:var(--dk-line)}
 code,pre{background:var(--dk-bg3);color:#d6d7db}
 .module-num{background:rgba(181,214,63,.12)!important;border:1px solid rgba(181,214,63,.35)!important}
+
+/* 各頁專屬的白底卡片（ROI、成本明細、效益、模組、站位、檢查項目、流程圖、圖片區） */
+.roi-card,.cost-breakdown,.benefit-card,.mod-card,.model-card,.check-item,.station,.issue-item,.pipeline{
+  background:var(--dk-bg2)!important;border-color:var(--dk-line)!important;box-shadow:none!important;color:#c4c5ca!important}
+.roi-card:hover,.mod-card:hover,.model-card:hover,.check-item:hover,.station:hover{border-color:rgba(181,214,63,.45)!important;box-shadow:none!important}
+.roi-scenario{color:#74767d!important}
+.roi-change{color:#ececec!important}
+.roi-change span,.roi-months{color:#b5d63f!important}
+.cost-item{border-bottom-color:var(--dk-line)!important}
+.cost-val,.cost-item.total{color:#ececec!important}
+.cost-label,.benefit-text,.station-desc{color:#a0a2a8!important}
+.benefit-text strong,.station-name{color:#ececec!important}
+.station-num{background:rgba(181,214,63,.12)!important;color:#b5d63f!important;border:1px solid rgba(181,214,63,.35)}
+.image-hero{background:var(--dk-bg)!important}
+.image-hero-content{box-shadow:none!important;border:1px solid var(--dk-line)}
+/* 白底圖片（圖表、規劃圖）在黑底上稍微降亮度，避免刺眼 */
+.img-slot img,.image-hero img{filter:brightness(.86)}
+.img-slot:hover img{filter:none}
+
+/* 原本用標題色當底、白字的小元素（編號圓圈、標籤），標題色改淺後會變亮白，統一改成綠框深底 */
+.mod-num,.check-num,.issue-tag{background:rgba(181,214,63,.12)!important;color:#b5d63f!important;border:1px solid rgba(181,214,63,.35)!important;box-shadow:none!important}
+.module-flow::before{background:rgba(255,255,255,.12)!important}
+.pip-step{color:#d6d7db!important}
+.pip-step.done{background:rgba(181,214,63,.12)!important;color:#b5d63f!important}
+.pip-step.progress{background:rgba(240,169,72,.1)!important;color:#f0a948!important;border:1px dashed rgba(240,169,72,.6)!important}
+.img-slot img,.image-hero img{filter:brightness(.8)}
