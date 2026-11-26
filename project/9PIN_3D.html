@@ -9,6 +9,7 @@
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#09090b">
 <meta name="color-scheme" content="dark">
+<script src="../assets/theme.js?v=1"></script>
 <link rel="icon" href="../favicon.ico">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="zh_TW">
@@ -50,7 +51,9 @@
 if(!/[?&]embed=0/.test(location.search)&&(window.self!==window.top||/[?&]embed=1/.test(location.search)))document.documentElement.classList.add('embed');
 window.__errs=[];
 window.addEventListener('error',function(e){
-  var m=e.message||(e.target&&e.target.src?'載入失敗：'+e.target.src:'');
+  var src=e.target&&e.target.src;
+  if(src&&!/unpkg\.com/.test(src))return;
+  var m=e.message||(src?'載入失敗：'+src:'');
   if(!m)return;window.__errs.push(m);
   var b=document.getElementById('err');if(b){b.hidden=false;b.textContent='3D 模型載入發生問題：'+m;}
 },true);
@@ -68,7 +71,7 @@ a{color:inherit}
 button{font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:6px}
 .wrap{max-width:1320px;margin:0 auto;padding:0 24px}
-.nav{position:fixed;inset:0 0 auto 0;z-index:20;background:rgba(9,9,11,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{position:fixed;inset:0 0 auto 0;z-index:20;background:var(--navbg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;gap:12px;height:64px;font-size:14px;white-space:nowrap}
 .nav a{text-decoration:none;color:var(--muted)}
 .nav a:hover{color:var(--text)}
@@ -121,7 +124,7 @@ aside{display:grid;gap:14px}
 #stepdesc{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);line-height:1.75;min-height:4.6em}
 .pinwrap{display:flex;gap:16px;align-items:center}
 .pins{display:grid;grid-template-columns:repeat(3,38px);gap:6px;padding:8px;background:var(--bg3);border:1px solid var(--line);border-radius:10px}
-.pin{width:38px;height:38px;border-radius:8px;border:1px solid var(--line2);display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:var(--dim);position:relative;background:#0b0c0e}
+.pin{width:38px;height:38px;border-radius:8px;border:1px solid var(--line2);display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:var(--dim);position:relative;background:var(--bg)}
 .pin::before{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--c);opacity:0;transform:scale(.5);transition:opacity .2s,transform .2s}
 .pin span{position:relative;z-index:1;text-shadow:0 0 3px #000,0 0 3px #000}
 .pin.s1::before{opacity:.55;transform:scale(.72)}
@@ -167,7 +170,8 @@ html.embed .lab{display:block}
 html.embed #stage{position:fixed;inset:0;height:auto;min-height:0;border:0;border-radius:0}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
-<script src="assets/analytics.js" defer></script>
+<script src="../assets/analytics.js" defer></script>
+<link rel="stylesheet" href="../assets/theme.css?v=1">
 </head>
 <body>
 <header class="nav">
@@ -225,7 +229,7 @@ html.embed #stage{position:fixed;inset:0;height:auto;min-height:0;border:0;borde
           <div class="pins" id="pins"></div>
           <div class="pinlegend">
             <div><b style="background:#74767d;opacity:.6"></b>已排針</div>
-            <div><b style="background:#ececec"></b>已壓入</div>
+            <div><b style="background:var(--text)"></b>已壓入</div>
             <div><b style="background:#b5d63f"></b>卡榫 OK</div>
             <div><b style="background:#ef5b4c"></b>卡榫 NG</div>
           </div>

@@ -1,0 +1,39 @@
+/* 深色／淺色背景切換：淺色主題的色票與少數需要個別處理的元件。
+   各頁原本的 :root 是深色色票，這裡只在 html[data-theme="light"] 時覆蓋。 */
+:root{--soft:#cdced2;--navbg:rgba(9,9,11,.82)}
+html[data-theme="light"]{
+  --bg:#f5f6f2;--bg2:#ffffff;--bg3:#eceee7;
+  --line:rgba(12,13,10,.1);--line2:rgba(12,13,10,.22);
+  --text:#16181a;--muted:#565a61;--dim:#7d8189;--soft:#2f3236;
+  --acc:#55710b;--acc-ink:#ffffff;--acc-soft:rgba(85,113,11,.1);--acc-line:rgba(85,113,11,.42);
+  --warm:#a85f08;--cyan:#0b7387;--bad:#c23a2c;
+  --navbg:rgba(245,246,242,.88);
+  color-scheme:light;
+}
+html[data-theme="light"] .btn.primary:hover{background:#63830e}
+html[data-theme="light"] ::selection{background:#55710b;color:#fff}
+
+/* 切換按鈕 */
+.theme-tg{margin-left:auto;flex:0 0 auto;font:inherit;font-size:12.5px;font-weight:700;line-height:1;padding:8px 11px;border-radius:10px;
+  border:1px solid var(--line2,rgba(255,255,255,.15));background:transparent;color:var(--muted,#a0a2a8);cursor:pointer;white-space:nowrap;
+  transition:color .2s,border-color .2s}
+.theme-tg:hover{color:var(--acc,#b5d63f);border-color:var(--acc,#b5d63f)}
+.nav .theme-tg + .btn{margin-left:0}
+.nav .sp ~ .theme-tg{margin-left:0}
+
+/* 3D 檢視區、點雲模擬器維持深色：它們是「螢幕」，背景換成淺色反而看不清楚點與金屬材質 */
+html[data-theme="light"] #stage,
+html[data-theme="light"] .arm-box,
+html[data-theme="light"] .sim{
+  --bg:#09090b;--bg2:#0f1013;--bg3:#16171b;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.15);
+  --text:#ececec;--muted:#a0a2a8;--dim:#74767d;--soft:#cdced2;
+  --acc:#b5d63f;--acc-ink:#0c0d0a;--acc-soft:rgba(181,214,63,.1);--acc-line:rgba(181,214,63,.35);
+  --warm:#f0a948;--cyan:#4fc3d9;--bad:#ef5b4c;
+  color:var(--text);color-scheme:dark;
+}
+html[data-theme="light"] .sim{background:#0f1013}
+html[data-theme="light"] .arm-box{background:#0f1013}
+/* 線雷射頁：行內程式碼與深色底示意圖 */
+html[data-theme="light"] code{color:var(--acc)}
+html[data-theme="light"] pre.code code,html[data-theme="light"] pre.code{color:#d5d7dc}
+html[data-theme="light"] .step svg[role="img"]{background:#0f1013;border-radius:12px;padding:8px}

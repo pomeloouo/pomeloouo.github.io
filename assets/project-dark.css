@@ -1,114 +1,130 @@
 /* 案件頁共用深色主題：載入在各頁原本 <style> 之後，覆蓋淺色樣板。
    色彩與首頁一致：底色 #09090b、主色柚子綠 #b5d63f（取自 Pomlo logo）。 */
 :root{
-  --p:#ececec;          /* 原本的深藍標題色 → 淺色文字 */
-  --a:#b5d63f;          /* 原本的強調藍 → 柚子綠 */
-  --b:#c4e352;
+  --t1:#ececec;--t2:#d6d7db;--t3:#a0a2a8;--t4:#74767d;--t5:#55575d;
+  --ac:#b5d63f;--ac2:#c4e352;--ac-ink:#0c0d0a;--wm:#f0a948;
+  --ac-rgb:181,214,63;--fg-rgb:255,255,255;--bg-rgb:9,9,11;--wm-rgb:240,169,72;--imgb:.8;
+}
+:root{
+  --p:var(--t1);          /* 原本的深藍標題色 → 淺色文字 */
+  --a:var(--ac);          /* 原本的強調藍 → 柚子綠 */
+  --b:var(--ac2);
   --w:#0f1013;
   --l:#16171b;
-  --ts:#a0a2a8;
-  --bd:rgba(255,255,255,.1);
-  --dk-bg:#09090b; --dk-bg2:#0f1013; --dk-bg3:#16171b; --dk-line:rgba(255,255,255,.1);
+  --ts:var(--t3);
+  --bd:rgba(var(--fg-rgb),.1);
+  --dk-bg:#09090b; --dk-bg2:#0f1013; --dk-bg3:#16171b; --dk-line:rgba(var(--fg-rgb),.1);
 }
-html,body{background:var(--dk-bg)!important;color:#d6d7db!important}
+html,body{background:var(--dk-bg)!important;color:var(--t2)!important}
 body{font-family:"Microsoft JhengHei","PingFang TC","Noto Sans TC","Noto Sans CJK TC","Segoe UI",sans-serif}
-::selection{background:#b5d63f;color:#0c0d0a}
+::selection{background:var(--ac);color:var(--ac-ink)}
 
 /* 頂部導覽與錨點列 */
-.topbar{background:rgba(9,9,11,.85)!important;border-bottom:1px solid var(--dk-line)}
-.topbar a{color:#a0a2a8!important}
-.topbar a:hover,.topbar-cur{color:#ececec!important}
-.topbar-sep{color:#55575d!important}
-.sec-nav{background:rgba(9,9,11,.92)!important;border-bottom:1px solid var(--dk-line)!important;box-shadow:none!important;top:44px!important;backdrop-filter:blur(10px)}
-.sec-nav a{color:#a0a2a8!important}
-.sec-nav a:hover{color:#b5d63f!important;border-bottom-color:#b5d63f!important;background:transparent!important}
+.topbar{background:rgba(var(--bg-rgb),.85)!important;border-bottom:1px solid var(--dk-line)}
+.topbar a{color:var(--t3)!important}
+.topbar a:hover,.topbar-cur{color:var(--t1)!important}
+.topbar-sep{color:var(--t5)!important}
+.sec-nav{background:rgba(var(--bg-rgb),.92)!important;border-bottom:1px solid var(--dk-line)!important;box-shadow:none!important;top:44px!important;backdrop-filter:blur(10px)}
+.sec-nav a{color:var(--t3)!important}
+.sec-nav a:hover{color:var(--ac)!important;border-bottom-color:var(--ac)!important;background:transparent!important}
 
 /* Hero：深色底，保留版面 */
-.hero{background:radial-gradient(900px 500px at 80% 0%,rgba(181,214,63,.10),transparent 62%),var(--dk-bg)!important}
+.hero{background:radial-gradient(900px 500px at 80% 0%,rgba(var(--ac-rgb),.10),transparent 62%),var(--dk-bg)!important}
 .hero::before{background:none!important}
 .hero::after{background:linear-gradient(to bottom,transparent,var(--dk-bg))!important}
-.hero h1{color:#f0f0f0!important}
-.hero-sub{color:#a0a2a8!important}
-.badge{background:rgba(181,214,63,.1)!important;border-color:rgba(181,214,63,.35)!important;color:#b5d63f!important}
+.hero h1{color:var(--t1)!important}
+.hero-sub{color:var(--t3)!important}
+.badge{background:rgba(var(--ac-rgb),.1)!important;border-color:rgba(var(--ac-rgb),.35)!important;color:var(--ac)!important}
 .metrics{background:var(--dk-bg2)!important;border-color:var(--dk-line)!important}
-.metric-val{color:#b5d63f!important}
-.metric-lbl{color:#a0a2a8!important}
-.hero-cta{background:#b5d63f!important;color:#0c0d0a!important;border-color:#b5d63f!important;font-weight:700}
+.metric-val{color:var(--ac)!important}
+.metric-lbl{color:var(--t3)!important}
+.hero-cta{background:var(--ac)!important;color:var(--ac-ink)!important;border-color:var(--ac)!important;font-weight:700}
 .hero-cta:hover{box-shadow:none!important}
 
 /* 內容區 */
 .sec{border-bottom-color:var(--dk-line)!important}
-.sec h2{color:#ececec!important;border-left-color:#b5d63f!important}
-.sec h3,.sec h4{color:#ececec}
-.sec p,.sec ul li{color:#c4c5ca!important}
-.sec ul li::before{color:#b5d63f!important}
-strong,b{color:#ececec}
+.sec h2{color:var(--t1)!important;border-left-color:var(--ac)!important}
+.sec h3,.sec h4{color:var(--t1)}
+.sec p,.sec ul li{color:var(--t2)!important}
+.sec ul li::before{color:var(--ac)!important}
+strong,b{color:var(--t1)}
 
 /* 卡片類：統一深色卡 */
 .card,.module-card,.issue-card,.compare-card,.project-card,.dual-card,.pip-step,.plan-tag,.pc-badge,.rec-badge{
-  background:var(--dk-bg2)!important;border-color:var(--dk-line)!important;color:#d6d7db!important;box-shadow:none!important}
-.card{border-top-color:#b5d63f!important}
-.card-lbl{color:#74767d!important}
-.card-val,.module-name,.issue-title,.pc-title{color:#ececec!important}
-.card-sub,.module-desc,.issue-desc,.pc-sub,.pc-list li{color:#a0a2a8!important}
-.module-num,.issue-cat{color:#b5d63f!important}
-.compare-card.rec,.pip-step.done{border-color:rgba(181,214,63,.45)!important}
-.rec-badge,.pc-badge,.plan-tag{color:#b5d63f!important;border:1px solid rgba(181,214,63,.35)!important}
-.pip-step.progress{border-color:rgba(240,169,72,.6)!important}
-.pip-label{color:#a0a2a8!important}
-.pip-arrow{color:#55575d!important}
+  background:var(--dk-bg2)!important;border-color:var(--dk-line)!important;color:var(--t2)!important;box-shadow:none!important}
+.card{border-top-color:var(--ac)!important}
+.card-lbl{color:var(--t4)!important}
+.card-val,.module-name,.issue-title,.pc-title{color:var(--t1)!important}
+.card-sub,.module-desc,.issue-desc,.pc-sub,.pc-list li{color:var(--t3)!important}
+.module-num,.issue-cat{color:var(--ac)!important}
+.compare-card.rec,.pip-step.done{border-color:rgba(var(--ac-rgb),.45)!important}
+.rec-badge,.pc-badge,.plan-tag{color:var(--ac)!important;border:1px solid rgba(var(--ac-rgb),.35)!important}
+.pip-step.progress{border-color:rgba(var(--wm-rgb),.6)!important}
+.pip-label{color:var(--t3)!important}
+.pip-arrow{color:var(--t5)!important}
 
 /* 重點框 */
-.highlight{background:rgba(181,214,63,.07)!important;border-left-color:#b5d63f!important}
-.highlight,.highlight *{color:#d6d7db!important}
-.highlight strong{color:#b5d63f!important}
+.highlight{background:rgba(var(--ac-rgb),.07)!important;border-left-color:var(--ac)!important}
+.highlight,.highlight *{color:var(--t2)!important}
+.highlight strong{color:var(--ac)!important}
 
 /* 規格表 */
 .spec-table{background:var(--dk-bg2)!important;box-shadow:none!important;border:1px solid var(--dk-line)}
-.spec-table th{background:var(--dk-bg3)!important;color:#ececec!important}
-.spec-table td{color:#c4c5ca!important}
+.spec-table th{background:var(--dk-bg3)!important;color:var(--t1)!important}
+.spec-table td{color:var(--t2)!important}
 .spec-table th,.spec-table td{border-bottom-color:var(--dk-line)!important}
 
 /* 交付物清單 */
-.doc-list li{border-bottom-color:var(--dk-line)!important;color:#c4c5ca!important}
-.doc-text strong{color:#ececec!important}
+.doc-list li{border-bottom-color:var(--dk-line)!important;color:var(--t2)!important}
+.doc-text strong{color:var(--t1)!important}
 
 /* 圖片格 */
-.img-slot{background:var(--dk-bg2)!important;border-color:rgba(255,255,255,.18)!important}
-.img-slot:hover{border-color:#b5d63f!important;background:var(--dk-bg3)!important}
-.img-slot .il{color:#b5d63f!important}
-.img-slot .ih{color:#74767d!important}
+.img-slot{background:var(--dk-bg2)!important;border-color:rgba(var(--fg-rgb),.18)!important}
+.img-slot:hover{border-color:var(--ac)!important;background:var(--dk-bg3)!important}
+.img-slot .il{color:var(--ac)!important}
+.img-slot .ih{color:var(--t4)!important}
 
 /* 回首頁浮動鈕 */
-.fab{background:#b5d63f!important;color:#0c0d0a!important;box-shadow:0 6px 24px rgba(0,0,0,.5)!important}
+.fab{background:var(--ac)!important;color:var(--ac-ink)!important;box-shadow:0 6px 24px rgba(0,0,0,.5)!important}
 
 /* 表格、程式碼等其他白底元素 */
 table{border-color:var(--dk-line)}
-code,pre{background:var(--dk-bg3);color:#d6d7db}
-.module-num{background:rgba(181,214,63,.12)!important;border:1px solid rgba(181,214,63,.35)!important}
+code,pre{background:var(--dk-bg3);color:var(--t2)}
+.module-num{background:rgba(var(--ac-rgb),.12)!important;border:1px solid rgba(var(--ac-rgb),.35)!important}
 
 /* 各頁專屬的白底卡片（ROI、成本明細、效益、模組、站位、檢查項目、流程圖、圖片區） */
 .roi-card,.cost-breakdown,.benefit-card,.mod-card,.model-card,.check-item,.station,.issue-item,.pipeline{
-  background:var(--dk-bg2)!important;border-color:var(--dk-line)!important;box-shadow:none!important;color:#c4c5ca!important}
-.roi-card:hover,.mod-card:hover,.model-card:hover,.check-item:hover,.station:hover{border-color:rgba(181,214,63,.45)!important;box-shadow:none!important}
-.roi-scenario{color:#74767d!important}
-.roi-change{color:#ececec!important}
-.roi-change span,.roi-months{color:#b5d63f!important}
+  background:var(--dk-bg2)!important;border-color:var(--dk-line)!important;box-shadow:none!important;color:var(--t2)!important}
+.roi-card:hover,.mod-card:hover,.model-card:hover,.check-item:hover,.station:hover{border-color:rgba(var(--ac-rgb),.45)!important;box-shadow:none!important}
+.roi-scenario{color:var(--t4)!important}
+.roi-change{color:var(--t1)!important}
+.roi-change span,.roi-months{color:var(--ac)!important}
 .cost-item{border-bottom-color:var(--dk-line)!important}
-.cost-val,.cost-item.total{color:#ececec!important}
-.cost-label,.benefit-text,.station-desc{color:#a0a2a8!important}
-.benefit-text strong,.station-name{color:#ececec!important}
-.station-num{background:rgba(181,214,63,.12)!important;color:#b5d63f!important;border:1px solid rgba(181,214,63,.35)}
+.cost-val,.cost-item.total{color:var(--t1)!important}
+.cost-label,.benefit-text,.station-desc{color:var(--t3)!important}
+.benefit-text strong,.station-name{color:var(--t1)!important}
+.station-num{background:rgba(var(--ac-rgb),.12)!important;color:var(--ac)!important;border:1px solid rgba(var(--ac-rgb),.35)}
 .image-hero{background:var(--dk-bg)!important}
 .image-hero-content{box-shadow:none!important;border:1px solid var(--dk-line)}
 /* 白底圖片（圖表、規劃圖）在黑底上稍微降亮度，避免刺眼 */
-.img-slot img,.image-hero img{filter:brightness(.86)}
+.img-slot img,.image-hero img{filter:brightness(var(--imgb))}
 .img-slot:hover img{filter:none}
 
 /* 原本用標題色當底、白字的小元素（編號圓圈、標籤），標題色改淺後會變亮白，統一改成綠框深底 */
-.mod-num,.check-num,.issue-tag{background:rgba(181,214,63,.12)!important;color:#b5d63f!important;border:1px solid rgba(181,214,63,.35)!important;box-shadow:none!important}
-.module-flow::before{background:rgba(255,255,255,.12)!important}
-.pip-step{color:#d6d7db!important}
-.pip-step.done{background:rgba(181,214,63,.12)!important;color:#b5d63f!important}
-.pip-step.progress{background:rgba(240,169,72,.1)!important;color:#f0a948!important;border:1px dashed rgba(240,169,72,.6)!important}
-.img-slot img,.image-hero img{filter:brightness(.8)}
+.mod-num,.check-num,.issue-tag{background:rgba(var(--ac-rgb),.12)!important;color:var(--ac)!important;border:1px solid rgba(var(--ac-rgb),.35)!important;box-shadow:none!important}
+.module-flow::before{background:rgba(var(--fg-rgb),.12)!important}
+.pip-step{color:var(--t2)!important}
+.pip-step.done{background:rgba(var(--ac-rgb),.12)!important;color:var(--ac)!important}
+.pip-step.progress{background:rgba(var(--wm-rgb),.1)!important;color:var(--wm)!important;border:1px dashed rgba(var(--wm-rgb),.6)!important}
+.img-slot img,.image-hero img{filter:brightness(var(--imgb))}
+
+/* 淺色背景：只換色票，上面的規則不用重寫 */
+html[data-theme="light"]{
+  --t1:#16181a;--t2:#2f3236;--t3:#565a61;--t4:#7d8189;--t5:#a3a6ab;
+  --ac:#55710b;--ac2:#6a8a12;--ac-ink:#ffffff;--wm:#a85f08;
+  --ac-rgb:85,113,11;--fg-rgb:12,13,10;--bg-rgb:245,246,242;--wm-rgb:168,95,8;--imgb:1;
+  --w:#ffffff;--l:#eceee7;
+  --dk-bg:#f5f6f2;--dk-bg2:#ffffff;--dk-bg3:#eceee7;--dk-line:rgba(12,13,10,.12);
+}
+html[data-theme="light"] .fab{box-shadow:0 6px 20px rgba(0,0,0,.18)!important}
+.topbar .theme-tg{padding:5px 10px}

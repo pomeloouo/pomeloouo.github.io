@@ -10,6 +10,7 @@
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="theme-color" content="#09090b">
 <meta name="color-scheme" content="dark">
+<script src="assets/theme.js?v=1"></script>
 <link rel="icon" href="favicon.ico">
 <link rel="preload" as="image" href="img/work/hg-site.webp" fetchpriority="low">
 
@@ -135,7 +136,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:radial-gradient(900px 520px at 88% -8%,rgba(181,214,63,.08),transparent 62%),radial-gradient(700px 520px at -12% 45%,rgba(240,169,72,.035),transparent 60%)}
 
 /* 導覽 */
-.nav{position:fixed;inset:0 0 auto 0;z-index:20;background:rgba(9,9,11,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{position:fixed;inset:0 0 auto 0;z-index:20;background:var(--navbg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;gap:20px;height:64px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;letter-spacing:1px;font-size:16px}
 .logo img{width:30px;height:30px}
@@ -156,7 +157,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
 .role{font-size:15px;color:var(--acc);font-weight:700;letter-spacing:2px}
 .hero h1{font-size:clamp(52px,7.5vw,92px);line-height:1.1;letter-spacing:6px;margin:14px 0 18px;font-weight:800}
-.hero .lead{font-size:clamp(17px,1.9vw,20px);color:#d2d3d7;max-width:30em;min-height:3.6em}
+.hero .lead{font-size:clamp(17px,1.9vw,20px);color:var(--soft);max-width:30em;min-height:3.6em}
 .cursor{display:inline-block;width:.5em;height:1.05em;background:var(--acc);vertical-align:-.12em;margin-left:3px;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
@@ -184,19 +185,19 @@ section.sec{padding:112px 0 0}
 
 /* 關於：文字 + 側欄資料 */
 .about{display:grid;grid-template-columns:1.35fr 1fr;gap:56px}
-.about .story p{font-size:17px;color:#d6d7db;line-height:1.95}
+.about .story p{font-size:17px;color:var(--soft);line-height:1.95}
 .about .story p+p{margin-top:16px}
 .about .story strong{color:var(--acc)}
 .label{font-size:13px;color:var(--dim);letter-spacing:1px;margin:28px 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{font-size:13px;padding:5px 12px;border-radius:999px;border:1px solid var(--line2);color:#d0d1d5}
+.chip{font-size:13px;padding:5px 12px;border-radius:999px;border:1px solid var(--line2);color:var(--soft)}
 .chip.hl{border-color:var(--acc-line);color:var(--acc);background:var(--acc-soft)}
 .side{border-left:1px solid var(--line);padding-left:40px}
 .kv{display:grid;grid-template-columns:4.5em 1fr;gap:9px 14px;font-size:14.5px}
 .kv dt{color:var(--dim)}
 .kv a{color:var(--acc);text-decoration:none;word-break:break-all}
 .side .label:first-child{margin-top:0}
-.plain{list-style:none;font-size:14.5px;color:#d0d1d5;display:grid;gap:6px}
+.plain{list-style:none;font-size:14.5px;color:var(--soft);display:grid;gap:6px}
 .plain small{color:var(--dim);font-size:13px}
 @media(max-width:920px){.about{grid-template-columns:1fr;gap:36px}.side{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:32px}}
 
@@ -206,8 +207,8 @@ section.sec{padding:112px 0 0}
 .pomlo-name img{width:64px;height:64px}
 .pomlo-name h3{font-size:clamp(40px,5.5vw,60px);line-height:1;letter-spacing:1px}
 .pomlo-hero .tagline{font-size:19px;font-weight:700;color:var(--acc);margin:18px 0 12px}
-.pomlo-hero p{color:#cdced2}
-.mine{margin-top:22px;padding:16px 18px;border-radius:12px;background:var(--acc-soft);font-size:14.5px;color:#dfe0e3}
+.pomlo-hero p{color:var(--soft)}
+.mine{margin-top:22px;padding:16px 18px;border-radius:12px;background:var(--acc-soft);font-size:14.5px;color:var(--soft)}
 .mine b{color:var(--acc)}
 .arch{display:grid;gap:8px}
 .arch .node{border:1px solid var(--line2);background:var(--bg);border-radius:12px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
@@ -216,14 +217,14 @@ section.sec{padding:112px 0 0}
 .arch .node span{font-family:var(--mono);font-size:11.5px;color:var(--dim);text-align:right;line-height:1.5}
 .arch .pipe{font-size:12px;color:var(--acc);text-align:center}
 .arch .devs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.arch .devs div{border:1px dashed var(--line2);border-radius:10px;padding:9px 6px;font-size:13px;text-align:center;color:#cfd0d4}
+.arch .devs div{border:1px dashed var(--line2);border-radius:10px;padding:9px 6px;font-size:13px;text-align:center;color:var(--soft)}
 .bento{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-auto-rows:minmax(150px,auto);gap:14px;margin-top:14px}
 .tile{border:1px solid var(--line);border-radius:var(--r);padding:22px;background:var(--bg2)}
 .tile h4{font-size:16.5px;margin-bottom:6px}
 .tile p{font-size:14px;color:var(--muted)}
 .tile.big{grid-row:span 2;background:linear-gradient(160deg,rgba(240,169,72,.09),transparent 55%),var(--bg2);display:flex;flex-direction:column}
 .tile.big h4{font-size:22px}
-.tile.big ul{list-style:none;margin-top:14px;display:grid;gap:8px;font-size:14px;color:#d0d1d5}
+.tile.big ul{list-style:none;margin-top:14px;display:grid;gap:8px;font-size:14px;color:var(--soft)}
 .tile.big li::before{content:"+ ";color:var(--warm)}
 .tile.big .stack{margin-top:auto;padding-top:20px;display:flex;gap:4px;align-items:flex-end;height:96px}
 .tile.big .stack i{display:block;width:34px;border:1.5px solid rgba(240,169,72,.8);background:rgba(240,169,72,.14);border-radius:3px}
@@ -244,7 +245,7 @@ section.sec{padding:112px 0 0}
 .tl h3{font-size:20px;line-height:1.4}
 .tl .co{color:var(--acc);font-size:14.5px;margin:2px 0 10px}
 .tl ul{list-style:none;display:grid;gap:7px}
-.tl li{color:#cdced2;font-size:15px;padding-left:16px;position:relative}
+.tl li{color:var(--soft);font-size:15px;padding-left:16px;position:relative}
 .tl li::before{content:"";position:absolute;left:0;top:.85em;width:7px;height:1px;background:var(--dim)}
 .tl li b{color:var(--text)}
 .tl .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
@@ -278,16 +279,16 @@ section.sec{padding:112px 0 0}
 .shot .bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--dim);align-items:center}
 .shot .bar span{margin-left:8px}
 .web h3{font-size:26px;line-height:1.35}
-.web .point{margin:20px 0;padding-left:16px;border-left:2px solid var(--acc);font-size:16px;color:#dcdde0}
+.web .point{margin:20px 0;padding-left:16px;border-left:2px solid var(--acc);font-size:16px;color:var(--soft)}
 .web .point b{color:var(--acc)}
 .web ul{list-style:none;display:grid;gap:8px;margin-bottom:26px}
-.web li{font-size:14.5px;color:#cdced2;padding-left:16px;position:relative}
+.web li{font-size:14.5px;color:var(--soft);padding-left:16px;position:relative}
 .web li::before{content:"";position:absolute;left:0;top:.85em;width:7px;height:1px;background:var(--dim)}
 @media(max-width:920px){.web{grid-template-columns:1fr;gap:28px}}
 
 /* 自傳 */
 .bio{columns:2;column-gap:56px}
-.bio p{color:#cdced2;text-indent:2em;margin-bottom:18px;break-inside:avoid;font-size:15.5px;line-height:1.95}
+.bio p{color:var(--soft);text-indent:2em;margin-bottom:18px;break-inside:avoid;font-size:15.5px;line-height:1.95}
 @media(max-width:920px){.bio{columns:1}}
 
 /* FAQ */
@@ -326,6 +327,7 @@ footer a:hover{color:var(--acc)}
 </style>
 <script>document.documentElement.className='js'</script>
 <script src="assets/analytics.js" defer></script>
+<link rel="stylesheet" href="assets/theme.css?v=1">
 </head>
 <body>
 

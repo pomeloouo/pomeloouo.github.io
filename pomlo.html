@@ -9,6 +9,7 @@
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#09090b">
 <meta name="color-scheme" content="dark">
+<script src="assets/theme.js?v=1"></script>
 <link rel="icon" href="img/pomlo.svg" type="image/svg+xml">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="zh_TW">
@@ -66,7 +67,7 @@ a{color:inherit}
 img{max-width:100%;height:auto;display:block}
 :focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}
 .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
-.nav{position:fixed;inset:0 0 auto 0;z-index:20;background:rgba(9,9,11,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{position:fixed;inset:0 0 auto 0;z-index:20;background:var(--navbg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;gap:16px;height:64px;font-size:14px}
 .nav a{text-decoration:none;color:var(--muted)}
 .nav a:hover{color:var(--text)}
@@ -81,7 +82,7 @@ img{max-width:100%;height:auto;display:block}
 .hero img{width:132px;height:132px}
 .hero h1{font-size:clamp(44px,7vw,76px);line-height:1.05;letter-spacing:1px}
 .hero .sub{font-size:clamp(17px,2vw,21px);color:var(--acc);font-weight:700;margin:12px 0 10px}
-.hero p{color:#cdced2;max-width:40em}
+.hero p{color:var(--soft);max-width:40em}
 .hero .meta{margin-top:18px;font-size:13.5px;color:var(--dim)}
 @media(max-width:700px){.hero{grid-template-columns:1fr;padding-top:110px}.hero img{width:88px;height:88px}}
 
@@ -98,7 +99,7 @@ h2{font-size:clamp(26px,3.6vw,36px);line-height:1.3;letter-spacing:1px}
 .compare h3{font-size:17px;margin-bottom:12px}
 .compare .after h3{color:var(--acc)}
 .compare ul{list-style:none;display:grid;gap:9px}
-.compare li{font-size:14.5px;color:#cdced2;padding-left:18px;position:relative}
+.compare li{font-size:14.5px;color:var(--soft);padding-left:18px;position:relative}
 .compare .before li::before{content:"×";position:absolute;left:0;color:var(--dim)}
 .compare .after li::before{content:"✓";position:absolute;left:0;color:var(--acc)}
 @media(max-width:760px){.compare{grid-template-columns:1fr}.compare .after{border-left:0;border-top:1px solid var(--line)}}
@@ -132,10 +133,10 @@ h2{font-size:clamp(26px,3.6vw,36px);line-height:1.3;letter-spacing:1px}
 /* 除錯故事 */
 .story{border:1px solid var(--line);border-radius:var(--r);background:var(--bg2);padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
 .story h3{font-size:19px;margin-bottom:10px}
-.story p{color:#cdced2;font-size:14.5px}
+.story p{color:var(--soft);font-size:14.5px}
 .story p+p{margin-top:10px}
 .story ol{list-style:none;counter-reset:s;display:grid;gap:12px}
-.story li{counter-increment:s;padding-left:34px;position:relative;font-size:14.5px;color:#cdced2}
+.story li{counter-increment:s;padding-left:34px;position:relative;font-size:14.5px;color:var(--soft)}
 .story li::before{content:counter(s);position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;border:1px solid var(--acc-line);color:var(--acc);font-size:12px;display:grid;place-items:center;font-family:var(--mono)}
 .story li b{color:var(--text)}
 @media(max-width:760px){.story{grid-template-columns:1fr;padding:24px}}
@@ -165,6 +166,7 @@ footer a{color:var(--muted);text-decoration:none}
 window.checkShots=function(){var s=document.getElementById('shots');if(s&&!s.querySelector('figure'))s.remove();};
 </script>
 <script src="assets/analytics.js" defer></script>
+<link rel="stylesheet" href="assets/theme.css?v=1">
 </head>
 <body>
 <header class="nav">
