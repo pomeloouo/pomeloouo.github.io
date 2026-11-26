@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pomlo｜網頁化機械手臂控制平台（堆棧、陣列取放、視覺夾取）｜林泓佑</title>
+<meta name="description" content="Pomlo 是林泓佑獨立開發的網頁化機械手臂控制平台：用瀏覽器連線協作手臂、工業相機與夾爪，積木式編寫程式，內建 PLTZ 棧板堆疊、陣列取放與 Eyso 視覺外掛。C# Gateway、Node.js 與 Vue 架構，已在實機驗證。">
+<link rel="canonical" href="https://pomeloouo.github.io/pomlo.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#09090b">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="img/pomlo.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:site_name" content="林泓佑 作品集">
+<meta property="og:title" content="Pomlo｜林泓佑獨立開發的網頁化機械手臂控制平台">
+<meta property="og:description" content="打開瀏覽器，就能操作機械手臂、相機與夾爪。堆棧、陣列取放、視覺夾取，實機驗證。">
+<meta property="og:url" content="https://pomeloouo.github.io/pomlo.html">
+<meta property="og:image" content="https://pomeloouo.github.io/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://pomeloouo.github.io/pomlo.html#software",
+      "name": "Pomlo",
+      "url": "https://pomeloouo.github.io/pomlo.html",
+      "image": "https://pomeloouo.github.io/img/pomlo.svg",
+      "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "工業機械手臂控制軟體",
+      "operatingSystem": "Windows",
+      "softwareVersion": "1.3.4",
+      "datePublished": "2026-11-19",
+      "dateModified": "2026-11-26",
+      "description": "網頁化機械手臂控制平台：C# Gateway 連接手臂、工業相機與夾爪，Node.js 伺服器執行程式並即時推播狀態，Vue 前端提供積木式程式編輯、點位教導、PLTZ 棧板堆疊、陣列取放與 Eyso 視覺夾取。",
+      "featureList": ["積木式程式編輯", "點位教導與座標換算", "PLTZ 棧板堆疊規劃", "陣列取放", "Eyso 樣板比對與視覺夾取", "全域速度即時調整", "心跳斷線偵測", "一鍵啟動攜帶版"],
+      "author": { "@type": "Person", "@id": "https://pomeloouo.github.io/#person", "name": "林泓佑", "url": "https://pomeloouo.github.io/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "林泓佑 作品集", "item": "https://pomeloouo.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Pomlo", "item": "https://pomeloouo.github.io/pomlo.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Pomlo 是誰開發的？", "acceptedAnswer": { "@type": "Answer", "text": "Pomlo 由林泓佑獨立開發，從需求定義、系統架構、C# 設備驅動、Node.js 伺服器、Vue 介面到實機測試與版本發佈，全部由他一人完成。" } },
+        { "@type": "Question", "name": "Pomlo 能做什麼？", "acceptedAnswer": { "@type": "Answer", "text": "用瀏覽器連線機械手臂、工業相機與夾爪；以積木編寫手臂流程；教導點位；規劃棧板堆疊與陣列取放；用樣板比對做視覺定位與夾取。" } },
+        { "@type": "Question", "name": "Pomlo 用什麼技術？", "acceptedAnswer": { "@type": "Answer", "text": "C# Gateway 負責設備驅動，Node.js（Fastify）伺服器負責程式執行與 WebSocket 推播，前端使用 Vue 3、Pinia 與 Blockly。" } }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{--bg:#09090b;--bg2:#0f1013;--bg3:#16171b;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.15);--text:#ececec;--muted:#a0a2a8;--dim:#74767d;--acc:#b5d63f;--acc-ink:#0c0d0a;--acc-soft:rgba(181,214,63,.1);--acc-line:rgba(181,214,63,.35);--warm:#f0a948;--mono:ui-monospace,"Cascadia Code",Consolas,monospace;--r:14px;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:"Microsoft JhengHei","PingFang TC","Noto Sans TC","Noto Sans CJK TC","Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15.5px;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(900px 520px at 85% -8%,rgba(181,214,63,.09),transparent 62%)}
+a{color:inherit}
+img{max-width:100%;height:auto;display:block}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.nav{position:fixed;inset:0 0 auto 0;z-index:20;background:rgba(9,9,11,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:16px;height:64px;font-size:14px}
+.nav a{text-decoration:none;color:var(--muted)}
+.nav a:hover{color:var(--text)}
+.nav .here{color:var(--text);font-weight:700}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:14.5px;font-weight:700;padding:12px 22px;border-radius:12px;border:1px solid var(--line2);white-space:nowrap;transition:transform .3s var(--ease),border-color .2s,color .2s}
+.btn:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-2px)}
+.btn.primary{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.btn.primary:hover{color:var(--acc-ink)}
+.nav .btn{margin-left:auto;padding:8px 15px;font-size:13.5px;color:var(--acc-ink)}
+
+.hero{padding:136px 0 72px;display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center}
+.hero img{width:132px;height:132px}
+.hero h1{font-size:clamp(44px,7vw,76px);line-height:1.05;letter-spacing:1px}
+.hero .sub{font-size:clamp(17px,2vw,21px);color:var(--acc);font-weight:700;margin:12px 0 10px}
+.hero p{color:#cdced2;max-width:40em}
+.hero .meta{margin-top:18px;font-size:13.5px;color:var(--dim)}
+@media(max-width:700px){.hero{grid-template-columns:1fr;padding-top:110px}.hero img{width:88px;height:88px}}
+
+section{padding:72px 0 0}
+h2{font-size:clamp(26px,3.6vw,36px);line-height:1.3;letter-spacing:1px}
+.intro{color:var(--muted);margin-top:10px;max-width:44em}
+.head{margin-bottom:32px}
+
+/* 痛點對照 */
+.compare{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.compare>div{padding:28px}
+.compare .before{background:var(--bg2)}
+.compare .after{background:linear-gradient(160deg,var(--acc-soft),transparent 60%),var(--bg2);border-left:1px solid var(--line)}
+.compare h3{font-size:17px;margin-bottom:12px}
+.compare .after h3{color:var(--acc)}
+.compare ul{list-style:none;display:grid;gap:9px}
+.compare li{font-size:14.5px;color:#cdced2;padding-left:18px;position:relative}
+.compare .before li::before{content:"×";position:absolute;left:0;color:var(--dim)}
+.compare .after li::before{content:"✓";position:absolute;left:0;color:var(--acc)}
+@media(max-width:760px){.compare{grid-template-columns:1fr}.compare .after{border-left:0;border-top:1px solid var(--line)}}
+
+/* 架構 */
+.arch{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch}
+.layer{border:1px solid var(--line2);border-radius:var(--r);padding:20px;background:var(--bg2);position:relative}
+.layer:first-child{border-color:var(--acc-line)}
+.layer small{font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+.layer h3{font-size:17px;margin:4px 0 8px}
+.layer p{font-size:13.5px;color:var(--muted)}
+.layer+.layer::before{content:"⇄";position:absolute;left:-12px;top:50%;transform:translate(-50%,-50%);color:var(--acc);font-size:15px}
+@media(max-width:860px){.arch{grid-template-columns:1fr 1fr}.layer+.layer::before{display:none}}
+@media(max-width:520px){.arch{grid-template-columns:1fr}}
+
+/* 模組 */
+.mods{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--line)}
+.mod{padding:26px 28px 26px 0;border-bottom:1px solid var(--line)}
+.mod:nth-child(even){padding:26px 0 26px 28px;border-left:1px solid var(--line)}
+.mod h3{font-size:18px;margin-bottom:8px}
+.mod h3 span{font-size:12.5px;color:var(--acc);font-weight:400;margin-left:8px}
+.mod p{font-size:14.5px;color:var(--muted)}
+@media(max-width:760px){.mods{grid-template-columns:1fr}.mod,.mod:nth-child(even){padding:22px 0;border-left:0}}
+
+/* 截圖位置：檔案不存在時整格自動隱藏 */
+.shots{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.shots figure{border:1px solid var(--line2);border-radius:var(--r);overflow:hidden;background:var(--bg2)}
+.shots figcaption{padding:10px 14px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+@media(max-width:760px){.shots{grid-template-columns:1fr}}
+
+/* 除錯故事 */
+.story{border:1px solid var(--line);border-radius:var(--r);background:var(--bg2);padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.story h3{font-size:19px;margin-bottom:10px}
+.story p{color:#cdced2;font-size:14.5px}
+.story p+p{margin-top:10px}
+.story ol{list-style:none;counter-reset:s;display:grid;gap:12px}
+.story li{counter-increment:s;padding-left:34px;position:relative;font-size:14.5px;color:#cdced2}
+.story li::before{content:counter(s);position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;border:1px solid var(--acc-line);color:var(--acc);font-size:12px;display:grid;place-items:center;font-family:var(--mono)}
+.story li b{color:var(--text)}
+@media(max-width:760px){.story{grid-template-columns:1fr;padding:24px}}
+
+/* 版本 */
+.versions{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
+.ver{flex:0 0 230px;scroll-snap-align:start;border:1px solid var(--line);border-radius:var(--r);padding:18px;background:var(--bg2)}
+.ver b{font-family:var(--mono);color:var(--acc);font-size:15px}
+.ver time{display:block;font-size:12.5px;color:var(--dim);margin:2px 0 8px}
+.ver p{font-size:13.5px;color:var(--muted);line-height:1.7}
+
+.faq details{border-bottom:1px solid var(--line);padding:16px 0;max-width:820px}
+.faq summary{cursor:pointer;font-weight:700;font-size:16.5px;list-style:none;display:flex;justify-content:space-between}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--acc);font-family:var(--mono);font-size:20px}
+.faq details[open] summary::after{content:"-"}
+.faq p{color:var(--muted);margin-top:8px;font-size:15px}
+.end{margin:80px 0 0;padding:56px 24px;text-align:center;border:1px solid var(--line);border-radius:var(--r);background:radial-gradient(500px 240px at 50% 0%,rgba(181,214,63,.1),transparent 70%),var(--bg2)}
+.end p{color:var(--muted);margin:10px 0 26px}
+.end .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+footer{padding:48px 0 40px;color:var(--dim);font-size:13.5px}
+footer a{color:var(--muted);text-decoration:none}
+@media print{body::before,.nav,.end,footer{display:none}*{color:#111!important;background:#fff!important}}
+</style>
+<script>
+/* 截圖都還沒放時，整個「實際畫面」區塊隱藏 */
+window.checkShots=function(){var s=document.getElementById('shots');if(s&&!s.querySelector('figure'))s.remove();};
+</script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a href="./">林泓佑</a><span style="color:var(--dim)">/</span><span class="here">Pomlo</span>
+    <a class="btn primary" href="https://line.me/ti/p/KkJwi5DEfz" target="_blank" rel="noopener">LINE 聯絡</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <img src="img/pomlo.svg" alt="Pomlo logo" width="132" height="132">
+    <div>
+      <h1>Pomlo</h1>
+      <p class="sub">打開瀏覽器，就能操作機械手臂、相機與夾爪。</p>
+      <p>Pomlo 是我（林泓佑）獨立開發的網頁化機械手臂控制平台。它把手臂控制、教點、堆棧規劃與視覺定位整合在同一個網頁裡，讓現場人員不用在多套原廠軟體之間切換。</p>
+      <div class="meta">2026/11 開發至今，共 10 個正式版本，目前 v1.3.4</div>
+    </div>
+  </div>
+
+  <section>
+    <div class="head"><h2>為什麼要做 Pomlo</h2><p class="intro">當業務工程師時，我在客戶現場一再看到同樣的問題：設備本身沒問題，卡住的是「操作」。</p></div>
+    <div class="compare">
+      <div class="before">
+        <h3>原本的現場</h3>
+        <ul>
+          <li>手臂、相機、夾爪各有一套原廠軟體，切來切去</li>
+          <li>堆棧點位要一格一格手動教，換箱子尺寸就重來</li>
+          <li>程式只有原廠工程師看得懂，現場人員不敢改</li>
+          <li>斷網或暫停後狀態不明，只能整套重開</li>
+        </ul>
+      </div>
+      <div class="after">
+        <h3>用 Pomlo 之後</h3>
+        <ul>
+          <li>一個瀏覽器畫面連線所有設備，狀態即時更新</li>
+          <li>教完四角，堆棧位置自動算，2D／3D 先看過再跑</li>
+          <li>積木式程式，流程一眼看得懂，現場也能調整</li>
+          <li>心跳偵測斷線、停止暫停立即生效，問題有提示</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><h2>系統架構</h2><p class="intro">四層分工，每一層都可以單獨重啟、單獨除錯。</p></div>
+    <div class="arch">
+      <div class="layer"><small>前端</small><h3>瀏覽器介面</h3><p>Vue 3、Pinia、Blockly。程式編輯、教點、堆棧、視覺都在這裡操作。</p></div>
+      <div class="layer"><small>WebSocket</small><h3>Pomlo Server</h3><p>Node.js、Fastify。執行程式、管理外掛，把設備狀態即時推給畫面。</p></div>
+      <div class="layer"><small>HTTP、心跳</small><h3>Pomlo Gateway</h3><p>C# 設備驅動橋。由伺服器自動啟動與管理，讀取逾時不會卡死。</p></div>
+      <div class="layer"><small>原廠 SDK、XML-RPC</small><h3>現場設備</h3><p>協作機械手臂、工業相機、夾爪與吸盤，以驅動外掛方式接入。</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><h2>功能模組</h2></div>
+    <div class="mods">
+      <div class="mod"><h3>PLTZ 棧板堆疊<span>外掛</span></h3><p>教四角定位棧板，自動排箱並檢查間距與支撐；2D 排箱圖與 3D 疊層檢視；外圈箱子標籤自動朝外；放料時第 6 軸自動判斷正反轉，轉不到的位置會標示出來。</p></div>
+      <div class="mod"><h3>陣列取放<span>外掛</span></h3><p>料盤陣列取放，「整片做完」積木一次跑完；進度視窗即時顯示，切頁回來已完成的格子不會遺失。</p></div>
+      <div class="mod"><h3>Eyso 視覺<span>外掛</span></h3><p>工業相機取像、樣板比對（旋轉框、遮罩、多外觀）、手眼相機校正與視覺夾取；到不了的角度會自動改成反向夾取。</p></div>
+      <div class="mod"><h3>積木式程式編輯</h3><p>移到點位、從點位偏移、夾放、IO、變數等積木，可設速度與加速度；每支程式有自己的資料，互不干擾。</p></div>
+      <div class="mod"><h3>操作與教點</h3><p>寸動教點，世界座標與關節角互相換算；法蘭轉接板與工具 TCP 設定；IO 表可自訂名稱與實際腳位。</p></div>
+      <div class="mod"><h3>安全與穩定</h3><p>停止與暫停立即生效、全域速度執行中即時調整、上下使能開關、手臂工作區範圍、警報列、同一台電腦只能開一個 Pomlo，避免兩個畫面互相覆蓋設定。</p></div>
+    </div>
+  </section>
+
+  <section id="shots">
+    <div class="head"><h2>實際畫面</h2></div>
+    <div class="shots">
+      <figure><img src="img/pomlo/pltz.webp" alt="Pomlo PLTZ 堆棧頁：2D 排箱圖與 3D 疊層檢視" loading="lazy" onerror="this.parentNode.remove();window.checkShots&&checkShots()"><figcaption>PLTZ 堆棧：排箱圖與 3D 疊層</figcaption></figure>
+      <figure><img src="img/pomlo/editor.webp" alt="Pomlo 積木式程式編輯器" loading="lazy" onerror="this.parentNode.remove();window.checkShots&&checkShots()"><figcaption>積木式程式編輯器</figcaption></figure>
+      <figure><img src="img/pomlo/teach.webp" alt="Pomlo 操作與教點頁" loading="lazy" onerror="this.parentNode.remove();window.checkShots&&checkShots()"><figcaption>操作與教點</figcaption></figure>
+      <figure><img src="img/pomlo/vision.webp" alt="Pomlo Eyso 視覺樣板比對" loading="lazy" onerror="this.parentNode.remove();window.checkShots&&checkShots()"><figcaption>Eyso 視覺樣板比對</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><h2>一次真實的除錯</h2><p class="intro">做給現場用的軟體，難的不是功能，而是出事的時候。</p></div>
+    <div class="story">
+      <div>
+        <h3>拔掉網路線之後，整個 Gateway 沒有回應</h3>
+        <p>測試時手臂停在暫停狀態，接著網路線被拔掉。畫面隨即顯示「設備驅動橋沒有回應」，重開也一樣卡住。</p>
+        <p>追下去發現是一連串連鎖反應：暫停中的動作佔住驅動的鎖，伺服器每秒讀狀態，讀取逾時後又同步重讀，執行緒越堆越多，最後整個 Gateway 被塞滿。重開後，控制器還停在當時被暫停的動作，連線握手就不回應。</p>
+      </div>
+      <ol>
+        <li><b>先恢復現場：</b>直接查控制器狀態，確認手臂沒在動後送出停止指令，Gateway 重開即連上。</li>
+        <li><b>Gateway 先開服務：</b>設備改在背景連線，不再因為一台設備卡住整個程式。</li>
+        <li><b>讀取不再堆積：</b>每台設備同時只有一個讀取，逾時就回最後一次的結果。</li>
+        <li><b>驅動偵測斷線：</b>定時探測，連續失敗即判定斷線，並停止該手臂的程式。</li>
+        <li><b>連線前先清狀態：</b>開啟時若上次動作沒結束，先送停止再連線。</li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><h2>版本紀錄</h2><p class="intro">每一版都有修改紀錄，並打包成一鍵啟動的攜帶版，另一台電腦解壓就能用。</p></div>
+    <div class="versions">
+      <div class="ver"><b>v1.0</b><time datetime="2026-11-19">2026/11/19</time><p>第一版。Gateway 由伺服器自動管理，斷線問題修正 A 到 E。</p></div>
+      <div class="ver"><b>v1.0.2</b><time datetime="2026-11-20">2026/11/20</time><p>修正攜帶版在另一台電腦啟動失敗與解壓縮中斷。</p></div>
+      <div class="ver"><b>v1.1.0</b><time datetime="2026-11-23">2026/11/23</time><p>防止舊畫面覆蓋設定、全域速度即時、警報列、變數系統與進度視窗。</p></div>
+      <div class="ver"><b>v1.2.0</b><time datetime="2026-11-25">2026/11/25</time><p>上下使能開關、單一實例、工業相機與影像檢測。</p></div>
+      <div class="ver"><b>v1.3.0</b><time datetime="2026-11-25">2026/11/25</time><p>手臂工作區範圍、各種螢幕尺寸下停止鍵不再被擠出畫面。</p></div>
+      <div class="ver"><b>v1.3.2</b><time datetime="2026-11-26">2026/11/26</time><p>照片庫、相機參數視窗、樣板比對加速，更新時保留使用者資料。</p></div>
+      <div class="ver"><b>v1.3.4</b><time datetime="2026-11-26">2026/11/26</time><p>樣板比對支援旋轉框、遮罩、多外觀；到不了就反向夾取。</p></div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="head"><h2>常見問題</h2></div>
+    <details open><summary>Pomlo 是誰開發的？</summary><p>由林泓佑獨立開發。從需求定義、系統架構、C# 設備驅動、Node.js 伺服器、Vue 介面到實機測試與版本發佈，全部一人完成。</p></details>
+    <details><summary>Pomlo 能做什麼？</summary><p>用瀏覽器連線機械手臂、工業相機與夾爪；以積木編寫手臂流程；教導點位；規劃棧板堆疊與陣列取放；用樣板比對做視覺定位與夾取。</p></details>
+    <details><summary>Pomlo 用什麼技術？</summary><p>C# Gateway 負責設備驅動，Node.js（Fastify）伺服器負責程式執行與 WebSocket 推播，前端使用 Vue 3、Pinia 與 Blockly。</p></details>
+    <details><summary>可以導入到我們的產線嗎？</summary><p>歡迎聊聊你的設備與需求，<a href="https://line.me/ti/p/KkJwi5DEfz" target="_blank" rel="noopener" style="color:var(--acc)">LINE 聯絡</a>。</p></details>
+  </section>
+
+  <div class="end">
+    <h2>想看 Pomlo 實際運作？</h2>
+    <p>可以安排線上展示，或直接到現場跑給你看。</p>
+    <div class="row">
+      <a class="btn primary" href="https://line.me/ti/p/KkJwi5DEfz" target="_blank" rel="noopener">LINE 聯絡</a>
+      <a class="btn" href="./">回到作品集</a>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap">© 2026 林泓佑 Pomelo Lin｜<a href="./">作品集首頁</a></div></footer>
+</body>
+</html>

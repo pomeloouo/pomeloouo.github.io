@@ -1,0 +1,88 @@
+/* 案件頁共用深色主題：載入在各頁原本 <style> 之後，覆蓋淺色樣板。
+   色彩與首頁一致：底色 #09090b、主色柚子綠 #b5d63f（取自 Pomlo logo）。 */
+:root{
+  --p:#ececec;          /* 原本的深藍標題色 → 淺色文字 */
+  --a:#b5d63f;          /* 原本的強調藍 → 柚子綠 */
+  --b:#c4e352;
+  --w:#0f1013;
+  --l:#16171b;
+  --ts:#a0a2a8;
+  --bd:rgba(255,255,255,.1);
+  --dk-bg:#09090b; --dk-bg2:#0f1013; --dk-bg3:#16171b; --dk-line:rgba(255,255,255,.1);
+}
+html,body{background:var(--dk-bg)!important;color:#d6d7db!important}
+body{font-family:"Microsoft JhengHei","PingFang TC","Noto Sans TC","Noto Sans CJK TC","Segoe UI",sans-serif}
+::selection{background:#b5d63f;color:#0c0d0a}
+
+/* 頂部導覽與錨點列 */
+.topbar{background:rgba(9,9,11,.85)!important;border-bottom:1px solid var(--dk-line)}
+.topbar a{color:#a0a2a8!important}
+.topbar a:hover,.topbar-cur{color:#ececec!important}
+.topbar-sep{color:#55575d!important}
+.sec-nav{background:rgba(9,9,11,.92)!important;border-bottom:1px solid var(--dk-line)!important;box-shadow:none!important;top:44px!important;backdrop-filter:blur(10px)}
+.sec-nav a{color:#a0a2a8!important}
+.sec-nav a:hover{color:#b5d63f!important;border-bottom-color:#b5d63f!important;background:transparent!important}
+
+/* Hero：深色底，保留版面 */
+.hero{background:radial-gradient(900px 500px at 80% 0%,rgba(181,214,63,.10),transparent 62%),var(--dk-bg)!important}
+.hero::before{background:none!important}
+.hero::after{background:linear-gradient(to bottom,transparent,var(--dk-bg))!important}
+.hero h1{color:#f0f0f0!important}
+.hero-sub{color:#a0a2a8!important}
+.badge{background:rgba(181,214,63,.1)!important;border-color:rgba(181,214,63,.35)!important;color:#b5d63f!important}
+.metrics{background:var(--dk-bg2)!important;border-color:var(--dk-line)!important}
+.metric-val{color:#b5d63f!important}
+.metric-lbl{color:#a0a2a8!important}
+.hero-cta{background:#b5d63f!important;color:#0c0d0a!important;border-color:#b5d63f!important;font-weight:700}
+.hero-cta:hover{box-shadow:none!important}
+
+/* 內容區 */
+.sec{border-bottom-color:var(--dk-line)!important}
+.sec h2{color:#ececec!important;border-left-color:#b5d63f!important}
+.sec h3,.sec h4{color:#ececec}
+.sec p,.sec ul li{color:#c4c5ca!important}
+.sec ul li::before{color:#b5d63f!important}
+strong,b{color:#ececec}
+
+/* 卡片類：統一深色卡 */
+.card,.module-card,.issue-card,.compare-card,.project-card,.dual-card,.pip-step,.plan-tag,.pc-badge,.rec-badge{
+  background:var(--dk-bg2)!important;border-color:var(--dk-line)!important;color:#d6d7db!important;box-shadow:none!important}
+.card{border-top-color:#b5d63f!important}
+.card-lbl{color:#74767d!important}
+.card-val,.module-name,.issue-title,.pc-title{color:#ececec!important}
+.card-sub,.module-desc,.issue-desc,.pc-sub,.pc-list li{color:#a0a2a8!important}
+.module-num,.issue-cat{color:#b5d63f!important}
+.compare-card.rec,.pip-step.done{border-color:rgba(181,214,63,.45)!important}
+.rec-badge,.pc-badge,.plan-tag{color:#b5d63f!important;border:1px solid rgba(181,214,63,.35)!important}
+.pip-step.progress{border-color:rgba(240,169,72,.6)!important}
+.pip-label{color:#a0a2a8!important}
+.pip-arrow{color:#55575d!important}
+
+/* 重點框 */
+.highlight{background:rgba(181,214,63,.07)!important;border-left-color:#b5d63f!important}
+.highlight,.highlight *{color:#d6d7db!important}
+.highlight strong{color:#b5d63f!important}
+
+/* 規格表 */
+.spec-table{background:var(--dk-bg2)!important;box-shadow:none!important;border:1px solid var(--dk-line)}
+.spec-table th{background:var(--dk-bg3)!important;color:#ececec!important}
+.spec-table td{color:#c4c5ca!important}
+.spec-table th,.spec-table td{border-bottom-color:var(--dk-line)!important}
+
+/* 交付物清單 */
+.doc-list li{border-bottom-color:var(--dk-line)!important;color:#c4c5ca!important}
+.doc-text strong{color:#ececec!important}
+
+/* 圖片格 */
+.img-slot{background:var(--dk-bg2)!important;border-color:rgba(255,255,255,.18)!important}
+.img-slot:hover{border-color:#b5d63f!important;background:var(--dk-bg3)!important}
+.img-slot .il{color:#b5d63f!important}
+.img-slot .ih{color:#74767d!important}
+
+/* 回首頁浮動鈕 */
+.fab{background:#b5d63f!important;color:#0c0d0a!important;box-shadow:0 6px 24px rgba(0,0,0,.5)!important}
+
+/* 表格、程式碼等其他白底元素 */
+table{border-color:var(--dk-line)}
+code,pre{background:var(--dk-bg3);color:#d6d7db}
+.module-num{background:rgba(181,214,63,.12)!important;border:1px solid rgba(181,214,63,.35)!important}

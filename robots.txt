@@ -1,0 +1,20 @@
+# 歡迎搜尋引擎與 AI 助理（ChatGPT、Claude、Perplexity、Gemini 等）讀取本站
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://pomeloouo.github.io/sitemap.xml
