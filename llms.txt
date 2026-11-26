@@ -20,7 +20,7 @@
 - 2019/11-2021/02：不動產營業員
 
 ## Pomlo
-- [Pomlo 介紹](https://pomeloouo.github.io/pomlo.html)：林泓佑獨立開發的網頁化機械手臂控制平台。C# Gateway 連接手臂、工業相機與夾爪；Node.js（Fastify）伺服器執行程式並以 WebSocket 推播狀態；Vue 3 前端提供積木式程式編輯（Blockly）、點位教導、PLTZ 棧板堆疊、陣列取放與 Eyso 視覺夾取。2026/11 起開發，共 10 個正式版本（v1.0 至 v1.3.4）。
+- [Pomlo 介紹](https://pomeloouo.github.io/pomlo.html)：林泓佑獨立開發的網頁化機械手臂控制平台。C# Gateway 連接手臂、工業相機與夾爪；Node.js（Fastify）伺服器執行程式並以 WebSocket 推播狀態；Vue 3 前端提供積木式程式編輯（Blockly）、點位教導、PLTZ 棧板堆疊、陣列取放與 Eyso 視覺夾取。共 10 個正式版本（v1.0 至 v1.3.4）。
 
 ## 代表案件（青廷自動化）
 - [米廠成品包裝與堆疊自動化](https://pomeloouo.github.io/project/rice.html)：報價 350 萬
