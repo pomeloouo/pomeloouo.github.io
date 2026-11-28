@@ -98,7 +98,8 @@
         { "@type": "ListItem", "position": 8, "name": "自動調酒機", "url": "https://pomeloouo.github.io/project/wine.html" },
         { "@type": "ListItem", "position": 9, "name": "9pin 半自動插入機與汽車零件 NDA", "url": "https://pomeloouo.github.io/project/mix.html" },
         { "@type": "ListItem", "position": 10, "name": "禾鉅事業 公司網站", "url": "https://pomeloouo.github.io/hg/main.html" },
-        { "@type": "ListItem", "position": 11, "name": "線雷射洗車系統：2D LiDAR 車體點雲重建", "url": "https://pomeloouo.github.io/project/lidar.html" }
+        { "@type": "ListItem", "position": 11, "name": "線雷射洗車系統：2D LiDAR 車體點雲重建", "url": "https://pomeloouo.github.io/project/lidar.html" },
+        { "@type": "ListItem", "position": 12, "name": "預鑄小樑自主檢查系統", "url": "https://pomeloouo.github.io/project/precast.html" }
       ]
     },
     {
@@ -266,6 +267,11 @@ section.sec{padding:112px 0 0}
 .case .thumb{margin:-24px -24px 18px;aspect-ratio:16/9;overflow:hidden;border-bottom:1px solid var(--line);border-radius:var(--r) var(--r) 0 0;background:var(--bg3)}
 .case .thumb img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
 .case:hover .thumb img{transform:scale(1.04)}
+.case.full{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:0 28px;align-items:stretch}
+.case.full .thumb{margin:-24px 0 -24px -24px;aspect-ratio:auto;min-height:100%;border-bottom:none;border-right:1px solid var(--line);border-radius:var(--r) 0 0 var(--r)}
+.case.full .body{display:flex;flex-direction:column;min-width:0;padding:4px 0}
+.case.full h3{font-size:21px}
+@media(max-width:760px){.case.full{display:flex}.case.full .thumb{margin:-24px -24px 18px;aspect-ratio:16/9;min-height:0;border-right:none;border-bottom:1px solid var(--line);border-radius:var(--r) var(--r) 0 0}}
 .case:hover .foot i{color:var(--acc);transform:translateX(4px)}
 .more{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
 .more h4{font-size:15px;margin-bottom:10px}
@@ -594,9 +600,18 @@ footer a:hover{color:var(--acc)}
   <div class="wrap">
     <div class="head rv">
       <h2>代表案件實績</h2>
-      <p class="intro">自動化公司任職期間（2026/03 - 2026/06）實際參與的提案與導入專案，點卡片看完整內容。</p>
+      <p class="intro">自動化公司任職期間（2026/03 - 2026/06）實際參與的提案與導入專案，以及之後為現場開發的系統，點卡片看完整內容。</p>
     </div>
     <div class="cases">
+      <a class="case full rv" href="project/precast.html">
+        <div class="thumb"><img src="img/cases/precast.webp" alt="數位捲尺量到 0299，上方網頁檢查表同一格已填入 299 並打勾" width="800" height="450" loading="lazy" decoding="async"></div>
+        <div class="body">
+          <span class="ind">預鑄混凝土、品質檢驗・獨立開發</span>
+          <h3>預鑄小樑自主檢查系統</h3>
+          <p>把紙本自主檢查表搬進瀏覽器，接上<strong>數位捲尺</strong>：量完按一下，數值直接進到那一格、依允差<strong>自動打勾或打紅叉</strong>，再跳到下一格。用按鍵間隔分辨捲尺和人手輸入，列印格式與原本紙本相同。</p>
+          <div class="foot"><span>附現場實拍影片</span><i>→</i></div>
+        </div>
+      </a>
       <a class="case lg rv" href="project/rice.html">
         <div class="thumb"><img src="img/cases/rice.webp" alt="米廠包裝產線現場與手臂堆棧模擬" width="800" height="450" loading="lazy" decoding="async"></div>
         <span class="ind">食品包裝、倉儲物流</span>

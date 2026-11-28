@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>預鑄小樑自主檢查系統：數位捲尺量完直接填表｜林泓佑</title>
+<meta name="description" content="林泓佑為預鑄混凝土構件廠開發的預鑄小樑自主檢查系統：藍牙數位捲尺量完，數值直接填進檢查表、自動判定允差並跳到下一格，列印格式與原本紙本表相同。單一 HTML 檔，離線也能用。">
+<link rel="canonical" href="https://pomeloouo.github.io/project/precast.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#09090b">
+<meta name="color-scheme" content="dark">
+<script src="../assets/theme.js?v=1"></script>
+<link rel="icon" href="../favicon.ico">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:site_name" content="林泓佑 作品集">
+<meta property="og:title" content="預鑄小樑自主檢查系統：數位捲尺量完直接填表｜林泓佑">
+<meta property="og:description" content="捲尺按一下，數值就進到檢查表的那一格，自動判定合格並跳下一格。附現場實拍與操作示範影片。">
+<meta property="og:url" content="https://pomeloouo.github.io/project/precast.html">
+<meta property="og:image" content="https://pomeloouo.github.io/img/cases/precast.webp">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://pomeloouo.github.io/project/precast.html#work",
+      "name": "預鑄小樑自主檢查系統",
+      "url": "https://pomeloouo.github.io/project/precast.html",
+      "inLanguage": "zh-Hant-TW",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Windows（Chrome／Edge）",
+      "dateModified": "2026-11-28",
+      "description": "預鑄混凝土構件廠的品管自主檢查表。藍牙數位捲尺透過接收器以鍵盤訊號送出量測值，系統依按鍵間隔辨識是捲尺還是人手輸入，把數值換算成 mm 填進目前的量測格、依允差判定合格與否並跳到下一格。母表設定設計值，可分段量測，列印格式與原紙本表相同。",
+      "keywords": "品質檢驗, 自主檢查表, 預鑄混凝土, 數位捲尺, 鍵盤輸入裝置, 單一 HTML, 離線應用",
+      "author": { "@type": "Person", "@id": "https://pomeloouo.github.io/#person", "name": "林泓佑", "url": "https://pomeloouo.github.io/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "林泓佑 作品集", "item": "https://pomeloouo.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "預鑄小樑自主檢查系統", "item": "https://pomeloouo.github.io/project/precast.html" }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="css/washcell.css?v=2">
+<style>
+.vid{display:block;width:100%;height:auto;background:#000}
+.vid-tall{max-height:78vh;width:auto;max-width:100%;margin:0 auto}
+.fig.tall{display:flex;flex-direction:column;align-items:center;background:#000}
+.fig.tall figcaption{align-self:stretch;background:var(--bg2)}
+</style>
+<script src="../assets/analytics.js" defer></script>
+<link rel="stylesheet" href="../assets/theme.css?v=1">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a href="../">林泓佑</a><span style="color:var(--dim)">/</span><span class="here">預鑄小樑自主檢查系統</span>
+    <span class="sp"></span>
+    <a class="opt" href="#field">現場實拍</a>
+    <a class="btn primary" href="https://line.me/ti/p/KkJwi5DEfz" target="_blank" rel="noopener">LINE 聯絡</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <h1>捲尺按一下，數值就進到檢查表的那一格</h1>
+      <p class="sub">預鑄混凝土構件廠的小樑自主檢查表，接上數位捲尺，量完自動填、自動判定、自動跳下一格。</p>
+      <p>品管人員原本是拿捲尺量完，看數字、寫在紙本檢查表上，再自己對允差判斷合不合格。這套系統把紙本表原封不動搬進瀏覽器，再讓數位捲尺直接把量測值送進目前那一格。表格長得跟原本一樣，列印出來也一樣，現場不用重新學。</p>
+      <div class="meta">為預鑄混凝土構件廠開發，2026/11。單一 HTML 檔、JavaScript、瀏覽器本機儲存，離線可用。用於台積電廠區工程的預鑄小樑。</div>
+      <div class="row">
+        <a class="btn primary" href="#field">看現場實拍</a>
+        <a class="btn" href="#how">看它怎麼判斷</a>
+      </div>
+    </div>
+    <figure class="fig">
+      <video class="vid" src="img/precast/demo.mp4" poster="img/precast/demo-poster.webp" width="1280" height="800" autoplay muted loop playsinline preload="metadata" aria-label="操作示範：捲尺送出 0.299、0.435、4.352 三筆量測，網頁依序填入並判定，第二筆超出允差顯示紅叉"></video>
+      <figcaption>操作示範（去掉公司名稱的版本）。三筆量測依序填入：299 合格、435 超出 ±3 mm 打紅叉並提示、最後一筆量完自動捲到下一區。</figcaption>
+    </figure>
+  </div>
+
+  <div class="facts">
+    <div><b>1 下</b><span>捲尺按一次就填一格</span></div>
+    <div><b>24 格</b><span>一支小樑的量測項目</span></div>
+    <div><b>m → mm</b><span>捲尺單位自動換算</span></div>
+    <div><b>35 ms</b><span>判定為捲尺送出的按鍵間隔</span></div>
+    <div><b>1 個檔案</b><span>不用安裝、不用網路</span></div>
+  </div>
+
+  <section>
+    <div class="head"><h2>原本怎麼做，現在怎麼做</h2><p class="intro">檢查項目和允差都沒變，變的是數字從捲尺到表格的那一段。</p></div>
+    <div class="compare">
+      <div class="before">
+        <h3>原本：看、記、寫、對</h3>
+        <ul>
+          <li>量完看捲尺上的數字，記在腦中或先寫在手上</li>
+          <li>找到紙本表上對應的那一格，手寫填上</li>
+          <li>自己對照允差（±3 mm、±5 mm、±10 mm）判斷合不合格</li>
+          <li>抄錯行、看錯允差，要到事後檢查才發現</li>
+        </ul>
+      </div>
+      <div class="after">
+        <h3>現在：量完就好</h3>
+        <ul>
+          <li>捲尺按下送出，數值直接進到目前標示的那一格</li>
+          <li>系統依那一格的設計值和允差，當場打勾或打紅叉，並顯示偏差</li>
+          <li>填完自動跳到下一個還沒量的格子，畫面跟著捲過去</li>
+          <li>所有格子量完跳出「量測完成」，記錄完成時間</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="field">
+    <div class="head"><h2>現場實拍</h2><p class="intro">實際用數位捲尺量測的過程，剪掉了畫面上看得到公司與工程名稱的片段，加速 1.5 倍。</p></div>
+    <div class="split wide-l">
+      <div>
+        <p class="t">影片裡的流程：捲尺量到 0.299 m，按送出，上方網頁的「鋼模寬」那一格立刻填入 299 並打勾，標示框跳到「鋼模高」。接著量 0.429 m，一樣填入打勾。</p>
+        <p class="t">最後量到 0.500 m 送出，這一格的設計值和允差對不上，網頁打紅叉，底部狀態列變成「有 ✗ 待處理」，品管人員當場就知道要回頭看。</p>
+      </div>
+      <figure class="fig tall">
+        <video class="vid vid-tall" src="img/precast/field.mp4" poster="img/precast/field-poster.webp" width="540" height="960" controls muted playsinline preload="metadata" aria-label="現場實拍：數位捲尺量測後，網頁檢查表自動填入數值並判定"></video>
+        <figcaption>現場實拍：捲尺螢幕與網頁檢查表同框。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="head"><h2>它怎麼知道是捲尺送來的</h2><p class="intro">捲尺的接收器插在電腦上，對電腦來說它就是一個鍵盤：每量一筆，就很快地「打」出一串數字再按 Enter。難的是把它跟人手打字分開。</p></div>
+    <ol class="flow">
+      <li><h3>看按鍵間隔</h3><p>接收器連打每一鍵大約間隔 40 ms，人手打字通常超過 100 ms。間隔小於 35 ms 的一定是捲尺；平均間隔在門檻內、而且內容像一個量測值的整串，也當成捲尺。</p></li>
+      <li><h3>攔下 Enter</h3><p>接收器結尾的 Enter 如果放給網頁，游標會亂跳。判定為捲尺的那一串，結尾鍵直接攔下，由系統自己決定跳到哪一格。</p></li>
+      <li><h3>還原打錯位置的字</h3><p>捲尺送來時，游標可能停在備註欄。字元已經打進去了，系統會把那一欄還原，再把數值放到正確的量測格。</p></li>
+      <li><h3>處理中文輸入法</h3><p>輸入法開著的時候，數字會變成組字。系統改用按鍵位置解讀這筆資料，並提醒切回英數。</p></li>
+      <li><h3>換算、判定、跳格</h3><p>公尺換成毫米，依母表的設計值和這一格的允差打勾或打叉、標出偏差，再跳到下一個還沒量的格子。</p></li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="head"><h2>為了現場好用做的設計</h2></div>
+    <ul class="rules" style="max-width:52em">
+      <li><b>母表照原表版面填。</b>設計值（鋼模、成品的寬高長）不是一長串欄位清單，而是在一張跟檢查表一樣的「母表」上填。可以存很多份、依構件編號載入，也能匯出匯入給別台電腦用。母表改了要按儲存才生效，未存離開會提醒。</li>
+      <li><b>可以分段量。</b>一支樑不一定一次量完。沒量完的可以從清單載入，游標直接停在下一個空格。</li>
+      <li><b>跳格只依「下一個空格」。</b>早期版本加了「數值離設計值太遠就不跳格」的防呆，結果現場要按三次才跳。實際上偏差大的值更需要被記下來打紅叉，所以拿掉了，改成每收到一筆就填、就跳。</li>
+      <li><b>列印跟原本紙本一樣。</b>畫面上的提示、按鈕、完成時間都不會印出來，印出來就是原本那張表。</li>
+      <li><b>一個檔案就能跑。</b>整套是單一 HTML 檔，資料存在瀏覽器裡，另外附一個啟動檔，用 Chrome／Edge 的應用程式模式開啟（沒有網址列和分頁），看起來像一般軟體。</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="head"><h2>限制與下一步</h2></div>
+    <ul class="rules" style="max-width:52em">
+      <li><b>量測順序。</b>現在照表格由上往下跳。如果現場習慣的量法順序不同，下一步是讓使用者自訂順序，或依量到的數值大小自動判斷是哪一格。</li>
+      <li><b>資料只在這台電腦。</b>紀錄存在瀏覽器本機，換電腦要用匯出的備份檔。要多台共用，就需要一個小伺服器或共用資料夾。</li>
+      <li><b>接收器斷線偵測。</b>接收器是鍵盤裝置，拔掉時網頁收不到任何通知，只能從「多久沒收到資料」推斷。</li>
+    </ul>
+  </section>
+
+  <div class="end">
+    <h2>想看實際操作？</h2>
+    <p>可以安排線上展示，或帶捲尺到現場量給你看。</p>
+    <div class="row">
+      <a class="btn primary" href="https://line.me/ti/p/KkJwi5DEfz" target="_blank" rel="noopener">LINE 聯絡</a>
+      <a class="btn" href="../">回到作品集</a>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap">© 2026 林泓佑 Pomelo Lin｜<a href="../">作品集首頁</a></div></footer>
+</body>
+</html>

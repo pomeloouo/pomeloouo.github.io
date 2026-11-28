@@ -33,6 +33,7 @@
 - [9pin 半自動插入機與汽車零件廠 NDA](https://pomeloouo.github.io/project/mix.html)
 
 ## 技術專案（自動化系統商，軟體工程師）
+- [預鑄小樑自主檢查系統](https://pomeloouo.github.io/project/precast.html)：為預鑄混凝土構件廠開發的品管自主檢查表。數位捲尺接收器以鍵盤訊號送出量測值，系統依按鍵間隔（35 ms 門檻）分辨捲尺與人手輸入，換算成 mm 填入目前格、依允差自動判定並跳下一格；母表設定設計值、分段量測、列印與原紙本相同。單一 HTML 檔，離線可用。頁面含現場實拍與操作示範影片。
 - [線雷射洗車系統：2D LiDAR 車體點雲重建](https://pomeloouo.github.io/project/lidar.html)：用 YDLIDAR X2L 2D 雷射加線性馬達每 2 mm 逐層掃描，堆疊成車體 3D 點雲；C#、WPF、HelixToolkit。頁面含座標轉換與逐層堆疊的程式節錄、實測掃描資料，以及可操作的點雲模擬器（射線求交、雜訊、三顆雷射融合、標靶校正、5 cm 整併、兩點求噴槍姿態、雙手臂噴塗路徑、CSV 與 PLY 匯出）。
 - [洗車系統手臂端與現場紀錄](https://pomeloouo.github.io/project/robotic.html)：左右兩支六軸手臂、噴塗工具 TCP 在法蘭前 1000 mm、以車體中線對稱分工，路徑規則與現場照片、影片。
 
