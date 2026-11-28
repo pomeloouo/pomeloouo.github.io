@@ -1,9 +1,9 @@
-# 林泓佑（Pomelo Lin）作品集
+# 林泓佑（Will Lin）作品集
 
 > 林泓佑是台中的業務工程師（Sales Engineer），朝陽科技大學資訊工程系。具備 3 年以上業務與工程跨業經驗，參與 10 件以上自動化提案，並獨立開發 Pomlo 網頁化機械手臂控制平台。
 
 ## 基本資料
-- 姓名：林泓佑（Pomelo Lin，GitHub：pomeloouo）
+- 姓名：林泓佑（英文名 Will Lin，暱稱 Pomelo Lin，GitHub：pomeloouo）
 - 職稱：業務工程師、自動化軟體開發
 - 地區：台中市
 - 聯絡：qqwwa28855388@gmail.com｜0966-837-850｜LINE https://line.me/ti/p/KkJwi5DEfz

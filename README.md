@@ -1,4 +1,4 @@
-# 林泓佑 Pomelo Lin｜作品集
+# 林泓佑 Will Lin｜作品集
 
 https://pomeloouo.github.io/
 
