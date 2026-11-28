@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>機械手臂洗車系統：雙手臂、1000 mm 噴塗工具與現場紀錄｜林泓佑</title>
-<meta name="description" content="林泓佑參與的機械手臂洗車系統手臂端整理：左右兩支六軸手臂架在地軌上、噴塗工具 TCP 在法蘭前 1000 mm、以車體中線對稱分工，點雲如何變成噴塗姿態與路徑，並附現場照片與其他手臂實作影片。">
+<meta name="description" content="林泓佑參與的機械手臂洗車系統手臂端整理：左右兩支六軸手臂架在地軌上、噴塗工具 TCP 在法蘭前 1000 mm、以車體中線對稱分工，點雲如何變成噴塗姿態與路徑，並附現場照片。">
 <link rel="canonical" href="https://pomeloouo.github.io/project/robotic.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#09090b">
@@ -46,15 +46,6 @@
 }
 </script>
 <link rel="stylesheet" href="css/washcell.css?v=2">
-<style>
-.strip{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x proximity}
-.strip figure{flex:0 0 auto;scroll-snap-align:start;border:1px solid var(--line2);border-radius:var(--r);overflow:hidden;background:var(--bg2);width:min-content}
-.strip img{height:340px;width:auto;max-width:none}
-.strip figcaption{padding:10px 14px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
-@media(max-width:620px){.strip img{height:260px}}
-.videos .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
-.videos .frame button{z-index:1}
-</style>
 <script src="../assets/analytics.js" defer></script>
 <link rel="stylesheet" href="../assets/theme.css?v=1">
 </head>
@@ -154,33 +145,6 @@
     <p class="note">路徑匯出的格式是每個姿態一列：TCP 位置、工具方向、法蘭位置。模擬器裡可以直接下載成 CSV。</p>
   </section>
 
-  <section>
-    <div class="head"><h2>其他手臂實作紀錄</h2><p class="intro">洗車系統之外的手臂現場照片與影片：開箱試機、現場配置規劃、取放與堆疊測試。</p></div>
-    <div class="strip">
-      <figure><img src="img/robotic/r3.webp" alt="架在高台上的大型四軸堆疊手臂，下方是滾筒輸送線" width="720" height="1198" loading="lazy"><figcaption>高台上的堆疊手臂與輸送線</figcaption></figure>
-      <figure><img src="img/robotic/r1.webp" alt="剛開箱的手臂放在棧板上，正用教導器試機" width="720" height="1280" loading="lazy"><figcaption>開箱後用教導器試機</figcaption></figure>
-      <figure><img src="img/robotic/r2.webp" alt="手繪的現場配置圖，標著手臂、棧板與輸送線位置" width="720" height="960" loading="lazy"><figcaption>手繪的現場配置圖</figcaption></figure>
-      <figure><img src="img/robotic/r4.webp" alt="小型六軸手臂在工作台上做取放測試" width="900" height="600" loading="lazy"><figcaption>小型六軸手臂的取放測試台</figcaption></figure>
-    </div>
-
-    <h3 style="margin:36px 0 14px">影片</h3>
-    <div class="videos">
-      <div class="v">
-        <div class="frame"><img src="img/robotic/v1.webp" alt="" width="640" height="360" loading="lazy"><button type="button" data-id="17pL5GATn3R_LC9LBbnpPHyvhm1K0akFK" aria-label="播放影片：手臂把輸送帶上的袋裝物堆到棧板"><span>播放影片</span></button></div>
-        <div class="bar"><span>從輸送帶取袋裝物，堆到棧板上</span><a href="https://drive.google.com/file/d/17pL5GATn3R_LC9LBbnpPHyvhm1K0akFK/view" target="_blank" rel="noopener">另開視窗</a></div>
-      </div>
-      <div class="v">
-        <div class="frame"><img src="img/robotic/v2.webp" alt="" width="640" height="360" loading="lazy"><button type="button" data-id="10-D3Nd22d_iCyb30oG7jbBQwZVg6rooI" aria-label="播放影片：小型手臂把方塊取放到迷你棧板"><span>播放影片</span></button></div>
-        <div class="bar"><span>小型手臂取放方塊到迷你棧板</span><a href="https://drive.google.com/file/d/10-D3Nd22d_iCyb30oG7jbBQwZVg6rooI/view" target="_blank" rel="noopener">另開視窗</a></div>
-      </div>
-      <div class="v">
-        <div class="frame"><img src="img/robotic/v3.webp" alt="" width="640" height="360" loading="lazy"><button type="button" data-id="1ZQ-HONv2l_-yyVAnKCurusRhfH7m4cPW" aria-label="播放影片：小型手臂工作台測試"><span>播放影片</span></button></div>
-        <div class="bar"><span>小型手臂工作台測試</span><a href="https://drive.google.com/file/d/1ZQ-HONv2l_-yyVAnKCurusRhfH7m4cPW/view" target="_blank" rel="noopener">另開視窗</a></div>
-      </div>
-    </div>
-    <p class="note">影片放在 Google 雲端硬碟，按下播放才會載入。</p>
-  </section>
-
   <div class="end">
     <h2>想看點雲是怎麼掃出來的？</h2>
     <p>掃描端的硬體配置、演算法、C# 程式節錄，以及可以自己調參數的點雲模擬器，都在主案件頁。</p>
@@ -192,17 +156,5 @@
 </main>
 
 <footer><div class="wrap">© 2026 林泓佑 Pomelo Lin｜<a href="../">作品集首頁</a>｜<a href="lidar.html">線雷射洗車系統</a></div></footer>
-<script>
-document.querySelectorAll('.videos button[data-id]').forEach(function (b) {
-  b.addEventListener('click', function () {
-    var f = document.createElement('iframe');
-    f.src = 'https://drive.google.com/file/d/' + b.dataset.id + '/preview';
-    f.allow = 'autoplay; encrypted-media; fullscreen';
-    f.title = b.getAttribute('aria-label');
-    f.referrerPolicy = 'no-referrer';
-    var box = b.parentNode; box.innerHTML = ''; box.appendChild(f);
-  });
-});
-</script>
 </body>
 </html>
