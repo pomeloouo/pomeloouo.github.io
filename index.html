@@ -271,6 +271,13 @@ section.sec{padding:112px 0 0}
 .case.full .thumb{margin:-24px 0 -24px -24px;aspect-ratio:auto;min-height:100%;border-bottom:none;border-right:1px solid var(--line);border-radius:var(--r) 0 0 var(--r)}
 .case.full .body{display:flex;flex-direction:column;min-width:0;padding:4px 0}
 .case.full h3{font-size:21px}
+.case h3 a{color:inherit;text-decoration:none}
+.case h3 a:hover{color:var(--acc)}
+.case .foot.links{justify-content:flex-start;gap:10px 24px;flex-wrap:wrap}
+.case .foot.links a{color:var(--acc);text-decoration:none;display:inline-flex;gap:6px;align-items:baseline}
+.case .foot.links a i{color:var(--acc)}
+.case .foot.links a:hover i{transform:translateX(4px)}
+div.case:hover .foot i{transform:none}
 @media(max-width:760px){.case.full{display:flex}.case.full .thumb{margin:-24px -24px 18px;aspect-ratio:16/9;min-height:0;border-right:none;border-bottom:1px solid var(--line);border-radius:var(--r) var(--r) 0 0}}
 .case:hover .foot i{color:var(--acc);transform:translateX(4px)}
 .others{margin-top:56px}
@@ -602,7 +609,7 @@ footer a:hover{color:var(--acc)}
   <div class="wrap">
     <div class="head rv">
       <h2>代表案件實績</h2>
-      <p class="intro">自動化公司任職期間（2026/03 - 2026/06）實際參與的提案與導入專案，以及之後為現場開發的系統，點卡片看完整內容。</p>
+      <p class="intro">自動化公司任職期間（2026/03 - 2026/06）實際參與的提案與導入專案，以及前後開發的系統，點卡片看完整內容。</p>
     </div>
     <div class="cases">
       <a class="case full rv" href="project/precast.html">
@@ -614,6 +621,15 @@ footer a:hover{color:var(--acc)}
           <div class="foot"><span>附現場實拍影片</span><i>→</i></div>
         </div>
       </a>
+      <div class="case full rv">
+        <a class="thumb" href="project/lidar.html" tabindex="-1" aria-hidden="true"><img src="img/cases/robotic.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></a>
+        <div class="body">
+          <span class="ind">機械手臂、點雲視覺・軟體工程師</span>
+          <h3><a href="project/lidar.html">機械手臂洗車系統：從點雲掃描到噴塗路徑</a></h3>
+          <p>我負責掃描端與手臂位點：用 <strong>2D 線雷射加線性馬達</strong>逐層掃出車體 3D 點雲，轉世界座標融合後算出噴槍姿態，交給左右兩支<strong>架在地軌上的六軸手臂</strong>沿車身噴塗。附實測資料、C# 程式節錄、可操作的點雲模擬器與現場照片影片。</p>
+          <div class="foot links"><a href="project/lidar.html">點雲掃描與模擬器 <i>→</i></a><a href="project/robotic.html">手臂端與現場 <i>→</i></a></div>
+        </div>
+      </div>
       <a class="case lg rv" href="project/rice.html">
         <div class="thumb"><img src="img/cases/rice.webp" alt="米廠包裝產線現場與手臂堆棧模擬" width="800" height="450" loading="lazy" decoding="async"></div>
         <span class="ind">食品包裝、倉儲物流</span>
@@ -675,26 +691,14 @@ footer a:hover{color:var(--acc)}
     <div class="others">
       <h3 class="others-h rv">其他技術作品</h3>
       <div class="cases">
-      <a class="case rv" href="project/lidar.html">
-        <div class="thumb"><img src="img/cases/lidar.webp" alt="實驗台：線性馬達上的 2D 線雷射正在掃描模型車，螢幕上是即時點雲" width="800" height="450" loading="lazy" decoding="async"></div>
-        <span class="ind">點雲、機器視覺・軟體工程師</span>
-        <h3>線雷射洗車系統：3D 點雲重建</h3>
-        <p>用 <strong>2D 線雷射加線性馬達</strong>逐層掃出車體 3D 點雲，轉世界座標融合後算出噴槍姿態。附實測資料、C# 程式節錄與<strong>可直接操作的點雲模擬器</strong>。</p>
-        <div class="foot"><span>附互動模擬器</span><i>→</i></div>
-      </a>
-      <a class="case rv" href="project/robotic.html">
-        <div class="thumb"><img src="img/cases/robotic.webp" alt="洗車工作站：六軸手臂架在地軌上，前端裝著長桿噴塗工具" width="800" height="450" loading="lazy" decoding="async"></div>
-        <span class="ind">機械手臂、現場整合・軟體工程師</span>
-        <h3>洗車系統手臂端與現場紀錄</h3>
-        <p>左右兩支<strong>六軸手臂架在地軌上</strong>，噴塗工具 TCP 在法蘭前 1000 mm，以車體中線對稱分工。整理點雲如何變成噴塗姿態與路徑。</p>
-        <div class="foot"><span>附現場照片與影片</span><i>→</i></div>
-      </a>
-      <a class="case rv" href="project/9PIN_3D.html">
+      <a class="case full rv" href="project/9PIN_3D.html">
         <div class="thumb"><img src="img/cases/9pin.webp" alt="9PIN 半自動端子插入機的 3D 模型：鋁擠型機架、壓入氣缸與定位治具" width="800" height="450" loading="lazy" decoding="async"></div>
-        <span class="ind">連接器組裝、提案展示</span>
-        <h3>9PIN 插入機 3D 模型</h3>
-        <p>把提案階段的機構構想做成<strong>可旋轉、拆解、逐步播放</strong>的 3D 模型：鋁擠型機架、XY 分度滑台、壓入氣缸、定位治具與卡榫檢查。</p>
-        <div class="foot"><span>可互動 3D 模型</span><i>→</i></div>
+        <div class="body">
+          <span class="ind">連接器組裝、提案展示</span>
+          <h3>9PIN 插入機 3D 模型</h3>
+          <p>把提案階段的機構構想做成<strong>可旋轉、拆解、逐步播放</strong>的 3D 模型：鋁擠型機架、XY 分度滑台、壓入氣缸、定位治具與卡榫檢查。</p>
+          <div class="foot"><span>可互動 3D 模型</span><i>→</i></div>
+        </div>
       </a>
       </div>
     </div>
