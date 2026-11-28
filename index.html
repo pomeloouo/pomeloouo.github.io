@@ -273,7 +273,9 @@ section.sec{padding:112px 0 0}
 .case.full h3{font-size:21px}
 @media(max-width:760px){.case.full{display:flex}.case.full .thumb{margin:-24px -24px 18px;aspect-ratio:16/9;min-height:0;border-right:none;border-bottom:1px solid var(--line);border-radius:var(--r) var(--r) 0 0}}
 .case:hover .foot i{color:var(--acc);transform:translateX(4px)}
-.more{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
+.others{margin-top:56px}
+.others-h{font-size:20px;margin-bottom:18px}
+.more{display:grid;grid-template-columns:repeat(2,1fr);gap:40px;margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
 .more h4{font-size:15px;margin-bottom:10px}
 .more p{font-size:14px;color:var(--muted);line-height:1.9}
 .more a{color:var(--acc);text-decoration:none}
@@ -670,10 +672,36 @@ footer a:hover{color:var(--acc)}
       </a>
     </div>
 
+    <div class="others">
+      <h3 class="others-h rv">其他技術作品</h3>
+      <div class="cases">
+      <a class="case rv" href="project/lidar.html">
+        <div class="thumb"><img src="img/cases/lidar.webp" alt="實驗台：線性馬達上的 2D 線雷射正在掃描模型車，螢幕上是即時點雲" width="800" height="450" loading="lazy" decoding="async"></div>
+        <span class="ind">點雲、機器視覺・軟體工程師</span>
+        <h3>線雷射洗車系統：3D 點雲重建</h3>
+        <p>用 <strong>2D 線雷射加線性馬達</strong>逐層掃出車體 3D 點雲，轉世界座標融合後算出噴槍姿態。附實測資料、C# 程式節錄與<strong>可直接操作的點雲模擬器</strong>。</p>
+        <div class="foot"><span>附互動模擬器</span><i>→</i></div>
+      </a>
+      <a class="case rv" href="project/robotic.html">
+        <div class="thumb"><img src="img/cases/robotic.webp" alt="洗車工作站：六軸手臂架在地軌上，前端裝著長桿噴塗工具" width="800" height="450" loading="lazy" decoding="async"></div>
+        <span class="ind">機械手臂、現場整合・軟體工程師</span>
+        <h3>洗車系統手臂端與現場紀錄</h3>
+        <p>左右兩支<strong>六軸手臂架在地軌上</strong>，噴塗工具 TCP 在法蘭前 1000 mm，以車體中線對稱分工。整理點雲如何變成噴塗姿態與路徑。</p>
+        <div class="foot"><span>附現場照片與影片</span><i>→</i></div>
+      </a>
+      <a class="case rv" href="project/9PIN_3D.html">
+        <div class="thumb"><img src="img/cases/9pin.webp" alt="9PIN 半自動端子插入機的 3D 模型：鋁擠型機架、壓入氣缸與定位治具" width="800" height="450" loading="lazy" decoding="async"></div>
+        <span class="ind">連接器組裝、提案展示</span>
+        <h3>9PIN 插入機 3D 模型</h3>
+        <p>把提案階段的機構構想做成<strong>可旋轉、拆解、逐步播放</strong>的 3D 模型：鋁擠型機架、XY 分度滑台、壓入氣缸、定位治具與卡榫檢查。</p>
+        <div class="foot"><span>可互動 3D 模型</span><i>→</i></div>
+      </a>
+      </div>
+    </div>
+
     <div class="more">
       <div class="rv"><h4>專案文件產出</h4><p>需求訪談與評估報告、設備規格說明書、報價暨專案內容確認書、效益評估表（ROI 試算）、驗收標準書與驗收報告、開案會議問題追蹤紀錄、NDA 保密協議。</p></div>
       <div class="rv"><h4>產業涵蓋</h4><p>食品包裝、食品自動化、連接器組裝、塑膠射出、滑軌、醫療器材、水泥製管、環安製程（噪音與人因）。</p></div>
-      <div class="rv"><h4>其他技術作品</h4><p><a href="project/lidar.html">線雷射洗車系統：3D 點雲重建與模擬器</a><br><a href="project/robotic.html">洗車系統手臂端與現場紀錄</a><br><a href="project/9PIN_3D.html">9PIN 插入機 3D 模型</a></p></div>
     </div>
   </div>
 </section>
