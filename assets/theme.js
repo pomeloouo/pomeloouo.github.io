@@ -1,8 +1,10 @@
 /* 深色／淺色背景切換。放在 <head> 內同步載入，避免換頁時閃一下。
-   預設深色；使用者的選擇存在 localStorage，全站共用。 */
+   預設深色；使用者切換的選擇只在這次瀏覽（同一個分頁換頁）有效，存在 sessionStorage。
+   下次再進來一律回到深色（2026-11-29 改：原本存在 localStorage，切過淺色之後每次都是淺色）。 */
 (function () {
   var KEY = 'theme', root = document.documentElement, cur = null;
-  try { cur = localStorage.getItem(KEY); } catch (e) {}
+  try { localStorage.removeItem(KEY); } catch (e) {} // 清掉舊版記住的選擇
+  try { cur = sessionStorage.getItem(KEY); } catch (e) {}
   var q = /[?&]theme=(light|dark)\b/.exec(location.search);
   if (q) cur = q[1];
   if (cur !== 'light' && cur !== 'dark') cur = 'dark';
@@ -33,7 +35,7 @@
     b.type = 'button'; b.id = 'themeToggle'; b.className = 'theme-tg';
     b.addEventListener('click', function () {
       var v = cur === 'light' ? 'dark' : 'light';
-      try { localStorage.setItem(KEY, v); } catch (e) {}
+      try { sessionStorage.setItem(KEY, v); } catch (e) {}
       apply(v);
       try { window.dispatchEvent(new CustomEvent('themechange', { detail: v })); } catch (e) {}
     });
@@ -42,5 +44,4 @@
     apply(cur);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
-  window.addEventListener('storage', function (e) { if (e.key === KEY && (e.newValue === 'light' || e.newValue === 'dark')) apply(e.newValue); });
 })();
