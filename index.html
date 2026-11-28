@@ -264,6 +264,9 @@ section.sec{padding:112px 0 0}
 .case .foot{margin-top:18px;display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;color:var(--muted)}
 .case .foot b{color:var(--acc);font-size:19px;font-variant-numeric:tabular-nums}
 .case .foot i{font-style:normal;color:var(--dim);transition:transform .3s var(--ease),color .2s}
+.case .thumb{margin:-24px -24px 18px;aspect-ratio:16/9;overflow:hidden;border-bottom:1px solid var(--line);border-radius:var(--r) var(--r) 0 0;background:var(--bg3)}
+.case .thumb img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.case:hover .thumb img{transform:scale(1.04)}
 .case:hover .foot i{color:var(--acc);transform:translateX(4px)}
 .more{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
 .more h4{font-size:15px;margin-bottom:10px}
@@ -313,7 +316,7 @@ footer a:hover{color:var(--acc)}
 /* 進場動畫：只用 opacity / transform */
 .js .rv{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .js .rv.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}.cursor{animation:none}html{scroll-behavior:auto}.btn,.case{transition:none}}
+@media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}.cursor{animation:none}html{scroll-behavior:auto}.btn,.case,.case .thumb img{transition:none}}
 
 /* 列印：轉成白底履歷 */
 @media print{
@@ -596,48 +599,56 @@ footer a:hover{color:var(--acc)}
     </div>
     <div class="cases">
       <a class="case lg rv" href="project/rice.html">
+        <div class="thumb"><img src="img/cases/rice.webp" alt="米廠包裝產線現場與手臂堆棧模擬" width="800" height="450" loading="lazy" decoding="async"></div>
         <span class="ind">食品包裝、倉儲物流</span>
         <h3>米廠成品包裝與堆疊自動化</h3>
         <p>針對 <strong>30kg、3kg、1.5kg</strong> 三種米袋，提出機械手臂堆棧、輸送整平與快拆夾具（夾爪加多吸頭）方案。以 <strong>3kg 規格 8 小時 4000 包（約 8.3 包/分）</strong>為 KPI，現勘後將「倒吊式」修正為「落地支架式」。</p>
         <div class="foot"><span>報價 <b>350 萬</b></span><i>→</i></div>
       </a>
       <a class="case lg rv" href="project/pipe.html">
+        <div class="thumb"><img src="img/cases/pipe.webp" alt="離心製管廠現場，工人正在搬運管模" width="800" height="450" loading="lazy" decoding="async"></div>
         <span class="ind">水泥製管、環安製程</span>
         <h3>離心製管製程自動化</h3>
         <p>獨立主導需求訪談並產出簡報與評估報告，涵蓋 <strong>自動刮料、拆組模（A/B/C 三方案）、模具清潔、帆布自動啟閉、蒸汽養護控制</strong>，整合噪音改善與人因工程，提出 <strong>4 到 6 個月</strong>交機時程。</p>
         <div class="foot"><span>報價 <b>280 萬</b></span><i>→</i></div>
       </a>
       <a class="case rv" href="project/yili.html">
+        <div class="thumb"><img src="img/cases/yili.webp" alt="射出機手臂上下料 3D 概念圖" width="800" height="450" loading="lazy" decoding="async"></div>
         <span class="ind">塑膠射出、機械手臂</span>
         <h3>埋入射出機手臂上下料</h3>
         <p>效益評估：<strong>4 人變 1 人，回收期 21.9 個月</strong>；6 人變 1 人，回收期 13.1 個月。</p>
         <div class="foot"><span>評估報價 <b>315 萬</b></span><i>→</i></div>
       </a>
       <a class="case rv" href="project/steelballs.html">
+        <div class="thumb"><img src="img/cases/steelballs.webp" alt="鋼珠壓入設備 3D 概念圖" width="800" height="450" loading="lazy" decoding="async"></div>
         <span class="ind">滑軌、專用機</span>
         <h3>鋼珠自動壓入機</h3>
         <p>規格書：<strong>317mm 塑膠件加 Ø2.8mm 鋼珠</strong>，膠輪壓珠與平行站位，<strong>每支 5 秒內</strong>，含 NG 自動剔除與全罩式防護。</p>
         <div class="foot"><span>報價 <b>60 萬</b></span><i>→</i></div>
       </a>
       <a class="case rv" href="project/dentisit.html">
+        <div class="thumb"><img src="img/cases/dentisit.webp" alt="口腔鏡貼機 3D 概念圖" width="800" height="450" loading="lazy" decoding="async"></div>
         <span class="ind">醫療器材</span>
         <h3>口腔鏡貼機</h3>
         <p>主導專案內容確認書，含四大模組，<strong>節拍 2.5 秒一支、連續運轉 4 小時驗收</strong>，並主持開案會議與 Issue Log。</p>
         <div class="foot"><span>報價 <b>55 萬</b></span><i>→</i></div>
       </a>
       <a class="case rv" href="project/pedal.html">
+        <div class="thumb"><img src="img/cases/pedal.webp" alt="AOI 影像辨識畫面：踏板零件上框出各檢查點" width="800" height="450" loading="lazy" decoding="async"></div>
         <span class="ind">汽車零件、AOI</span>
         <h3>影像辨識零件安裝驗收</h3>
         <p>撰寫驗收標準：<strong>17 項機構零件、雙機型</strong>，把人工目檢轉為 AOI 標準化判定。</p>
         <div class="foot"><span>報價 <b>40 萬</b></span><i>→</i></div>
       </a>
       <a class="case rv" href="project/wine.html">
+        <div class="thumb"><img src="img/cases/wine.webp" alt="自動調酒機 3D 配置圖與人型比例" width="800" height="450" loading="lazy" decoding="async"></div>
         <span class="ind">食品自動化</span>
         <h3>自動調酒機</h3>
         <p>負責產品細節對接，釐清 10 餘項議題，協調以漸層酒款作為雙方一致的驗收基準。</p>
         <div class="foot"><span>需求對接</span><i>→</i></div>
       </a>
       <a class="case rv" href="project/mix.html">
+        <div class="thumb"><img src="img/cases/mix.webp" alt="9pin 連接器線材組裝實作" width="800" height="450" loading="lazy" decoding="async"></div>
         <span class="ind">連接器組裝、汽車零件</span>
         <h3>9pin 半自動插入機與汽車零件廠</h3>
         <p>為射出廠提出機構草圖與規格構想；與汽車零件廠完成 <strong>NDA 保密協議</strong>，進入實質對接。</p>
