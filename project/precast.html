@@ -52,6 +52,15 @@
 .vid-tall{max-height:78vh;width:auto;max-width:100%;margin:0 auto}
 .fig.tall{display:flex;flex-direction:column;align-items:center;background:#000}
 .fig.tall figcaption{align-self:stretch;background:var(--bg2)}
+.zoomable{cursor:zoom-in}
+.zoomable:focus-visible{outline:2px solid var(--acc);outline-offset:-2px}
+.zoom-hint{display:block;margin-top:4px;color:var(--acc)}
+.zoom{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.94);overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+.zoom-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.zoom-stage video{width:min(100vw,160vh);height:auto;max-height:100vh;transform-origin:50% 50%;will-change:transform;pointer-events:none}
+.zoom-x{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:calc(env(safe-area-inset-right,0px) + 12px);width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(20,20,20,.7);color:#fff;font-size:20px;cursor:pointer}
+.zoom-x:focus-visible{outline:2px solid var(--acc)}
+.zoom-tip{position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);transform:translateX(-50%);padding:6px 14px;border-radius:999px;background:rgba(20,20,20,.75);color:#ddd;font-size:13px;white-space:nowrap;pointer-events:none;transition:opacity .4s}
 </style>
 <script src="../assets/analytics.js" defer></script>
 <link rel="stylesheet" href="../assets/theme.css?v=1">
@@ -79,8 +88,8 @@
       </div>
     </div>
     <figure class="fig">
-      <video class="vid" src="img/precast/demo.mp4" poster="img/precast/demo-poster.webp" width="1280" height="800" autoplay muted loop playsinline preload="metadata" aria-label="操作示範：捲尺送出 0.299、0.435、4.352 三筆量測，網頁依序填入並判定，第二筆超出允差顯示紅叉"></video>
-      <figcaption>操作示範（去掉公司名稱的版本）。三筆量測依序填入：299 合格、435 超出 ±3 mm 打紅叉並提示、最後一筆量完自動捲到下一區。</figcaption>
+      <video class="vid zoomable" data-zoom tabindex="0" src="img/precast/demo.mp4" poster="img/precast/demo-poster.webp" width="1280" height="800" autoplay muted loop playsinline preload="metadata" aria-label="操作示範：捲尺送出 0.299、0.435、4.352 三筆量測，網頁依序填入並判定，第二筆超出允差顯示紅叉"></video>
+      <figcaption>操作示範（去掉公司名稱的版本）。三筆量測依序填入：299 合格、435 超出 ±3 mm 打紅叉並提示、最後一筆量完自動捲到下一區。<span class="zoom-hint">點影片可放大檢視。</span></figcaption>
     </figure>
   </div>
 
@@ -171,6 +180,41 @@
   </div>
 </main>
 
+<div class="zoom" id="zoom" hidden role="dialog" aria-modal="true" aria-label="放大檢視操作示範">
+  <div class="zoom-stage" id="zoomStage"><video id="zoomVid" muted loop playsinline preload="metadata"></video></div>
+  <button class="zoom-x" id="zoomX" type="button" aria-label="關閉放大檢視">✕</button>
+  <div class="zoom-tip" id="zoomTip">雙指縮放・雙擊放大・拖曳移動</div>
+</div>
+
 <footer><div class="wrap">© 2026 林泓佑 Pomelo Lin｜<a href="../">作品集首頁</a></div></footer>
+<script>
+(function(){
+  var src=document.querySelector('video[data-zoom]'),box=document.getElementById('zoom'),stage=document.getElementById('zoomStage'),v=document.getElementById('zoomVid'),btn=document.getElementById('zoomX'),tip=document.getElementById('zoomTip'),tipT=0;
+  if(!src||!box)return;
+  var s=1,x=0,y=0,MAX=5,pts=new Map(),pinch=null,pan=null,moved=false,lastTap=0,lastFocus=null;
+  function lim(){var w=v.offsetWidth*s,h=v.offsetHeight*s,mx=Math.max(0,(w-innerWidth)/2),my=Math.max(0,(h-innerHeight)/2);x=Math.min(mx,Math.max(-mx,x));y=Math.min(my,Math.max(-my,y))}
+  function apply(){if(s<=1){s=1;x=0;y=0}lim();v.style.transform='translate('+x+'px,'+y+'px) scale('+s+')'}
+  function rel(cx,cy){return{x:cx-innerWidth/2,y:cy-innerHeight/2}}
+  function zoomAt(p,ns){ns=Math.min(MAX,Math.max(1,ns));var c={x:(p.x-x)/s,y:(p.y-y)/s};s=ns;x=p.x-ns*c.x;y=p.y-ns*c.y;apply()}
+  function open(){lastFocus=document.activeElement;if(!v.src)v.src=src.currentSrc||src.src;box.hidden=false;document.body.style.overflow='hidden';s=1;x=0;y=0;apply();try{v.currentTime=src.currentTime||0}catch(e){}var p=v.play();if(p&&p.catch)p.catch(function(){});btn.focus();tip.style.opacity='1';clearTimeout(tipT);tipT=setTimeout(function(){tip.style.opacity='0'},2500)}
+  function close(){box.hidden=true;document.body.style.overflow='';v.pause();pts.clear();if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+  src.addEventListener('click',open);
+  src.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
+  btn.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(!box.hidden&&e.key==='Escape')close()});
+  stage.addEventListener('pointerdown',function(e){stage.setPointerCapture(e.pointerId);pts.set(e.pointerId,{x:e.clientX,y:e.clientY});moved=false;begin()});
+  function begin(){var a=Array.from(pts.values());if(a.length>=2){var m=rel((a[0].x+a[1].x)/2,(a[0].y+a[1].y)/2);pinch={d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1,s:s,c:{x:(m.x-x)/s,y:(m.y-y)/s}};pan=null}else if(a.length===1){pinch=null;pan={px:a[0].x,py:a[0].y,x:x,y:y}}}
+  stage.addEventListener('pointermove',function(e){if(!pts.has(e.pointerId))return;pts.set(e.pointerId,{x:e.clientX,y:e.clientY});var a=Array.from(pts.values());
+    if(pinch&&a.length>=2){var d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),m=rel((a[0].x+a[1].x)/2,(a[0].y+a[1].y)/2);s=Math.min(MAX,Math.max(1,pinch.s*d/pinch.d));x=m.x-s*pinch.c.x;y=m.y-s*pinch.c.y;apply();moved=true}
+    else if(pan){var dx=e.clientX-pan.px,dy=e.clientY-pan.py;if(Math.abs(dx)+Math.abs(dy)>6)moved=true;if(s>1){x=pan.x+dx;y=pan.y+dy;apply()}}});
+  function up(e){if(!pts.has(e.pointerId))return;pts.delete(e.pointerId);
+    if(pts.size===0&&!moved){var now=Date.now(),p=rel(e.clientX,e.clientY);if(now-lastTap<320){lastTap=0;if(s>1){s=1;apply()}else zoomAt(p,2.5)}else{lastTap=now;
+      var r=v.getBoundingClientRect();if(s===1&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom))setTimeout(function(){if(lastTap===now)close()},330)}}
+    begin()}
+  stage.addEventListener('pointerup',up);stage.addEventListener('pointercancel',up);
+  stage.addEventListener('wheel',function(e){e.preventDefault();zoomAt(rel(e.clientX,e.clientY),s*Math.exp(-e.deltaY*0.0015))},{passive:false});
+  addEventListener('resize',function(){if(!box.hidden)apply()});
+})();
+</script>
 </body>
 </html>
